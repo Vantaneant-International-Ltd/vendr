@@ -9,7 +9,7 @@
 	const contactEmail = 'hello@vendr.ie';
 	const contactHref = `mailto:${contactEmail}`;
 
-	// Simple, credible scope line (edit freely)
+	// Scope line
 	const scope = 'Smart, premium vending for modern workplaces and hospitality.';
 </script>
 
@@ -20,29 +20,20 @@
 		content="Vendr is bringing premium, smart vending to Ireland. Launching Spring 2026."
 	/>
 
-	<!-- Canonical -->
 	<link rel="canonical" href={$page.url.href} />
-
-	<!-- Theme -->
 	<meta name="theme-color" content="#000000" />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Vendr — Coming Soon" />
-	<meta
-		property="og:description"
-		content="Premium, smart vending solutions for Ireland. Launching Spring 2026."
-	/>
+	<meta property="og:description" content="Premium, smart vending solutions for Ireland." />
 	<meta property="og:url" content={$page.url.href} />
 	<meta property="og:image" content={`${$page.url.origin}/og.png`} />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Vendr — Coming Soon" />
-	<meta
-		name="twitter:description"
-		content="Premium, smart vending solutions for Ireland. Launching Spring 2026."
-	/>
+	<meta name="twitter:description" content="Premium, smart vending solutions for Ireland." />
 	<meta name="twitter:image" content={`${$page.url.origin}/og.png`} />
 </svelte:head>
 
@@ -50,7 +41,7 @@
 	<!-- Background -->
 	<div class="background" aria-hidden="true">
 		<img
-			src="/assets/machine1.jpg"
+			src="/og.png"
 			alt=""
 			class="bg-image"
 			loading="eager"
@@ -82,8 +73,8 @@
 
 			<footer class="footer">
 				<div class="footer-left">
-					<p class="fine">© {new Date().getFullYear()} {brand}. All rights reserved.</p>
-					<p class="fine">A subsidiary of <span class="fine-strong">VNTA (Vantanéant International)</span>.</p>
+					<p class="fine">© {new Date().getFullYear()} Vendr.</p>
+					<p class="fine">Vendr is a trading name of <span class="fine-strong">Atlas Refreshments Ltd</span>.</p>
 				</div>
 
 				<nav class="footer-right" aria-label="Legal">
@@ -120,14 +111,14 @@
 		height: 100%;
 		object-fit: cover;
 		opacity: 0.55;
-		filter: blur(8px);
+		filter: blur(10px);
 		transform: scale(1.05);
 	}
 
 	.overlay {
 		position: absolute;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.55);
+		background: rgba(0, 0, 0, 0.6);
 		z-index: 2;
 	}
 
@@ -135,8 +126,7 @@
 		position: absolute;
 		inset: 0;
 		z-index: 3;
-		background:
-			radial-gradient(80% 60% at 50% 35%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.85));
+		background: radial-gradient(80% 60% at 50% 35%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.9));
 	}
 
 	.content {
