@@ -83,7 +83,7 @@
 							rel="noopener noreferrer"
 							class="fine-link"
 						>
-						VNTA.
+						VNTA
 						</a>.
 					</p>
 				</div>
