@@ -40,13 +40,7 @@
 <main>
 	<!-- Background -->
 	<div class="background" aria-hidden="true">
-		<img
-			src="/og.png"
-			alt=""
-			class="bg-image"
-			loading="eager"
-			decoding="async"
-		/>
+		<img src="/og.png" alt="" class="bg-image" loading="eager" decoding="async" />
 		<div class="overlay" />
 		<div class="vignette" />
 	</div>
@@ -67,20 +61,32 @@
 
 			<div class="cta">
 				<a class="button" href={contactHref}>Enquire</a>
-				<p class="micro">For placements and partnerships: <a href={contactHref}>{contactEmail}</a></p>
+				<p class="micro">
+					For placements and partnerships: <a href={contactHref}>{contactEmail}</a>
+				</p>
 				<p class="launch">{launchLine}</p>
 			</div>
 
-<div class="footer-left">
-  <p class="fine">
-    © {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.
-  </p>
-  <p class="fine">
-    Vendr is a trading name of Atlas Refreshments Ltd, a subsidiary brand within
-    <span class="fine-strong"> VNTA (Vantanéant International)</span>.
-  </p>
-</div>
+			<div class="divider" aria-hidden="true"></div>
 
+			<footer class="footer">
+				<div class="footer-left">
+					<p class="fine">
+						© {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.
+					</p>
+					<p class="fine">
+						Vendr is a trading name of Atlas Refreshments Ltd. Part of
+						<span class="fine-strong"> VNTA</span>.
+					</p>
+				</div>
+
+				<nav class="footer-right" aria-label="Legal">
+					<a href="/privacy">Privacy</a>
+					<a href="/terms">Terms</a>
+					<a href="/legal">Legal</a>
+				</nav>
+			</footer>
+		</div>
 	</section>
 </main>
 
@@ -108,7 +114,7 @@
 		height: 100%;
 		object-fit: cover;
 		opacity: 0.55;
-		filter: blur(10px);
+		filter: blur(8px);
 		transform: scale(1.05);
 	}
 
@@ -123,7 +129,11 @@
 		position: absolute;
 		inset: 0;
 		z-index: 3;
-		background: radial-gradient(80% 60% at 50% 35%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.9));
+		background: radial-gradient(
+			80% 60% at 50% 35%,
+			rgba(0, 0, 0, 0.15),
+			rgba(0, 0, 0, 0.9)
+		);
 	}
 
 	.content {
@@ -189,7 +199,7 @@
 		display: grid;
 		gap: 0.9rem;
 		justify-items: center;
-		margin-bottom: 3rem;
+		margin-bottom: 2.25rem;
 	}
 
 	.button {
@@ -237,13 +247,19 @@
 		letter-spacing: 0.06em;
 	}
 
+	.divider {
+		height: 1px;
+		width: 100%;
+		margin: 2rem 0 1.25rem;
+		background: rgba(255, 255, 255, 0.12);
+	}
+
 	.footer {
 		display: flex;
 		gap: 1.25rem;
 		justify-content: space-between;
 		align-items: flex-end;
-		padding-top: 1.25rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.12);
+		padding-top: 0; /* divider handles separation */
 		flex-wrap: wrap;
 	}
 
