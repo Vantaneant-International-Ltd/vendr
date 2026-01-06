@@ -1,38 +1,183 @@
-# sv
+# SV — VNTA Subsidiary (SvelteKit)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This repository contains a **SvelteKit project scaffolded with [`sv`](https://github.com/sveltejs/cli)** and maintained as a **subsidiary of VNTA (Vantanéant International)**.
 
-## Creating a project
+The project adheres to VNTA’s principles of restraint, clarity, and long-term maintainability.
+All technical and design decisions are intentional and aligned with holding-company standards.
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
+
+## Relationship to VNTA
+
+**VNTA (Vantanéant International)** is the parent holding company.
+This repository represents a **subsidiary implementation** operating under VNTA’s brand, technical, and philosophical direction.
+
+> Design systems, tone of voice, and structural decisions are governed by the
+> **VNTA Brand Guidelines (Felixto Brandworks, v1.0)** — not included in this repository.
+
+---
+
+## Tooling Overview
+
+* **Framework:** SvelteKit
+* **Bundler:** Vite
+* **Scaffolding:** [`sv`](https://github.com/sveltejs/cli)
+* **Styling:** Bespoke CSS (no Tailwind, no UI kits)
+* **Approach:** Minimal, explicit, maintainable
+
+---
+
+## Creating a Project (sv)
+
+If this repository was not already scaffolded, `sv` can be used as follows:
 
 ```sh
 # create a new project in the current directory
 npx sv create
 
-# create a new project in my-app
+# create a new project in a specific directory
 npx sv create my-app
 ```
 
+---
+
+## Requirements
+
+* **Node.js:**
+  SvelteKit expects **Node ^20.19 or ^22.12 (LTS recommended)**
+  Current environments may work on Node 21.x with `--ignore-engines`, but upgrading to **Node 22 LTS** is advised.
+
+---
+
+## Install
+
+```sh
+npm install --ignore-engines
+```
+
+---
+
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the local development server:
 
 ```sh
 npm run dev
+```
 
-# or start the server and open the app in a new browser tab
+Open automatically in a new browser tab:
+
+```sh
 npm run dev -- --open
 ```
 
+---
+
 ## Building
 
-To create a production version of your app:
+Create a production build:
 
 ```sh
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build locally:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```sh
+npm run preview
+```
+
+> Deployment may require a SvelteKit adapter appropriate to the target environment.
+> See the SvelteKit adapter documentation.
+
+---
+
+## Project Structure Notes
+
+* **Favicon:** `static/favicon.svg`
+* **Primary page:** `src/routes/+page.svelte`
+* **Global layout / fonts:** `src/routes/+layout.svelte`
+* **Contact:** `mailto:hello@vnta.studio`
+* **Styling:** No utility frameworks — spacing and layout are deliberate
+
+---
+
+## VNTA Example — “Coming Soon” Landing Page
+
+This repository may be used to implement a restrained, premium **“Coming Soon”** landing page for **VNTA** or its subsidiaries.
+
+### Typography & Design System
+
+* **Primary typeface:** Optima
+* **Weights:** Regular, Medium, Demi-Bold, Bold
+* **Type scale:**
+
+  * 64px — Primary heading
+  * 48px — Section heading
+  * 36px — Subheading
+  * 24px — Body / supporting text
+* **Tone:** Calm, confident, minimal, intentional
+
+> Until licensed web embedding is finalised, define web-safe fallbacks
+> (e.g. `Optima, Segoe, Helvetica Neue, Arial, sans-serif`).
+
+---
+
+## Roadmap / Checklist
+
+### Brand & Content
+
+* [x] VNTA holding-company positioning
+* [x] Restrained tone of voice
+* [x] Motto integrated conceptually (*ex nihilo, nihil fit*)
+* [ ] Finalise hero statement
+* [ ] Lock CTA microcopy
+* [ ] Add legal entity reference where required
+
+### Design
+
+* [x] Black / white palette only
+* [x] Typography aligned with brand guidelines
+* [ ] Confirm licensed Optima web font or substitute
+* [ ] Finalise vertical rhythm
+* [ ] Define button states
+
+### Technical
+
+* [x] SvelteKit + Vite configured
+* [x] Lightweight build (no Tailwind)
+* [ ] Accessibility pass
+* [ ] SEO baseline (meta, canonical)
+* [ ] OpenGraph placeholders
+* [ ] Production build validation
+
+### Launch
+
+* [ ] Connect production domain
+* [ ] Enable HTTPS
+* [ ] Configure production environment variables
+* [ ] Replace “Coming Soon” with soft-launch content
+* [ ] Archive v1 snapshot
+
+---
+
+## Philosophy
+
+> VNTA exists at the intersection of **structure and creation**.
+> We build the invisible systems that allow brands to endure.
+
+---
+
+## Brand Assets & Guidelines
+
+* Official VNTA Brand Guidelines are **not included**
+* Proprietary assets remain private
+* Public consistency is enforced through implementation, not distribution
+
+---
+
+## Notes
+
+* Favicon lives at `static/favicon.svg`
+* Contact link: `hello@vnta.studio`
+* Update this README as the subsidiary evolves
