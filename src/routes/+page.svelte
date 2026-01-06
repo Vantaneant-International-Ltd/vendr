@@ -83,7 +83,7 @@
 							rel="noopener noreferrer"
 							class="fine-link"
 						>
-						VNTA (Vantanéant International Ltd)
+						VNTA.
 						</a>.
 					</p>
 				</div>
