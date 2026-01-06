@@ -62,7 +62,8 @@
 			<div class="cta">
 				<a class="button" href={contactHref}>Enquire</a>
 				<p class="micro">
-					For placements and partnerships: <a href={contactHref}>{contactEmail}</a>
+					For placements and partnerships:
+					<a href={contactHref}>{contactEmail}</a>
 				</p>
 				<p class="launch">{launchLine}</p>
 			</div>
@@ -76,7 +77,14 @@
 					</p>
 					<p class="fine">
 						Vendr is a trading name of Atlas Refreshments Ltd. Part of
-						<span class="fine-strong"> VNTA</span>.
+						<a
+							href="https://www.vnta.xyz"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="fine-link"
+						>
+							VNTA
+						</a>.
 					</p>
 				</div>
 
@@ -259,7 +267,6 @@
 		gap: 1.25rem;
 		justify-content: space-between;
 		align-items: flex-end;
-		padding-top: 0; /* divider handles separation */
 		flex-wrap: wrap;
 	}
 
@@ -292,8 +299,14 @@
 		line-height: 1.5;
 	}
 
-	.fine-strong {
+	.fine-link {
 		color: rgba(255, 255, 255, 0.72);
+		text-decoration: none;
+		margin-left: 0.25em;
+	}
+
+	.fine-link:hover {
+		text-decoration: underline;
 	}
 
 	@media (max-width: 640px) {
