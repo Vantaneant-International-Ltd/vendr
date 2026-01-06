@@ -71,19 +71,16 @@
 				<p class="launch">{launchLine}</p>
 			</div>
 
-			<footer class="footer">
-				<div class="footer-left">
-					<p class="fine">© {new Date().getFullYear()} Vendr.</p>
-					<p class="fine">Vendr is a trading name of <span class="fine-strong">Atlas Refreshments Ltd</span>.</p>
-				</div>
+<div class="footer-left">
+  <p class="fine">
+    © {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.
+  </p>
+  <p class="fine">
+    Vendr is a trading name of Atlas Refreshments Ltd, a subsidiary brand within
+    <span class="fine-strong"> VNTA (Vantanéant International)</span>.
+  </p>
+</div>
 
-				<nav class="footer-right" aria-label="Legal">
-					<a href="/privacy">Privacy</a>
-					<a href="/terms">Terms</a>
-					<a href="/legal">Legal</a>
-				</nav>
-			</footer>
-		</div>
 	</section>
 </main>
 
