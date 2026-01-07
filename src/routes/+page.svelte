@@ -11,6 +11,26 @@
 
 	// Scope line
 	const scope = 'Smart, premium vending for modern workplaces and hospitality.';
+
+	const sampleLineup = {
+		introTitle: 'A Sample Vendr Lineup',
+		introSub:
+			'A curated selection of Irish-first, premium refreshments. Availability varies by location and season.',
+		drinks: [
+			{ name: 'BLK Water', note: 'Mineral-rich alkaline water' },
+			{ name: 'Ballygowan Still', note: 'Irish natural spring water' },
+			{ name: 'Ballygowan Sparkling', note: 'Irish sparkling spring water' },
+			{ name: 'Actiph Alkaline 8.0+', note: 'Functional hydration' },
+			{ name: 'San Pellegrino Limonata', note: 'Premium citrus soft drink' }
+		],
+		snacks: [
+			{ name: "Keogh’s Sweet Chilli & Irish Red Pepper", note: 'Irish artisan crisps' },
+			{ name: "Keogh’s Shamrock & Sour Cream", note: 'Irish artisan crisps' },
+			{ name: 'Butlers Chocolate Bar', note: 'Irish chocolate' },
+			{ name: 'Fulfil Protein Bar', note: 'High-protein, low sugar' },
+			{ name: 'Graze Savoury Snack', note: 'Portion-controlled snacking' }
+		]
+	};
 </script>
 
 <svelte:head>
@@ -68,6 +88,42 @@
 				<p class="launch">{launchLine}</p>
 			</div>
 
+			<!-- NEW: Sample lineup -->
+			<section class="lineup" aria-label="Sample Vendr lineup">
+				<div class="lineup-head">
+					<h3 class="lineup-title">{sampleLineup.introTitle}</h3>
+					<p class="lineup-sub">{sampleLineup.introSub}</p>
+				</div>
+
+				<div class="lineup-grid">
+					<div class="lineup-col">
+						<p class="lineup-kicker">Hydration & Drinks</p>
+						<ul class="lineup-list">
+							{#each sampleLineup.drinks as item}
+								<li class="lineup-item">
+									<span class="lineup-name">{item.name}</span>
+									<span class="lineup-note">{item.note}</span>
+								</li>
+							{/each}
+						</ul>
+					</div>
+
+					<div class="lineup-col">
+						<p class="lineup-kicker">Snacks</p>
+						<ul class="lineup-list">
+							{#each sampleLineup.snacks as item}
+								<li class="lineup-item">
+									<span class="lineup-name">{item.name}</span>
+									<span class="lineup-note">{item.note}</span>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				</div>
+
+				<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
+			</section>
+
 			<div class="divider" aria-hidden="true"></div>
 
 			<footer class="footer">
@@ -83,7 +139,7 @@
 							rel="noopener noreferrer"
 							class="fine-link"
 						>
-						VNTA
+							VNTA
 						</a>.
 					</p>
 				</div>
@@ -255,6 +311,88 @@
 		letter-spacing: 0.06em;
 	}
 
+	/* NEW: lineup section */
+	.lineup {
+		margin: 2.25rem auto 0;
+		max-width: 640px;
+		text-align: left;
+		padding: 1.25rem 1.25rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 16px;
+		background: rgba(0, 0, 0, 0.18);
+		backdrop-filter: blur(8px);
+	}
+
+	.lineup-head {
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+
+	.lineup-title {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.1rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	.lineup-sub {
+		margin: 0;
+		font-size: 0.92rem;
+		color: rgba(255, 255, 255, 0.62);
+		line-height: 1.6;
+	}
+
+	.lineup-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-top: 1.1rem;
+	}
+
+	.lineup-kicker {
+		margin: 0 0 0.6rem 0;
+		font-size: 0.85rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.lineup-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.lineup-item {
+		display: grid;
+		gap: 0.2rem;
+		padding: 0.65rem 0.7rem;
+		border-radius: 12px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.03);
+	}
+
+	.lineup-name {
+		font-size: 0.95rem;
+		color: rgba(255, 255, 255, 0.88);
+	}
+
+	.lineup-note {
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.55);
+		line-height: 1.45;
+	}
+
+	.lineup-micro {
+		margin: 0.95rem 0 0;
+		text-align: center;
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
 	.divider {
 		height: 1px;
 		width: 100%;
@@ -307,6 +445,12 @@
 
 	.fine-link:hover {
 		text-decoration: underline;
+	}
+
+	@media (max-width: 740px) {
+		.lineup-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	@media (max-width: 640px) {
