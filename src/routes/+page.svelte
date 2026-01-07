@@ -31,6 +31,9 @@
 			{ name: 'Graze Savoury Snack', note: 'Portion-controlled snacking' }
 		]
 	};
+
+	// Social
+	const linkedinHref = 'https://www.linkedin.com/company/110655743/';
 </script>
 
 <svelte:head>
@@ -88,7 +91,7 @@
 				<p class="launch">{launchLine}</p>
 			</div>
 
-			<!-- NEW: Sample lineup -->
+			<!-- Sample lineup -->
 			<section class="lineup" aria-label="Sample Vendr lineup">
 				<div class="lineup-head">
 					<h3 class="lineup-title">{sampleLineup.introTitle}</h3>
@@ -124,6 +127,11 @@
 				<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
 			</section>
 
+			<!-- NEW: Vendr Pass (subtle, one line) -->
+			<p class="vendr-pass">
+				Vendr Pass — a rewards system designed to make premium vending feel fair.
+			</p>
+
 			<div class="divider" aria-hidden="true"></div>
 
 			<footer class="footer">
@@ -144,10 +152,32 @@
 					</p>
 				</div>
 
-				<nav class="footer-right" aria-label="Legal">
+				<nav class="footer-right" aria-label="Legal and social">
 					<a href="/privacy">Privacy</a>
 					<a href="/terms">Terms</a>
 					<a href="/legal">Legal</a>
+
+					<!-- NEW: LinkedIn icon -->
+					<a
+						href={linkedinHref}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Vendr on LinkedIn"
+						class="social"
+					>
+						<svg
+							width="18"
+							height="18"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6C1.11 6 0 4.88 0 3.5C0 2.12 1.11 1 2.49 1C3.87 1 4.98 2.12 4.98 3.5ZM0.24 8H4.74V24H0.24V8ZM8.98 8H13.26V10.17H13.32C13.91 9.05 15.35 7.87 17.7 7.87C22.33 7.87 23.18 10.87 23.18 15.02V24H18.68V15.92C18.68 13.99 18.64 11.5 15.97 11.5C13.27 11.5 12.86 13.64 12.86 15.78V24H8.98V8Z"
+								fill="currentColor"
+							/>
+						</svg>
+					</a>
 				</nav>
 			</footer>
 		</div>
@@ -311,7 +341,7 @@
 		letter-spacing: 0.06em;
 	}
 
-	/* NEW: lineup section */
+	/* lineup section */
 	.lineup {
 		margin: 2.25rem auto 0;
 		max-width: 640px;
@@ -393,6 +423,17 @@
 		color: rgba(255, 255, 255, 0.5);
 	}
 
+	/* NEW: Vendr Pass line */
+	.vendr-pass {
+		margin: 1.75rem auto 0;
+		max-width: 520px;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.62);
+		letter-spacing: 0.02em;
+		text-align: center;
+	}
+
 	.divider {
 		height: 1px;
 		width: 100%;
@@ -417,6 +458,7 @@
 		display: inline-flex;
 		gap: 1rem;
 		flex-wrap: wrap;
+		align-items: center;
 	}
 
 	.footer-right a {
@@ -427,6 +469,19 @@
 	}
 
 	.footer-right a:hover {
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	/* NEW: social icon */
+	.social {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: rgba(255, 255, 255, 0.65);
+		transition: color 0.2s ease;
+	}
+
+	.social:hover {
 		color: rgba(255, 255, 255, 0.9);
 	}
 
