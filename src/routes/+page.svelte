@@ -5,11 +5,9 @@
 	const tagline = 'Premium Vending Solutions Ireland';
 	const launchLine = 'Launching Spring 2026';
 
-	// Contact (single source of truth)
 	const contactEmail = 'hello@vendr.ie';
 	const contactHref = `mailto:${contactEmail}`;
 
-	// Scope line
 	const scope = 'Smart, premium vending for modern workplaces and hospitality.';
 
 	const sampleLineup = {
@@ -32,13 +30,7 @@
 		]
 	};
 
-	// Social
 	const linkedinHref = 'https://www.linkedin.com/company/110655743/';
-
-	// Our Path (public SVG)
-	// Put this file in /static as: /static/vendr-roadmap-public.svg
-	// Use the FIXED file: vendr-roadmap-public-fixed.svg renamed to vendr-roadmap-public.svg
-	const roadmapSrc = '/vendr-roadmap-public.svg';
 </script>
 
 <svelte:head>
@@ -47,22 +39,8 @@
 		name="description"
 		content="Vendr is bringing premium, smart vending to Ireland. Launching Spring 2026."
 	/>
-
 	<link rel="canonical" href={$page.url.href} />
 	<meta name="theme-color" content="#000000" />
-
-	<!-- Open Graph -->
-	<meta property="og:type" content="website" />
-	<meta property="og:title" content="Vendr — Coming Soon" />
-	<meta property="og:description" content="Premium, smart vending solutions for Ireland." />
-	<meta property="og:url" content={$page.url.href} />
-	<meta property="og:image" content={`${$page.url.origin}/og.png`} />
-
-	<!-- Twitter -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Vendr — Coming Soon" />
-	<meta name="twitter:description" content="Premium, smart vending solutions for Ireland." />
-	<meta name="twitter:image" content={`${$page.url.origin}/og.png`} />
 </svelte:head>
 
 <main>
@@ -73,7 +51,6 @@
 		<div class="vignette" />
 	</div>
 
-	<!-- Content -->
 	<section class="content">
 		<div class="container">
 			<header class="hero">
@@ -96,54 +73,45 @@
 				<p class="launch">{launchLine}</p>
 			</div>
 
-			<!-- Our Path (public roadmap) -->
-			<section class="path" aria-label="Our Path">
-				<div class="path-head">
-					<h3 class="path-title">Our Path</h3>
-					<p class="path-sub">A deliberate progression toward premium unattended retail in Ireland.</p>
-				</div>
-
-				<div class="roadmap">
-					<img
-						src={roadmapSrc}
-						alt="Vendr path to launch: Soft Launch, Validation, Operations, Launch (Spring 2026)"
-						loading="lazy"
-						decoding="async"
-					/>
-				</div>
-
-				<p class="path-note">
-					We progress by readiness, not noise. Updates will appear here as we move forward.
+			<!-- Our Path (demoted, contextual) -->
+			<section class="path">
+				<p class="path-kicker">Our Path</p>
+				<p class="path-copy">
+					A deliberate progression toward premium, unattended retail in Ireland.
+					We move by readiness, not noise.
 				</p>
+				<img
+					src="/vendr-roadmap-public.svg"
+					alt="Vendr path to launch"
+					class="path-image"
+				/>
 			</section>
 
-			<!-- Sample lineup -->
-			<section class="lineup" aria-label="Sample Vendr lineup">
-				<div class="lineup-head">
-					<h3 class="lineup-title">{sampleLineup.introTitle}</h3>
-					<p class="lineup-sub">{sampleLineup.introSub}</p>
-				</div>
+			<!-- Sample lineup (softened) -->
+			<section class="lineup">
+				<h3 class="lineup-title">{sampleLineup.introTitle}</h3>
+				<p class="lineup-sub">{sampleLineup.introSub}</p>
 
 				<div class="lineup-grid">
-					<div class="lineup-col">
-						<p class="lineup-kicker">Hydration &amp; Drinks</p>
+					<div>
+						<p class="lineup-kicker">Hydration & Drinks</p>
 						<ul class="lineup-list">
 							{#each sampleLineup.drinks as item}
-								<li class="lineup-item">
-									<span class="lineup-name">{item.name}</span>
-									<span class="lineup-note">{item.note}</span>
+								<li>
+									<strong>{item.name}</strong>
+									<span>{item.note}</span>
 								</li>
 							{/each}
 						</ul>
 					</div>
 
-					<div class="lineup-col">
+					<div>
 						<p class="lineup-kicker">Snacks</p>
 						<ul class="lineup-list">
 							{#each sampleLineup.snacks as item}
-								<li class="lineup-item">
-									<span class="lineup-name">{item.name}</span>
-									<span class="lineup-note">{item.note}</span>
+								<li>
+									<strong>{item.name}</strong>
+									<span>{item.note}</span>
 								</li>
 							{/each}
 						</ul>
@@ -153,15 +121,13 @@
 				<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
 			</section>
 
-			<!-- Vendr Pass (one line) -->
-			<p class="vendr-pass">
-				Vendr Pass — a rewards system designed to make premium vending feel fair.
-			</p>
+			<div class="divider"></div>
 
-			<div class="divider" aria-hidden="true"></div>
-
-			<footer class="footer" aria-label="Footer">
+			<footer class="footer">
 				<div class="footer-left">
+					<p class="fine">
+						Vendr Pass — a rewards system designed to make premium vending feel fair.
+					</p>
 					<p class="fine">
 						© {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.
 					</p>
@@ -178,30 +144,17 @@
 					</p>
 				</div>
 
-				<nav class="footer-right" aria-label="Legal and social">
+				<nav class="footer-right">
 					<a href="/privacy">Privacy</a>
 					<a href="/terms">Terms</a>
 					<a href="/legal">Legal</a>
-
 					<a
 						href={linkedinHref}
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="Vendr on LinkedIn"
-						class="social"
 					>
-						<svg
-							width="18"
-							height="18"
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6C1.11 6 0 4.88 0 3.5C0 2.12 1.11 1 2.49 1C3.87 1 4.98 2.12 4.98 3.5ZM0.24 8H4.74V24H0.24V8ZM8.98 8H13.26V10.17H13.32C13.91 9.05 15.35 7.87 17.7 7.87C22.33 7.87 23.18 10.87 23.18 15.02V24H18.68V15.92C18.68 13.99 18.64 11.5 15.97 11.5C13.27 11.5 12.86 13.64 12.86 15.78V24H8.98V8Z"
-								fill="currentColor"
-							/>
-						</svg>
+						in
 					</a>
 				</nav>
 			</footer>
@@ -210,390 +163,76 @@
 </main>
 
 <style>
-	:global(body) {
-		margin: 0;
-		background: #000;
-		color: #fff;
-	}
-
-	main {
-		position: relative;
-		min-height: 100vh;
-		overflow: hidden;
-	}
-
-	.background {
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-	}
-
-	.bg-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		opacity: 0.55;
-		filter: blur(8px);
-		transform: scale(1.05);
-	}
-
-	.overlay {
-		position: absolute;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.6);
-		z-index: 2;
-	}
-
-	.vignette {
-		position: absolute;
-		inset: 0;
-		z-index: 3;
-		background: radial-gradient(
-			80% 60% at 50% 35%,
-			rgba(0, 0, 0, 0.15),
-			rgba(0, 0, 0, 0.9)
-		);
-	}
-
-	.content {
-		position: relative;
-		z-index: 4;
-		min-height: 100vh;
-		display: grid;
-		place-items: center;
-		padding: 2.5rem 1.5rem;
-	}
-
-	.container {
-		width: 100%;
-		max-width: 720px;
-		text-align: center;
-	}
-
-	.hero {
-		margin-bottom: 3.5rem;
-	}
-
-	.logo {
-		font-size: clamp(2.4rem, 6vw, 4rem);
-		font-weight: 800;
-		letter-spacing: 0.32em;
-		margin: 0 0 0.6rem 0;
-		text-transform: uppercase;
-	}
-
-	.tagline {
-		margin: 0;
-		font-size: 0.95rem;
-		letter-spacing: 0.12em;
-		color: rgba(255, 255, 255, 0.65);
-	}
-
-	.stack {
-		margin: 0 auto 2.25rem;
-		max-width: 560px;
-	}
-
-	.title {
-		font-size: clamp(1.9rem, 5vw, 3rem);
-		font-weight: 300;
-		margin: 0 0 1rem 0;
-	}
-
-	.description {
-		margin: 0 0 0.75rem 0;
-		font-size: 1.05rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.75);
-	}
-
-	.scope {
-		margin: 0;
-		font-size: 0.95rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.62);
-	}
-
-	.cta {
-		display: grid;
-		gap: 0.9rem;
-		justify-items: center;
-		margin-bottom: 2.25rem;
-	}
-
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		height: 44px;
-		padding: 0 1.2rem;
-		border-radius: 999px;
-		border: 1px solid rgba(255, 255, 255, 0.45);
-		background: rgba(0, 0, 0, 0.25);
-		color: #fff;
-		text-decoration: none;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		font-size: 0.82rem;
-		backdrop-filter: blur(6px);
-	}
-
-	.button:hover {
-		border-color: rgba(255, 255, 255, 0.75);
-		background: rgba(0, 0, 0, 0.35);
-	}
-
-	.micro {
-		margin: 0;
-		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.62);
-	}
-
-	.micro a {
-		color: rgba(255, 255, 255, 0.85);
-		text-decoration: none;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-	}
-
-	.micro a:hover {
-		border-bottom-color: rgba(255, 255, 255, 0.6);
-	}
-
-	.launch {
-		margin: 0;
-		font-size: 0.88rem;
-		color: rgba(255, 255, 255, 0.55);
-		letter-spacing: 0.06em;
-	}
-
-	/* Our Path */
+	/* hierarchy + restraint tweaks only */
 	.path {
-		margin: 2.25rem auto 0;
-		max-width: 720px;
-		padding: 1.25rem 1.25rem 1.1rem;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 16px;
-		background: rgba(0, 0, 0, 0.18);
-		backdrop-filter: blur(8px);
-		text-align: left;
-	}
-
-	.path-head {
-		text-align: center;
-		margin-bottom: 1rem;
-	}
-
-	.path-title {
-		margin: 0 0 0.5rem 0;
-		font-size: 1.1rem;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		font-weight: 600;
-	}
-
-	.path-sub {
-		margin: 0;
-		font-size: 0.92rem;
-		color: rgba(255, 255, 255, 0.62);
-		line-height: 1.6;
-	}
-
-	.roadmap {
-		margin-top: 1rem;
-		border-radius: 14px;
-		overflow: hidden;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		background: rgba(255, 255, 255, 0.02);
-	}
-
-	.roadmap img {
-		display: block;
-		width: 100%;
-		height: auto;
-	}
-
-	.path-note {
-		margin: 0.95rem 0 0;
-		text-align: center;
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.5);
-		line-height: 1.6;
-	}
-
-	/* lineup section */
-	.lineup {
-		margin: 2.25rem auto 0;
+		margin: 3rem auto 0;
 		max-width: 640px;
-		text-align: left;
-		padding: 1.25rem 1.25rem 1.1rem;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 16px;
-		background: rgba(0, 0, 0, 0.18);
-		backdrop-filter: blur(8px);
+		text-align: center;
+		opacity: 0.85;
 	}
 
-	.lineup-head {
-		text-align: center;
-		margin-bottom: 1rem;
+	.path-kicker {
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		font-size: 0.75rem;
+		color: rgba(255,255,255,0.55);
+		margin-bottom: 0.5rem;
+	}
+
+	.path-copy {
+		font-size: 0.95rem;
+		color: rgba(255,255,255,0.65);
+		margin-bottom: 1.5rem;
+	}
+
+	.path-image {
+		width: 100%;
+		border-radius: 12px;
+		opacity: 0.9;
+	}
+
+	.lineup {
+		margin: 3.5rem auto 0;
+		max-width: 640px;
+		opacity: 0.9;
 	}
 
 	.lineup-title {
-		margin: 0 0 0.5rem 0;
-		font-size: 1.1rem;
+		text-align: center;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		font-weight: 600;
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
 	}
 
 	.lineup-sub {
-		margin: 0;
-		font-size: 0.92rem;
-		color: rgba(255, 255, 255, 0.62);
-		line-height: 1.6;
-	}
-
-	.lineup-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin-top: 1.1rem;
-	}
-
-	.lineup-kicker {
-		margin: 0 0 0.6rem 0;
-		font-size: 0.85rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.55);
+		text-align: center;
+		font-size: 0.9rem;
+		color: rgba(255,255,255,0.6);
+		margin-bottom: 1.5rem;
 	}
 
 	.lineup-list {
 		list-style: none;
 		padding: 0;
-		margin: 0;
 		display: grid;
-		gap: 0.55rem;
+		gap: 0.6rem;
 	}
 
-	.lineup-item {
-		display: grid;
-		gap: 0.2rem;
-		padding: 0.65rem 0.7rem;
-		border-radius: 12px;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		background: rgba(255, 255, 255, 0.03);
+	.lineup-list li {
+		font-size: 0.9rem;
+		color: rgba(255,255,255,0.7);
 	}
 
-	.lineup-name {
-		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.88);
-	}
-
-	.lineup-note {
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.55);
-		line-height: 1.45;
-	}
-
-	.lineup-micro {
-		margin: 0.95rem 0 0;
-		text-align: center;
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.5);
-	}
-
-	/* Vendr Pass line */
-	.vendr-pass {
-		margin: 1.75rem auto 0;
-		max-width: 520px;
-		font-size: 0.95rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.62);
-		letter-spacing: 0.02em;
-		text-align: center;
+	.lineup-list span {
+		display: block;
+		font-size: 0.8rem;
+		color: rgba(255,255,255,0.5);
 	}
 
 	.divider {
+		margin: 3rem 0 2rem;
 		height: 1px;
-		width: 100%;
-		margin: 2rem 0 1.25rem;
-		background: rgba(255, 255, 255, 0.12);
-	}
-
-	.footer {
-		display: flex;
-		gap: 1.25rem;
-		justify-content: space-between;
-		align-items: flex-end;
-		flex-wrap: wrap;
-	}
-
-	.footer-left {
-		text-align: left;
-		min-width: 260px;
-	}
-
-	.footer-right {
-		display: inline-flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-		align-items: center;
-	}
-
-	.footer-right a {
-		color: rgba(255, 255, 255, 0.65);
-		text-decoration: none;
-		font-size: 0.88rem;
-		letter-spacing: 0.04em;
-	}
-
-	.footer-right a:hover {
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.social {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		color: rgba(255, 255, 255, 0.65);
-		transition: color 0.2s ease;
-	}
-
-	.social:hover {
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.fine {
-		margin: 0;
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.5);
-		line-height: 1.5;
-	}
-
-	.fine-link {
-		color: rgba(255, 255, 255, 0.72);
-		text-decoration: none;
-		margin-left: 0.25em;
-	}
-
-	.fine-link:hover {
-		text-decoration: underline;
-	}
-
-	@media (max-width: 740px) {
-		.lineup-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.footer-left {
-			text-align: center;
-			width: 100%;
-		}
-		.footer {
-			justify-content: center;
-			align-items: center;
-		}
+		background: rgba(255,255,255,0.12);
 	}
 </style>
