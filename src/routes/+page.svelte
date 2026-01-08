@@ -39,22 +39,8 @@
 		name="description"
 		content="Vendr is bringing premium, smart vending to Ireland. Launching Spring 2026."
 	/>
-
 	<link rel="canonical" href={$page.url.href} />
 	<meta name="theme-color" content="#000000" />
-
-	<!-- Open Graph -->
-	<meta property="og:type" content="website" />
-	<meta property="og:title" content="Vendr — Coming Soon" />
-	<meta property="og:description" content="Premium, smart vending solutions for Ireland." />
-	<meta property="og:url" content={$page.url.href} />
-	<meta property="og:image" content={`${$page.url.origin}/og.png`} />
-
-	<!-- Twitter -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Vendr — Coming Soon" />
-	<meta name="twitter:description" content="Premium, smart vending solutions for Ireland." />
-	<meta name="twitter:image" content={`${$page.url.origin}/og.png`} />
 </svelte:head>
 
 <main>
@@ -79,66 +65,79 @@
 			</div>
 
 			<div class="cta">
-				<a class="button" href={contactHref}>Enquire</a>
+				<a class="button" href={contactHref}>Discuss a placement</a>
 				<p class="micro">
-					For placements and partnerships:
+					Institutional enquiries:
 					<a href={contactHref}>{contactEmail}</a>
 				</p>
 				<p class="launch">{launchLine}</p>
 			</div>
 
-			<!-- Our Path (demoted, contextual) -->
+			<!-- Our Path (supporting, demoted) -->
 			<section class="path">
 				<p class="path-kicker">Our Path</p>
 				<p class="path-copy">
 					A deliberate progression toward premium, unattended retail in Ireland.
 					We move by readiness, not noise.
 				</p>
-				<img src="/vendr-roadmap-public.svg" alt="Vendr path to launch" class="path-image" />
+				<img
+					src="/vendr-roadmap-public.svg"
+					alt="Vendr path to launch"
+					class="path-image"
+				/>
 			</section>
 
-			<!-- Sample lineup (softened) -->
-			<section class="lineup" aria-label="Sample Vendr lineup">
-				<div class="lineup-head">
-					<h3 class="lineup-title">{sampleLineup.introTitle}</h3>
+			<!-- Sample lineup (collapsed) -->
+			<details class="lineup">
+				<summary class="lineup-summary">
+					View a sample Vendr lineup
+				</summary>
+
+				<div class="lineup-inner">
 					<p class="lineup-sub">{sampleLineup.introSub}</p>
-				</div>
 
-				<div class="lineup-grid">
-					<div class="lineup-col">
-						<p class="lineup-kicker">Hydration &amp; Drinks</p>
-						<ul class="lineup-list">
-							{#each sampleLineup.drinks as item}
-								<li class="lineup-item">
-									<span class="lineup-name">{item.name}</span>
-									<span class="lineup-note">{item.note}</span>
-								</li>
-							{/each}
-						</ul>
+					<div class="lineup-grid">
+						<div>
+							<p class="lineup-kicker">Hydration & Drinks</p>
+							<ul class="lineup-list">
+								{#each sampleLineup.drinks as item}
+									<li>
+										<strong>{item.name}</strong>
+										<span>{item.note}</span>
+									</li>
+								{/each}
+							</ul>
+						</div>
+
+						<div>
+							<p class="lineup-kicker">Snacks</p>
+							<ul class="lineup-list">
+								{#each sampleLineup.snacks as item}
+									<li>
+										<strong>{item.name}</strong>
+										<span>{item.note}</span>
+									</li>
+								{/each}
+							</ul>
+						</div>
 					</div>
 
-					<div class="lineup-col">
-						<p class="lineup-kicker">Snacks</p>
-						<ul class="lineup-list">
-							{#each sampleLineup.snacks as item}
-								<li class="lineup-item">
-									<span class="lineup-name">{item.name}</span>
-									<span class="lineup-note">{item.note}</span>
-								</li>
-							{/each}
-						</ul>
-					</div>
+					<p class="lineup-micro">
+						Products shown are indicative of the Vendr range.
+					</p>
 				</div>
+			</details>
 
-				<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
-			</section>
+			<div class="divider"></div>
 
-			<div class="divider" aria-hidden="true"></div>
-
-			<footer class="footer" aria-label="Footer">
+			<footer class="footer">
 				<div class="footer-left">
-					<p class="fine">Vendr Pass — a rewards system designed to make premium vending feel fair.</p>
-					<p class="fine">© {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.</p>
+					<p class="fine">
+						Vendr Pass — a rewards system designed to make premium vending feel fair.
+					</p>
+					<p class="fine">
+						© {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.
+					</p>
 					<p class="fine">
 						Vendr is a trading name of Atlas Refreshments Ltd. Part of
 						<a
@@ -152,11 +151,16 @@
 					</p>
 				</div>
 
-				<nav class="footer-right" aria-label="Legal and social">
+				<nav class="footer-right">
 					<a href="/privacy">Privacy</a>
 					<a href="/terms">Terms</a>
 					<a href="/legal">Legal</a>
-					<a href={linkedinHref} target="_blank" rel="noopener noreferrer" aria-label="Vendr on LinkedIn" class="social">
+					<a
+						href={linkedinHref}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Vendr on LinkedIn"
+					>
 						in
 					</a>
 				</nav>
@@ -166,355 +170,107 @@
 </main>
 
 <style>
-	:global(body) {
-		margin: 0;
-		background: #000;
-		color: #fff;
-	}
-
-	main {
-		position: relative;
-		min-height: 100vh;
-		overflow: hidden;
-	}
-
-	.background {
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-	}
-
-	.bg-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		opacity: 0.55;
-		filter: blur(8px);
-		transform: scale(1.05);
-	}
-
-	.overlay {
-		position: absolute;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.6);
-		z-index: 2;
-	}
-
-	.vignette {
-		position: absolute;
-		inset: 0;
-		z-index: 3;
-		background: radial-gradient(80% 60% at 50% 35%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.9));
-	}
-
-	.content {
-		position: relative;
-		z-index: 4;
-		min-height: 100vh;
-		display: grid;
-		place-items: center;
-		padding: 2.5rem 1.5rem;
-	}
-
-	.container {
-		width: 100%;
-		max-width: 720px;
-		text-align: center;
-	}
-
-	.hero {
-		margin-bottom: 3.5rem;
-	}
-
-	.logo {
-		font-size: clamp(2.4rem, 6vw, 4rem);
-		font-weight: 800;
-		letter-spacing: 0.32em;
-		margin: 0 0 0.6rem 0;
-		text-transform: uppercase;
-	}
-
-	.tagline {
-		margin: 0;
-		font-size: 0.95rem;
-		letter-spacing: 0.12em;
-		color: rgba(255, 255, 255, 0.65);
-	}
-
-	.stack {
-		margin: 0 auto 2.25rem;
-		max-width: 560px;
-	}
-
-	.title {
-		font-size: clamp(1.9rem, 5vw, 3rem);
-		font-weight: 300;
-		margin: 0 0 1rem 0;
-	}
-
-	.description {
-		margin: 0 0 0.75rem 0;
-		font-size: 1.05rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.75);
-	}
-
-	.scope {
-		margin: 0;
-		font-size: 0.95rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.62);
-	}
-
-	.cta {
-		display: grid;
-		gap: 0.9rem;
-		justify-items: center;
-		margin-bottom: 2.25rem;
-	}
-
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		height: 44px;
-		padding: 0 1.2rem;
-		border-radius: 999px;
-		border: 1px solid rgba(255, 255, 255, 0.45);
-		background: rgba(0, 0, 0, 0.25);
-		color: #fff;
-		text-decoration: none;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		font-size: 0.82rem;
-		backdrop-filter: blur(6px);
-	}
-
-	.button:hover {
-		border-color: rgba(255, 255, 255, 0.75);
-		background: rgba(0, 0, 0, 0.35);
-	}
-
-	.micro {
-		margin: 0;
-		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.62);
-	}
-
-	.micro a {
-		color: rgba(255, 255, 255, 0.85);
-		text-decoration: none;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-	}
-
-	.micro a:hover {
-		border-bottom-color: rgba(255, 255, 255, 0.6);
-	}
-
-	.launch {
-		margin: 0;
-		font-size: 0.88rem;
-		color: rgba(255, 255, 255, 0.55);
-		letter-spacing: 0.06em;
-	}
-
-	/* Our Path (demoted) */
 	.path {
 		margin: 3rem auto 0;
-		max-width: 640px;
+		max-width: 600px;
 		text-align: center;
-		opacity: 0.85;
+		opacity: 0.75;
 	}
 
 	.path-kicker {
 		text-transform: uppercase;
 		letter-spacing: 0.18em;
-		font-size: 0.75rem;
-		color: rgba(255, 255, 255, 0.55);
-		margin: 0 0 0.5rem 0;
+		font-size: 0.7rem;
+		color: rgba(255,255,255,0.55);
+		margin-bottom: 0.5rem;
 	}
 
 	.path-copy {
-		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.65);
-		margin: 0 0 1.25rem 0;
-		line-height: 1.6;
+		font-size: 0.9rem;
+		color: rgba(255,255,255,0.6);
+		margin-bottom: 1.25rem;
 	}
 
 	.path-image {
 		width: 100%;
-		height: auto;
 		border-radius: 12px;
-		opacity: 0.9;
-		display: block;
-		margin: 0 auto;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		background: rgba(255, 255, 255, 0.02);
+		opacity: 0.85;
 	}
 
-	/* Lineup (softened, but styled) */
+	/* Lineup accordion */
 	.lineup {
-		margin: 3.25rem auto 0;
+		margin: 3.5rem auto 0;
 		max-width: 640px;
-		text-align: left;
-		padding: 1.15rem 1.15rem 1.05rem;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 16px;
-		background: rgba(0, 0, 0, 0.14);
-		backdrop-filter: blur(8px);
-		opacity: 0.9;
 	}
 
-	.lineup-head {
+	.lineup-summary {
+		cursor: pointer;
 		text-align: center;
-		margin-bottom: 1rem;
-	}
-
-	.lineup-title {
-		margin: 0 0 0.5rem 0;
-		font-size: 0.95rem;
+		font-size: 0.85rem;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		font-weight: 600;
+		color: rgba(255,255,255,0.65);
+	}
+
+	.lineup-inner {
+		margin-top: 1.5rem;
 	}
 
 	.lineup-sub {
-		margin: 0;
-		font-size: 0.92rem;
-		color: rgba(255, 255, 255, 0.6);
-		line-height: 1.6;
+		text-align: center;
+		font-size: 0.85rem;
+		color: rgba(255,255,255,0.6);
+		margin-bottom: 1.5rem;
 	}
 
 	.lineup-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin-top: 1.1rem;
+		gap: 1.25rem;
 	}
 
 	.lineup-kicker {
-		margin: 0 0 0.6rem 0;
-		font-size: 0.85rem;
+		font-size: 0.75rem;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.52);
+		color: rgba(255,255,255,0.5);
+		margin-bottom: 0.5rem;
 	}
 
 	.lineup-list {
 		list-style: none;
 		padding: 0;
-		margin: 0;
 		display: grid;
-		gap: 0.55rem;
+		gap: 0.6rem;
 	}
 
-	.lineup-item {
-		display: grid;
-		gap: 0.18rem;
-		padding: 0.62rem 0.7rem;
-		border-radius: 12px;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		background: rgba(255, 255, 255, 0.03);
+	.lineup-list li {
+		font-size: 0.9rem;
+		color: rgba(255,255,255,0.7);
 	}
 
-	.lineup-name {
-		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.86);
-	}
-
-	.lineup-note {
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.52);
-		line-height: 1.45;
+	.lineup-list span {
+		display: block;
+		font-size: 0.8rem;
+		color: rgba(255,255,255,0.5);
 	}
 
 	.lineup-micro {
-		margin: 0.95rem 0 0;
+		margin-top: 1.2rem;
 		text-align: center;
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.48);
+		font-size: 0.75rem;
+		color: rgba(255,255,255,0.45);
 	}
 
 	.divider {
+		margin: 3rem 0 2rem;
 		height: 1px;
-		width: 100%;
-		margin: 3rem 0 1.75rem;
-		background: rgba(255, 255, 255, 0.12);
-	}
-
-	.footer {
-		display: flex;
-		gap: 1.25rem;
-		justify-content: space-between;
-		align-items: flex-end;
-		flex-wrap: wrap;
-	}
-
-	.footer-left {
-		text-align: left;
-		min-width: 260px;
-	}
-
-	.footer-right {
-		display: inline-flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-		align-items: center;
-	}
-
-	.footer-right a {
-		color: rgba(255, 255, 255, 0.65);
-		text-decoration: none;
-		font-size: 0.88rem;
-		letter-spacing: 0.04em;
-	}
-
-	.footer-right a:hover {
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.social {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		color: rgba(255, 255, 255, 0.65);
-	}
-
-	.social:hover {
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.fine {
-		margin: 0;
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.5);
-		line-height: 1.5;
-	}
-
-	.fine-link {
-		color: rgba(255, 255, 255, 0.72);
-		text-decoration: none;
-		margin-left: 0.25em;
-	}
-
-	.fine-link:hover {
-		text-decoration: underline;
-	}
-
-	@media (max-width: 740px) {
-		.lineup-grid {
-			grid-template-columns: 1fr;
-		}
+		background: rgba(255,255,255,0.12);
 	}
 
 	@media (max-width: 640px) {
-		.footer-left {
-			text-align: center;
-			width: 100%;
-		}
-		.footer {
-			justify-content: center;
-			align-items: center;
+		.lineup-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
