@@ -34,6 +34,11 @@
 
 	// Social
 	const linkedinHref = 'https://www.linkedin.com/company/110655743/';
+
+	// Our Path (public SVG)
+	// Put this file in /static as: /static/vendr-roadmap-public.svg
+	// Use the FIXED file: vendr-roadmap-public-fixed.svg renamed to vendr-roadmap-public.svg
+	const roadmapSrc = '/vendr-roadmap-public.svg';
 </script>
 
 <svelte:head>
@@ -91,6 +96,27 @@
 				<p class="launch">{launchLine}</p>
 			</div>
 
+			<!-- Our Path (public roadmap) -->
+			<section class="path" aria-label="Our Path">
+				<div class="path-head">
+					<h3 class="path-title">Our Path</h3>
+					<p class="path-sub">A deliberate progression toward premium unattended retail in Ireland.</p>
+				</div>
+
+				<div class="roadmap">
+					<img
+						src={roadmapSrc}
+						alt="Vendr path to launch: Soft Launch, Validation, Operations, Launch (Spring 2026)"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+
+				<p class="path-note">
+					We progress by readiness, not noise. Updates will appear here as we move forward.
+				</p>
+			</section>
+
 			<!-- Sample lineup -->
 			<section class="lineup" aria-label="Sample Vendr lineup">
 				<div class="lineup-head">
@@ -100,7 +126,7 @@
 
 				<div class="lineup-grid">
 					<div class="lineup-col">
-						<p class="lineup-kicker">Hydration & Drinks</p>
+						<p class="lineup-kicker">Hydration &amp; Drinks</p>
 						<ul class="lineup-list">
 							{#each sampleLineup.drinks as item}
 								<li class="lineup-item">
@@ -127,14 +153,14 @@
 				<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
 			</section>
 
-			<!-- NEW: Vendr Pass (subtle, one line) -->
+			<!-- Vendr Pass (one line) -->
 			<p class="vendr-pass">
 				Vendr Pass — a rewards system designed to make premium vending feel fair.
 			</p>
 
 			<div class="divider" aria-hidden="true"></div>
 
-			<footer class="footer">
+			<footer class="footer" aria-label="Footer">
 				<div class="footer-left">
 					<p class="fine">
 						© {new Date().getFullYear()} Atlas Refreshments Ltd. All rights reserved.
@@ -157,7 +183,6 @@
 					<a href="/terms">Terms</a>
 					<a href="/legal">Legal</a>
 
-					<!-- NEW: LinkedIn icon -->
 					<a
 						href={linkedinHref}
 						target="_blank"
@@ -341,6 +366,60 @@
 		letter-spacing: 0.06em;
 	}
 
+	/* Our Path */
+	.path {
+		margin: 2.25rem auto 0;
+		max-width: 720px;
+		padding: 1.25rem 1.25rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 16px;
+		background: rgba(0, 0, 0, 0.18);
+		backdrop-filter: blur(8px);
+		text-align: left;
+	}
+
+	.path-head {
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+
+	.path-title {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.1rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	.path-sub {
+		margin: 0;
+		font-size: 0.92rem;
+		color: rgba(255, 255, 255, 0.62);
+		line-height: 1.6;
+	}
+
+	.roadmap {
+		margin-top: 1rem;
+		border-radius: 14px;
+		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.roadmap img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.path-note {
+		margin: 0.95rem 0 0;
+		text-align: center;
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.5);
+		line-height: 1.6;
+	}
+
 	/* lineup section */
 	.lineup {
 		margin: 2.25rem auto 0;
@@ -423,7 +502,7 @@
 		color: rgba(255, 255, 255, 0.5);
 	}
 
-	/* NEW: Vendr Pass line */
+	/* Vendr Pass line */
 	.vendr-pass {
 		margin: 1.75rem auto 0;
 		max-width: 520px;
@@ -472,7 +551,6 @@
 		color: rgba(255, 255, 255, 0.9);
 	}
 
-	/* NEW: social icon */
 	.social {
 		display: inline-flex;
 		align-items: center;
