@@ -1,4 +1,4 @@
-![Vendr Roadmap](docs/roadmap/vendr-roadmap-current.svg)
+![Vendr Roadmap](docs/vendr-roadmap-current.svg)
 
 # SV — VNTA Subsidiary (SvelteKit)
 
@@ -181,5 +181,5 @@ This repository may be used to implement a restrained, premium **“Coming Soon�
 ## Notes
 
 * Favicon lives at `static/favicon.svg`
-* Contact link: `hello@vnta.studio`
+* Contact link: `hello@vvendr.ie`
 * Update this README as the subsidiary evolves
