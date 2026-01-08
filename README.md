@@ -1,3 +1,5 @@
+![Vendr Roadmap](docs/roadmap/vendr-roadmap-current.svg)
+
 # SV — VNTA Subsidiary (SvelteKit)
 
 This repository contains a **SvelteKit project scaffolded with [`sv`](https://github.com/sveltejs/cli)** and maintained as a **subsidiary of VNTA (Vantanéant International)**.
