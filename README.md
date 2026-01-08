@@ -132,32 +132,32 @@ This repository may be used to implement a restrained, premium **“Coming Soon�
 * [x] VNTA holding-company positioning
 * [x] Restrained tone of voice
 * [x] Motto integrated conceptually (*ex nihilo, nihil fit*)
-* [ ] Finalise hero statement
-* [ ] Lock CTA microcopy
-* [ ] Add legal entity reference where required
+* [x] Finalise hero statement
+* [x] Lock CTA microcopy
+* [x] Add legal entity reference where required
 
 ### Design
 
 * [x] Black / white palette only
 * [x] Typography aligned with brand guidelines
-* [ ] Confirm licensed Optima web font or substitute
-* [ ] Finalise vertical rhythm
-* [ ] Define button states
+* [x] Confirm licensed Optima web font or substitute
+* [x] Finalise vertical rhythm
+* [x] Define button states
 
 ### Technical
 
 * [x] SvelteKit + Vite configured
 * [x] Lightweight build (no Tailwind)
-* [ ] Accessibility pass
-* [ ] SEO baseline (meta, canonical)
+* [x] Accessibility pass
+* [x] SEO baseline (meta, canonical)
 * [ ] OpenGraph placeholders
 * [ ] Production build validation
 
 ### Launch
 
-* [ ] Connect production domain
-* [ ] Enable HTTPS
-* [ ] Configure production environment variables
+* [x] Connect production domain
+* [x] Enable HTTPS
+* [x] Configure production environment variables
 * [ ] Replace “Coming Soon” with soft-launch content
 * [ ] Archive v1 snapshot
 
