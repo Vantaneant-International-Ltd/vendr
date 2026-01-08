@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { base } from '$app/paths';
 
 	const brand = 'Vendr';
 	const tagline = 'Premium Vending Solutions Ireland';
@@ -9,21 +8,7 @@
 	const contactEmail = 'hello@vendr.ie';
 	const contactHref = `mailto:${contactEmail}`;
 
-	// tighter scope (removes repetitive “vending”)
-	const scope = 'Smart, premium retail for modern workplaces and hospitality.';
-
-	// anchor (trust detail)
-	const anchor = 'Ireland • Soft launch';
-
-	// assets (use base so this works on GitHub Pages subpaths too)
-	const ogImage = `${base}/og.png`;
-
-	// Roadmap (make sure this file exists under /static)
-	// Recommended: static/vendr-roadmap-public-fixed.svg
-	const roadmapSrc = `${base}/vendr-roadmap-public-fixed.svg`;
-
-	// Social
-	const linkedinHref = 'https://www.linkedin.com/company/110655743/';
+	const scope = 'Smart, premium vending for modern workplaces and hospitality.';
 
 	const sampleLineup = {
 		introSub:
@@ -44,47 +29,38 @@
 		]
 	};
 
-	let lineupOpen = false;
+	const linkedinHref = 'https://www.linkedin.com/company/110655743/';
+
+	// Lazy-load supporting sections
 	let pathOpen = false;
-
-	function onLineupToggle(e: Event) {
-		const el = e.currentTarget as HTMLDetailsElement;
-		lineupOpen = el.open;
-	}
-
-	function onPathToggle(e: Event) {
-		const el = e.currentTarget as HTMLDetailsElement;
-		pathOpen = el.open;
-	}
+	let lineupOpen = false;
 </script>
 
 <svelte:head>
 	<title>Vendr — Coming Soon | Premium Vending Solutions Ireland</title>
 	<meta
 		name="description"
-		content="Vendr is bringing premium, smart retail to Ireland. Launching Spring 2026."
+		content="Vendr is bringing premium, smart vending to Ireland. Launching Spring 2026."
 	/>
 	<link rel="canonical" href={$page.url.href} />
 	<meta name="theme-color" content="#000000" />
 
-	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Vendr — Coming Soon" />
-	<meta property="og:description" content="Premium, smart retail for Ireland. Launching Spring 2026." />
+	<meta property="og:description" content="Premium, smart vending solutions for Ireland." />
 	<meta property="og:url" content={$page.url.href} />
-	<meta property="og:image" content={`${$page.url.origin}${ogImage}`} />
+	<meta property="og:image" content={`${$page.url.origin}/og.png`} />
 
-	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Vendr — Coming Soon" />
-	<meta name="twitter:description" content="Premium, smart retail for Ireland. Launching Spring 2026." />
-	<meta name="twitter:image" content={`${$page.url.origin}${ogImage}`} />
+	<meta name="twitter:description" content="Premium, smart vending solutions for Ireland." />
+	<meta name="twitter:image" content={`${$page.url.origin}/og.png`} />
 </svelte:head>
 
 <main>
 	<!-- Background -->
 	<div class="background" aria-hidden="true">
-		<img src={ogImage} alt="" class="bg-image" loading="eager" decoding="async" />
+		<img src="/og.png" alt="" class="bg-image" loading="eager" decoding="async" />
 		<div class="overlay" />
 		<div class="vignette" />
 	</div>
@@ -94,7 +70,6 @@
 			<header class="hero">
 				<h1 class="logo">{brand}</h1>
 				<p class="tagline">{tagline}</p>
-				<p class="anchor">{anchor}</p>
 			</header>
 
 			<div class="stack">
@@ -112,47 +87,53 @@
 				<p class="launch">{launchLine}</p>
 			</div>
 
-			<!-- Supporting sections (demoted) -->
-			<section class="support" aria-label="Supporting details">
-				<!-- Our Path (collapsible + smaller + open link) -->
-				<details class="panel" on:toggle={onPathToggle}>
-					<summary class="panel-summary" aria-label="Toggle Vendr path">
-						<span class="panel-title">Our path</span>
-						<span class="panel-mark" aria-hidden="true">{pathOpen ? '–' : '+'}</span>
-					</summary>
+			<!-- OUR PATH (supporting / collapsible) -->
+			<details class="panel path" bind:open={pathOpen}>
+				<summary class="panel-summary">
+					<span class="panel-kicker">Our Path</span>
+				</summary>
 
-					<div class="panel-body">
-						<p class="panel-copy">
-							A deliberate progression toward premium, unattended retail in Ireland.
-							We move by readiness, not noise.
-						</p>
+				<div class="panel-inner">
+					<p class="panel-copy">
+						A deliberate progression toward premium, unattended retail in Ireland. We move by readiness, not
+						noise.
+					</p>
 
-						<a class="panel-link" href={roadmapSrc} target="_blank" rel="noopener noreferrer">
-							Open full roadmap
-						</a>
+					<a
+						class="panel-link"
+						href="/vendr-roadmap-public-fixed.svg"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Open full roadmap →
+					</a>
 
-						<img
-							src={roadmapSrc}
-							alt="Vendr path to launch"
-							class="path-image"
-							loading="lazy"
-							decoding="async"
-						/>
-					</div>
-				</details>
+					{#if pathOpen}
+						<div class="media-frame" aria-label="Vendr path to launch">
+							<img
+								src="/vendr-roadmap-public-fixed.svg"
+								alt="Vendr — Path to Launch"
+								class="media"
+								loading="lazy"
+								decoding="async"
+							/>
+						</div>
+					{/if}
+				</div>
+			</details>
 
-				<!-- Sample lineup (accordion + plus/minus pill) -->
-				<details class="panel" on:toggle={onLineupToggle}>
-					<summary class="panel-summary" aria-label="Toggle sample lineup">
-						<span class="panel-title">View a sample Vendr lineup</span>
-						<span class="panel-mark" aria-hidden="true">{lineupOpen ? '–' : '+'}</span>
-					</summary>
+			<!-- SAMPLE LINEUP (collapsed) -->
+			<details class="panel lineup" bind:open={lineupOpen}>
+				<summary class="panel-summary">
+					<span class="panel-kicker">View a sample Vendr lineup</span>
+				</summary>
 
-					<div class="panel-body">
-						<p class="panel-copy">{sampleLineup.introSub}</p>
+				<div class="panel-inner">
+					<p class="panel-copy subtle">{sampleLineup.introSub}</p>
 
+					{#if lineupOpen}
 						<div class="lineup-grid">
-							<div class="lineup-col">
+							<div>
 								<p class="lineup-kicker">Hydration & Drinks</p>
 								<ul class="lineup-list">
 									{#each sampleLineup.drinks as item}
@@ -164,7 +145,7 @@
 								</ul>
 							</div>
 
-							<div class="lineup-col">
+							<div>
 								<p class="lineup-kicker">Snacks</p>
 								<ul class="lineup-list">
 									{#each sampleLineup.snacks as item}
@@ -178,15 +159,15 @@
 						</div>
 
 						<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
-					</div>
-				</details>
-			</section>
+					{/if}
+				</div>
+			</details>
 
 			<div class="divider" aria-hidden="true"></div>
 
 			<footer class="footer">
 				<div class="footer-left">
-					<p class="fine fine-strong">
+					<p class="fine pass">
 						Vendr Pass — a rewards system designed to make premium vending feel fair.
 					</p>
 					<p class="fine">
@@ -203,6 +184,7 @@
 							VNTA
 						</a>.
 					</p>
+					<p class="fine meta">Ireland • Soft launch</p>
 				</div>
 
 				<nav class="footer-right" aria-label="Legal and social">
@@ -229,6 +211,13 @@
 		margin: 0;
 		background: #000;
 		color: #fff;
+		font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	:global(*) {
+		box-sizing: border-box;
 	}
 
 	main {
@@ -249,14 +238,14 @@
 		height: 100%;
 		object-fit: cover;
 		opacity: 0.55;
-		filter: blur(7px);
+		filter: blur(10px);
 		transform: scale(1.05);
 	}
 
 	.overlay {
 		position: absolute;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.66);
+		background: rgba(0, 0, 0, 0.62);
 		z-index: 2;
 	}
 
@@ -264,11 +253,7 @@
 		position: absolute;
 		inset: 0;
 		z-index: 3;
-		background: radial-gradient(
-			80% 60% at 50% 35%,
-			rgba(0, 0, 0, 0.12),
-			rgba(0, 0, 0, 0.92)
-		);
+		background: radial-gradient(80% 60% at 50% 35%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.92));
 	}
 
 	/* Layout */
@@ -278,7 +263,7 @@
 		min-height: 100vh;
 		display: grid;
 		place-items: center;
-		padding: 2.5rem 1.5rem;
+		padding: 2.75rem 1.5rem;
 	}
 
 	.container {
@@ -288,7 +273,7 @@
 	}
 
 	.hero {
-		margin-bottom: 3.25rem;
+		margin-bottom: 3.5rem;
 	}
 
 	.logo {
@@ -306,17 +291,9 @@
 		color: rgba(255, 255, 255, 0.65);
 	}
 
-	.anchor {
-		margin: 0.9rem 0 0;
-		font-size: 0.78rem;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.5);
-	}
-
 	.stack {
 		margin: 0 auto 2.25rem;
-		max-width: 560px;
+		max-width: 580px;
 	}
 
 	.title {
@@ -344,15 +321,15 @@
 		display: grid;
 		gap: 0.9rem;
 		justify-items: center;
-		margin-bottom: 2.5rem;
+		margin-bottom: 2.25rem;
 	}
 
 	.button {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		height: 44px;
-		padding: 0 1.2rem;
+		height: 46px;
+		padding: 0 1.35rem;
 		border-radius: 999px;
 		border: 1px solid rgba(255, 255, 255, 0.45);
 		background: rgba(0, 0, 0, 0.25);
@@ -362,16 +339,18 @@
 		text-transform: uppercase;
 		font-size: 0.82rem;
 		backdrop-filter: blur(6px);
+		transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 	}
 
 	.button:hover {
 		border-color: rgba(255, 255, 255, 0.75);
 		background: rgba(0, 0, 0, 0.35);
+		transform: translateY(-1px);
 	}
 
 	.micro {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: 0.92rem;
 		color: rgba(255, 255, 255, 0.62);
 	}
 
@@ -392,91 +371,118 @@
 		letter-spacing: 0.06em;
 	}
 
-	/* Supporting panels */
-	.support {
-		margin: 0 auto;
-		width: 100%;
-		max-width: 680px;
-		display: grid;
-		gap: 1rem;
-	}
-
+	/* Panels */
 	.panel {
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 16px;
-		background: rgba(0, 0, 0, 0.16);
-		backdrop-filter: blur(8px);
+		margin: 1.1rem auto 0;
+		max-width: 680px;
 		text-align: left;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 18px;
+		background: rgba(0, 0, 0, 0.18);
+		backdrop-filter: blur(10px);
 		overflow: hidden;
 	}
 
-	/* remove default marker */
-	.panel summary {
-		list-style: none;
+	/* a touch more top padding inside panels (your request) */
+	.panel-inner {
+		padding: 1.25rem 1.25rem 1.3rem;
+		opacity: 0;
+		transform: translateY(-2px);
+		max-height: 0;
+		transition: max-height 280ms ease, opacity 220ms ease, transform 220ms ease;
 	}
-	.panel summary::-webkit-details-marker {
-		display: none;
+
+	details[open] .panel-inner {
+		opacity: 1;
+		transform: translateY(0);
+		max-height: 1600px; /* safe ceiling */
 	}
 
 	.panel-summary {
+		list-style: none;
+		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 0.95rem 1.05rem;
-		cursor: pointer;
+		padding: 1.05rem 1.25rem;
 	}
 
-	.panel-title {
-		font-size: 0.82rem;
-		letter-spacing: 0.16em;
+	/* remove default marker */
+	.panel-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.panel-kicker {
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.72);
+		letter-spacing: 0.18em;
+		font-size: 0.75rem;
+		color: rgba(255, 255, 255, 0.62);
 	}
 
-	.panel-mark {
+	/* + / – affordance (Option A) */
+	.panel-summary::after {
+		content: '+';
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 28px;
-		height: 28px;
+		width: 34px;
+		height: 34px;
 		border-radius: 999px;
-		border: 1px solid rgba(255, 255, 255, 0.22);
+		border: 1px solid rgba(255, 255, 255, 0.16);
 		color: rgba(255, 255, 255, 0.72);
-		font-size: 1rem;
-		line-height: 1;
-		flex: 0 0 auto;
+		background: rgba(0, 0, 0, 0.22);
+		transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 	}
 
-	.panel-body {
-		padding: 0 1.05rem 1.05rem;
+	.panel-summary:hover::after {
+		border-color: rgba(255, 255, 255, 0.28);
+		color: rgba(255, 255, 255, 0.9);
+		transform: translateY(-1px);
+	}
+
+	details[open] .panel-summary::after {
+		content: '–';
 	}
 
 	.panel-copy {
-		margin: 0.2rem 0 0.9rem;
-		font-size: 0.92rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.62);
+		margin: 0 0 0.9rem 0;
+		font-size: 0.95rem;
+		line-height: 1.65;
+		color: rgba(255, 255, 255, 0.66);
+	}
+
+	.panel-copy.subtle {
+		color: rgba(255, 255, 255, 0.6);
+		margin-bottom: 1.15rem;
 	}
 
 	.panel-link {
 		display: inline-block;
-		margin: 0 0 0.9rem;
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.75);
+		margin: 0 0 1.1rem 0;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.72);
 		text-decoration: none;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 	}
 
 	.panel-link:hover {
-		border-bottom-color: rgba(255, 255, 255, 0.55);
+		color: rgba(255, 255, 255, 0.9);
+		border-bottom-color: rgba(255, 255, 255, 0.45);
 	}
 
-	/* Roadmap image (supporting artifact) */
-	.path-image {
-		width: 100%;
-		max-width: 620px;
+	/* Roadmap media as supporting artifact (smaller + breathing room) */
+	.media-frame {
+		border-radius: 14px;
+		border: 1px solid rgba(255, 255, 255, 0.10);
+		background: rgba(255, 255, 255, 0.02);
+		padding: 0.9rem;
+	}
+
+	.media {
 		display: block;
+		width: 95%;
+		max-width: 100%;
 		margin: 0 auto;
 		border-radius: 12px;
 		opacity: 0.9;
@@ -487,13 +493,13 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 1rem;
-		margin-top: 0.8rem;
+		margin-top: 0.2rem;
 	}
 
 	.lineup-kicker {
 		margin: 0 0 0.6rem 0;
-		font-size: 0.78rem;
-		letter-spacing: 0.12em;
+		font-size: 0.8rem;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		color: rgba(255, 255, 255, 0.52);
 	}
@@ -530,10 +536,10 @@
 		margin: 0.95rem 0 0;
 		text-align: center;
 		font-size: 0.82rem;
-		color: rgba(255, 255, 255, 0.48);
+		color: rgba(255, 255, 255, 0.5);
 	}
 
-	/* Divider + Footer */
+	/* Divider + footer */
 	.divider {
 		height: 1px;
 		width: 100%;
@@ -547,11 +553,12 @@
 		justify-content: space-between;
 		align-items: flex-end;
 		flex-wrap: wrap;
+		padding-bottom: 0.25rem;
 	}
 
 	.footer-left {
 		text-align: left;
-		min-width: 260px;
+		min-width: 280px;
 	}
 
 	.footer-right {
@@ -576,16 +583,12 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 28px;
-		height: 28px;
-		border-radius: 999px;
-		border: 1px solid rgba(255, 255, 255, 0.16);
 		color: rgba(255, 255, 255, 0.65);
+		transition: color 0.2s ease;
 	}
 
 	.social:hover {
 		color: rgba(255, 255, 255, 0.9);
-		border-color: rgba(255, 255, 255, 0.28);
 	}
 
 	.fine {
@@ -595,8 +598,9 @@
 		line-height: 1.5;
 	}
 
-	.fine-strong {
-		color: rgba(255, 255, 255, 0.62);
+	/* make Vendr Pass slightly lighter than legal lines */
+	.pass {
+		color: rgba(255, 255, 255, 0.42);
 	}
 
 	.fine-link {
@@ -609,9 +613,19 @@
 		text-decoration: underline;
 	}
 
+	.meta {
+		color: rgba(255, 255, 255, 0.38);
+		margin-top: 0.25rem;
+	}
+
+	/* Responsive */
 	@media (max-width: 740px) {
 		.lineup-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.media {
+			width: 100%;
 		}
 	}
 
@@ -623,6 +637,12 @@
 		.footer {
 			justify-content: center;
 			align-items: center;
+		}
+		.panel-summary {
+			padding: 1rem 1.05rem;
+		}
+		.panel-inner {
+			padding: 1.1rem 1.05rem 1.2rem;
 		}
 	}
 </style>
