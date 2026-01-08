@@ -73,24 +73,24 @@
 			</div>
 
 			<!-- Our Path (supporting, demoted) -->
-			<section class="path">
+			<section class="path" aria-label="Vendr path to launch">
 				<p class="path-kicker">Our Path</p>
 				<p class="path-copy">
 					A deliberate progression toward premium, unattended retail in Ireland.
 					We move by readiness, not noise.
 				</p>
 				<img
-					src="/vendr-roadmap-public.svg"
+					src="/vendr-roadmap-public-fixed.svg"
 					alt="Vendr path to launch"
 					class="path-image"
+					loading="lazy"
+					decoding="async"
 				/>
 			</section>
 
-			<!-- Sample lineup (collapsed, discoverable) -->
+			<!-- Sample lineup (collapsed) -->
 			<details class="lineup">
-				<summary class="lineup-summary">
-					View a sample Vendr lineup
-				</summary>
+				<summary class="lineup-summary">View a sample Vendr lineup</summary>
 
 				<div class="lineup-inner">
 					<p class="lineup-sub">{sampleLineup.introSub}</p>
@@ -100,9 +100,9 @@
 							<p class="lineup-kicker">Hydration & Drinks</p>
 							<ul class="lineup-list">
 								{#each sampleLineup.drinks as item}
-									<li>
-										<strong>{item.name}</strong>
-										<span>{item.note}</span>
+									<li class="lineup-item">
+										<strong class="lineup-name">{item.name}</strong>
+										<span class="lineup-note">{item.note}</span>
 									</li>
 								{/each}
 							</ul>
@@ -112,22 +112,20 @@
 							<p class="lineup-kicker">Snacks</p>
 							<ul class="lineup-list">
 								{#each sampleLineup.snacks as item}
-									<li>
-										<strong>{item.name}</strong>
-										<span>{item.note}</span>
+									<li class="lineup-item">
+										<strong class="lineup-name">{item.name}</strong>
+										<span class="lineup-note">{item.note}</span>
 									</li>
 								{/each}
 							</ul>
 						</div>
 					</div>
 
-					<p class="lineup-micro">
-						Products shown are indicative of the Vendr range.
-					</p>
+					<p class="lineup-micro">Products shown are indicative of the Vendr range.</p>
 				</div>
 			</details>
 
-			<div class="divider"></div>
+			<div class="divider" aria-hidden="true"></div>
 
 			<footer class="footer">
 				<div class="footer-left">
@@ -150,7 +148,7 @@
 					</p>
 				</div>
 
-				<nav class="footer-right">
+				<nav class="footer-right" aria-label="Legal and social">
 					<a href="/privacy">Privacy</a>
 					<a href="/terms">Terms</a>
 					<a href="/legal">Legal</a>
@@ -169,7 +167,163 @@
 </main>
 
 <style>
-	/* supporting path */
+	:global(body) {
+		margin: 0;
+		background: #000;
+		color: #fff;
+	}
+
+	main {
+		position: relative;
+		min-height: 100vh;
+		overflow: hidden;
+	}
+
+	.background {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+
+	.bg-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.55;
+		filter: blur(8px);
+		transform: scale(1.05);
+	}
+
+	.overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+		z-index: 2;
+	}
+
+	.vignette {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		background: radial-gradient(
+			80% 60% at 50% 35%,
+			rgba(0, 0, 0, 0.15),
+			rgba(0, 0, 0, 0.9)
+		);
+	}
+
+	.content {
+		position: relative;
+		z-index: 4;
+		min-height: 100vh;
+		display: grid;
+		place-items: center;
+		padding: 2.5rem 1.5rem;
+	}
+
+	.container {
+		width: 100%;
+		max-width: 720px;
+		text-align: center;
+	}
+
+	.hero {
+		margin-bottom: 3.5rem;
+	}
+
+	.logo {
+		font-size: clamp(2.4rem, 6vw, 4rem);
+		font-weight: 800;
+		letter-spacing: 0.32em;
+		margin: 0 0 0.6rem 0;
+		text-transform: uppercase;
+	}
+
+	.tagline {
+		margin: 0;
+		font-size: 0.95rem;
+		letter-spacing: 0.12em;
+		color: rgba(255, 255, 255, 0.65);
+	}
+
+	.stack {
+		margin: 0 auto 2.25rem;
+		max-width: 560px;
+	}
+
+	.title {
+		font-size: clamp(1.9rem, 5vw, 3rem);
+		font-weight: 300;
+		margin: 0 0 1rem 0;
+	}
+
+	.description {
+		margin: 0 0 0.75rem 0;
+		font-size: 1.05rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.scope {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.62);
+	}
+
+	.cta {
+		display: grid;
+		gap: 0.9rem;
+		justify-items: center;
+		margin-bottom: 2.25rem;
+	}
+
+	.button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 44px;
+		padding: 0 1.2rem;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.45);
+		background: rgba(0, 0, 0, 0.25);
+		color: #fff;
+		text-decoration: none;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		font-size: 0.82rem;
+		backdrop-filter: blur(6px);
+	}
+
+	.button:hover {
+		border-color: rgba(255, 255, 255, 0.75);
+		background: rgba(0, 0, 0, 0.35);
+	}
+
+	.micro {
+		margin: 0;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.62);
+	}
+
+	.micro a {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+	}
+
+	.micro a:hover {
+		border-bottom-color: rgba(255, 255, 255, 0.6);
+	}
+
+	.launch {
+		margin: 0;
+		font-size: 0.88rem;
+		color: rgba(255, 255, 255, 0.55);
+		letter-spacing: 0.06em;
+	}
+
+	/* Our Path (supporting) */
 	.path {
 		margin: 3rem auto 0;
 		max-width: 600px;
@@ -181,13 +335,13 @@
 		text-transform: uppercase;
 		letter-spacing: 0.18em;
 		font-size: 0.7rem;
-		color: rgba(255,255,255,0.55);
+		color: rgba(255, 255, 255, 0.55);
 		margin-bottom: 0.5rem;
 	}
 
 	.path-copy {
 		font-size: 0.9rem;
-		color: rgba(255,255,255,0.6);
+		color: rgba(255, 255, 255, 0.6);
 		margin-bottom: 1.25rem;
 	}
 
@@ -195,12 +349,19 @@
 		width: 100%;
 		border-radius: 12px;
 		opacity: 0.85;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(0, 0, 0, 0.12);
 	}
 
-	/* Lineup accordion */
+	/* Sample lineup accordion */
 	.lineup {
-		margin: 3.5rem auto 0;
+		margin: 2.75rem auto 0;
 		max-width: 640px;
+	}
+
+	/* remove default marker so it feels designed */
+	.lineup-summary::-webkit-details-marker {
+		display: none;
 	}
 
 	.lineup-summary {
@@ -210,43 +371,54 @@
 		gap: 0.6rem;
 		padding: 0.65rem 0.9rem;
 		border-radius: 999px;
-		border: 1px solid rgba(255,255,255,0.14);
-		background: rgba(0,0,0,0.14);
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: rgba(0, 0, 0, 0.14);
 		cursor: pointer;
 		font-size: 0.85rem;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: rgba(255,255,255,0.65);
+		color: rgba(255, 255, 255, 0.65);
 		transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 	}
 
 	.lineup-summary:hover {
-		border-color: rgba(255,255,255,0.28);
-		background: rgba(0,0,0,0.22);
-		color: rgba(255,255,255,0.85);
+		border-color: rgba(255, 255, 255, 0.28);
+		background: rgba(0, 0, 0, 0.22);
+		color: rgba(255, 255, 255, 0.85);
 	}
 
+	/* + / – indicator (your preference) */
 	.lineup-summary::after {
-		content: '▾';
-		font-size: 0.9rem;
+		content: '+';
+		font-size: 0.95rem;
 		opacity: 0.7;
 		transform: translateY(-1px);
 	}
 
 	.lineup[open] .lineup-summary::after {
-		content: '▴';
-		opacity: 0.8;
+		content: '–';
+		opacity: 0.85;
 	}
 
+	/* Animate the open (fade + slight slide) */
 	.lineup-inner {
 		margin-top: 1.5rem;
+		opacity: 0;
+		transform: translateY(-6px);
+		transition: opacity 180ms ease, transform 180ms ease;
+	}
+
+	.lineup[open] .lineup-inner {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	.lineup-sub {
 		text-align: center;
 		font-size: 0.85rem;
-		color: rgba(255,255,255,0.6);
-		margin-bottom: 1.5rem;
+		color: rgba(255, 255, 255, 0.6);
+		margin: 0 0 1.25rem 0;
+		line-height: 1.65;
 	}
 
 	.lineup-grid {
@@ -259,44 +431,114 @@
 		font-size: 0.75rem;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: rgba(255,255,255,0.5);
-		margin-bottom: 0.5rem;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0 0 0.6rem 0;
 	}
 
 	.lineup-list {
 		list-style: none;
 		padding: 0;
+		margin: 0;
 		display: grid;
 		gap: 0.6rem;
 	}
 
-	.lineup-list li {
-		font-size: 0.9rem;
-		color: rgba(255,255,255,0.7);
+	.lineup-item {
+		display: grid;
+		gap: 0.2rem;
+		padding: 0.65rem 0.7rem;
+		border-radius: 12px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.03);
 	}
 
-	.lineup-list span {
-		display: block;
-		font-size: 0.8rem;
-		color: rgba(255,255,255,0.5);
+	.lineup-name {
+		font-size: 0.92rem;
+		color: rgba(255, 255, 255, 0.86);
+		font-weight: 600;
+	}
+
+	.lineup-note {
+		font-size: 0.82rem;
+		color: rgba(255, 255, 255, 0.52);
+		line-height: 1.45;
 	}
 
 	.lineup-micro {
-		margin-top: 1.2rem;
+		margin: 1.1rem 0 0;
 		text-align: center;
 		font-size: 0.75rem;
-		color: rgba(255,255,255,0.45);
+		color: rgba(255, 255, 255, 0.45);
 	}
 
 	.divider {
-		margin: 3rem 0 2rem;
+		margin: 3rem 0 1.75rem;
 		height: 1px;
-		background: rgba(255,255,255,0.12);
+		background: rgba(255, 255, 255, 0.12);
+	}
+
+	.footer {
+		display: flex;
+		gap: 1.25rem;
+		justify-content: space-between;
+		align-items: flex-end;
+		flex-wrap: wrap;
+	}
+
+	.footer-left {
+		text-align: left;
+		min-width: 260px;
+	}
+
+	.footer-right {
+		display: inline-flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.footer-right a {
+		color: rgba(255, 255, 255, 0.65);
+		text-decoration: none;
+		font-size: 0.88rem;
+		letter-spacing: 0.04em;
+	}
+
+	.footer-right a:hover {
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.fine {
+		margin: 0;
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.5);
+		line-height: 1.5;
+	}
+
+	.fine-link {
+		color: rgba(255, 255, 255, 0.72);
+		text-decoration: none;
+		margin-left: 0.25em;
+	}
+
+	.fine-link:hover {
+		text-decoration: underline;
+	}
+
+	@media (max-width: 740px) {
+		.lineup-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	@media (max-width: 640px) {
-		.lineup-grid {
-			grid-template-columns: 1fr;
+		.footer-left {
+			text-align: center;
+			width: 100%;
+		}
+		.footer {
+			justify-content: center;
+			align-items: center;
 		}
 	}
 </style>
