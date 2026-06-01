@@ -110,6 +110,9 @@
 		gap: var(--s-24);
 		flex-wrap: wrap;
 	}
+	.bar.bottom {
+		align-items: flex-end; /* links sit on the baseline of the 3-line entity */
+	}
 	.tag {
 		font-family: var(--vd-mono);
 		font-size: 11px;

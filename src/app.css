@@ -91,15 +91,22 @@ a {
    chroma. Distinct from Éirvox. Rolling across the site in later passes.
    ============================================================================ */
 :root {
-	/* Ground / ink — monochrome */
+	/* Dark side — Coming Soon / cinematic */
 	--vd-ground: #0b0a09; /* sharp warm-black — dark pages */
-	--vd-paper: #ece9e3; /* light grey-paper — live site ground (later passes) */
 	--vd-on-ground: #f4f3f0; /* off-white text on dark */
 	--vd-grey: rgb(154, 155, 150); /* muted GREY — exact book value */
 	--vd-muted: rgba(154, 155, 150, 0.86);
 	--vd-faint: rgba(154, 155, 150, 0.5);
 	--vd-rule: rgba(154, 155, 150, 0.18);
 	--vd-rule-strong: rgba(154, 155, 150, 0.34);
+
+	/* Paper side — live editorial surface (the lightbox panels) */
+	--vd-paper: #e9e7e0; /* warm off-white paper */
+	--vd-ink: #16140f; /* warm near-black ink on paper */
+	--vd-ink-grey: #6f6d66; /* muted ink-grey on paper */
+	--vd-ink-faint: rgba(22, 20, 15, 0.5);
+	--vd-ink-rule: rgba(22, 20, 15, 0.16);
+	--vd-ink-rule-strong: rgba(22, 20, 15, 0.34);
 
 	/* Type — heavy grotesk display + mono technical. No serif. */
 	--vd-display: 'Archivo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;

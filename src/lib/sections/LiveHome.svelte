@@ -1,370 +1,446 @@
 <script>
-	// STATE: live — full landing. Structure ported from the Premium Landing HTML,
-	// executed entirely in brand-book canon: left-aligned, hairline-ruled, Andale
-	// mono throughout, serif for display headlines only, square, no shadows.
+	// STATE: live — light "paper" editorial surface (the brand's lightbox panels):
+	// warm paper, black monospace manifesto-style copy with the \ ## {} devices,
+	// Archivo for big statements, one cinematic dark band (panel-in-dark-space).
+	// Transit/infrastructure tone. Monochrome. Cosy mobile.
 	import { onMount } from 'svelte';
 	import { brand, subBrands, contact } from '$lib/brand.js';
 	import Wordmark from '$lib/components/Wordmark.svelte';
-	import Eyebrow from '$lib/components/Eyebrow.svelte';
-	import Rule from '$lib/components/Rule.svelte';
-	import DataPanel from '$lib/components/DataPanel.svelte';
-	import Footer from '$lib/components/Footer.svelte';
 
 	const values = [
-		{ n: '01', h: 'Clarity', p: 'Systems and interactions designed to be simple, legible, and intuitive.' },
-		{ n: '02', h: 'Intent', p: 'Every placement and product is deliberate — thoughtful integration over scale.' },
-		{ n: '03', h: 'Infrastructure', p: 'Reliable, unobtrusive, designed to support everyday use without disruption.' },
-		{ n: '04', h: 'Longevity', p: 'Built for durability and long-term relevance over short-term trends.' }
+		{ n: '01', h: 'Clarity', p: 'Systems and interactions designed to be simple, legible, intuitive.' },
+		{ n: '02', h: 'Intent', p: 'Every placement is deliberate — thoughtful integration over scale.' },
+		{ n: '03', h: 'Infrastructure', p: 'Reliable, unobtrusive. Built into the environment, not bolted on.' },
+		{ n: '04', h: 'Longevity', p: 'Made for durability and long-term relevance over short-term trend.' }
 	];
-
 	const path = [
-		{ tick: 'Complete', h: 'Soft Launch', p: 'Presence and credibility established. We listened, learned, refined.', state: 'done' },
-		{ tick: 'Now · Validation', h: 'Validation', p: 'Selective pilot placements underway. Proving reliability and fit in real spaces.', state: 'current' },
-		{ tick: 'Then', h: 'Operations', p: 'Operational foundations locked. Systems proven at scale.', state: '' },
-		{ tick: brand.launchLabel, h: 'Launch', p: 'Careful expansion begins across Ireland.', state: '' }
+		{ tick: 'Complete', h: 'Soft Launch', p: 'Presence established. We listened, learned, refined.', s: 'done' },
+		{ tick: 'Now', h: 'Validation', p: 'Selective pilot placements. Proving reliability and fit.', s: 'current' },
+		{ tick: 'Then', h: 'Operations', p: 'Operational foundations locked. Systems proven at scale.', s: '' },
+		{ tick: brand.launchLabel, h: 'Launch', p: 'Careful expansion begins across Ireland.', s: '' }
 	];
-
 	const drinks = [
-		{ name: 'Ballygowan Still', desc: 'Irish natural spring water', src: 'Ballygowan' },
-		{ name: 'Ballygowan Sparkling', desc: 'Irish sparkling spring water', src: 'Ballygowan' },
-		{ name: 'BLK Water', desc: 'Mineral-rich alkaline water', src: 'BLK' },
-		{ name: 'Actiph Alkaline 8.0+', desc: 'Functional hydration', src: 'Actiph' },
-		{ name: 'San Pellegrino Limonata', desc: 'Premium citrus soft drink', src: 'San Pellegrino' }
+		{ n: 'Ballygowan Still', d: 'Irish natural spring water', s: 'Ballygowan' },
+		{ n: 'Ballygowan Sparkling', d: 'Irish sparkling spring water', s: 'Ballygowan' },
+		{ n: 'BLK Water', d: 'Mineral-rich alkaline water', s: 'BLK' },
+		{ n: 'Actiph Alkaline 8.0+', d: 'Functional hydration', s: 'Actiph' },
+		{ n: 'San Pellegrino Limonata', d: 'Premium citrus soft drink', s: 'San Pellegrino' }
 	];
 	const snacks = [
-		{ name: "Keogh's Sweet Chilli & Irish Red Pepper", desc: 'Irish artisan crisps', src: "Keogh's" },
-		{ name: "Keogh's Shamrock & Sour Cream", desc: 'Irish artisan crisps', src: "Keogh's" },
-		{ name: 'Butlers Chocolate Bar', desc: 'Irish chocolate', src: 'Butlers' },
-		{ name: 'Fulfil Protein Bar', desc: 'High-protein, low sugar', src: 'Fulfil' },
-		{ name: 'Graze Savoury Snack', desc: 'Portion-controlled snacking', src: 'Graze' }
+		{ n: "Keogh's Sweet Chilli & Irish Red Pepper", d: 'Irish artisan crisps', s: "Keogh's" },
+		{ n: "Keogh's Shamrock & Sour Cream", d: 'Irish artisan crisps', s: "Keogh's" },
+		{ n: 'Butlers Chocolate Bar', d: 'Irish chocolate', s: 'Butlers' },
+		{ n: 'Fulfil Protein Bar', d: 'High-protein, low sugar', s: 'Fulfil' },
+		{ n: 'Graze Savoury Snack', d: 'Portion-controlled snacking', s: 'Graze' }
 	];
-
 	const passRows = [
-		{ k: 'Status', v: subBrands.pass.status },
-		{ k: 'Arrives', v: 'With launch, 2026' },
-		{ k: 'Where', v: 'Every placement' },
-		{ k: 'For', v: 'Returning members' }
+		['Status', subBrands.pass.status],
+		['Arrives', 'With launch, 2026'],
+		['Where', 'Every placement'],
+		['For', 'Returning members']
 	];
 
 	onMount(() => {
-		const els = document.querySelectorAll('[data-reveal]');
 		const io = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((e) => {
-					if (e.isIntersecting) {
-						e.target.classList.add('in');
-						io.unobserve(e.target);
-					}
-				});
-			},
+			(es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
 			{ threshold: 0.12 }
 		);
-		els.forEach((el) => io.observe(el));
+		document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
 	});
 </script>
 
-<!-- TOP BAR -->
-<header class="topbar">
-	<a href="#top" aria-label={brand.name}><Wordmark size={20} /></a>
-	<div class="meta">
-		<span class="hide-sm">{brand.launchLine}</span>
-		<a href={contact.href}>{contact.email}</a>
+<!-- NAV -->
+<header class="nav">
+	<div class="wrap nav-in">
+		<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={22} /></a>
+		<nav class="nav-links" aria-label="Sections">
+			<a href="#about">About</a>
+			<a href="#path">Path</a>
+			<a href="#lineup">Lineup</a>
+			<a href="#pass">Pass</a>
+			<a href="#contact" class="enquire">Enquire →</a>
+		</nav>
 	</div>
 </header>
 
-<!-- HERO -->
-<section class="hero" id="top">
-	<div class="hero-bg" aria-hidden="true">
-		<img src="/assets/machine1.jpg" alt="" loading="eager" decoding="async" />
-		<div class="hero-veil"></div>
-	</div>
-	<div class="hero-inner wrap">
-		<Eyebrow>{brand.tagline}</Eyebrow>
-		<h1 class="display statement">{brand.statement}</h1>
-		<p class="hero-lede">
-			A quieter form of retail — curated products, reliable infrastructure, and thoughtful placement
-			across Ireland's workplaces and hospitality spaces.
-		</p>
-		<div class="cta-row">
-			<a href="#contact" class="btn">Discuss a placement</a>
-			<a href="#path" class="text-link">See our path →</a>
-		</div>
-	</div>
-</section>
-
-<!-- ABOUT + VALUES -->
-<section class="block" id="about">
-	<div class="wrap">
-		<Eyebrow>01 — About</Eyebrow>
-		<p class="display big" data-reveal>
-			Vendr exists to modernise vending — replacing outdated machines with something more considered.
-		</p>
-		<div class="support" data-reveal>
-			<p>
-				Not volume. Not noise. A modern vending platform built on product curation, intelligent
-				infrastructure, and placement made with intention.
+<main id="top">
+	<!-- HERO -->
+	<section class="hero">
+		<div class="wrap">
+			<span class="marker">Curated vending — Ireland <span class="bs">\</span> Est. {brand.established}</span>
+			<h1 class="statement">Where vending evolves <span class="bs">\</span></h1>
+			<p class="lede">
+				A quieter form of retail. <span class="bs">\</span> Curated products. Reliable infrastructure.
+				Placement made with intention. <span class="bs">\</span> Quietly emerging in Ireland.
 			</p>
-			<p>
-				Designed for workplaces, operators, and environments that value quality, reliability, and
-				brand alignment — where retail, technology, and environment meet.
-			</p>
-		</div>
-
-		<div class="values">
-			{#each values as v}
-				<div class="value" data-reveal>
-					<span class="vn">{v.n}</span>
-					<h3 class="display">{v.h}</h3>
-					<p>{v.p}</p>
-				</div>
-			{/each}
-		</div>
-	</div>
-</section>
-
-<!-- PATH -->
-<section class="block" id="path">
-	<div class="wrap">
-		<div class="path-head">
-			<div>
-				<Eyebrow>02 — Our path</Eyebrow>
-				<h2 class="display">A deliberate progression.</h2>
+			<div class="cta">
+				<a href="#contact" class="btn">Discuss a placement →</a>
+				<a href="#path" class="link">See the path</a>
 			</div>
-			<p class="path-sub">Toward premium, unattended retail in Ireland. We move by readiness, not noise.</p>
 		</div>
-		<div class="path">
-			{#each path as s}
-				<div class="stage {s.state}" data-reveal>
-					<span class="bar"></span>
-					<span class="tick">{s.tick}</span>
-					<h4 class="display">{s.h}</h4>
-					<p>{s.p}</p>
-				</div>
-			{/each}
+	</section>
+
+	<!-- CINEMATIC DARK BAND -->
+	<section class="band" aria-label="Vendr in space">
+		<img src="/assets/machine1.jpg" alt="" class="band-img" loading="lazy" decoding="async" />
+		<div class="band-veil"></div>
+		<div class="wrap band-in">
+			<p class="band-copy">
+				A small glass unit in the wall. <span class="bs">\</span><br />
+				Quiet. Almost unnoticed. <span class="bs">\</span><br />
+				Not a shop. Not exactly a machine. <span class="bs">\</span><br />
+				Something in between.
+			</p>
+			<span class="band-mark"><Wordmark size={20} /></span>
 		</div>
-	</div>
-</section>
+	</section>
 
-<!-- LINEUP -->
-<section class="block" id="lineup">
-	<div class="wrap">
-		<Eyebrow>03 — A sample lineup</Eyebrow>
-		<h2 class="display lineup-h">Curated. Irish-first. Seasonal.</h2>
-		<p class="path-sub wide">
-			A considered selection of premium refreshments. Availability varies by location and season —
-			products shown are indicative of the Vendr range.
-		</p>
-
-		<p class="cat">Hydration &amp; Drinks</p>
-		<div class="menu">
-			{#each drinks as item}
-				<div class="item" data-reveal>
-					<span><span class="name">{item.name}</span><span class="desc">{item.desc}</span></span>
-					<span class="src">{item.src}</span>
-				</div>
-			{/each}
+	<!-- ABOUT + VALUES -->
+	<section class="block" id="about">
+		<div class="wrap">
+			<span class="eyebrow">01 — About <span class="bs">\</span></span>
+			<p class="big" data-reveal>
+				Vendr exists to modernise vending — replacing outdated machines with something more
+				considered.
+			</p>
+			<div class="cols" data-reveal>
+				<p>
+					Not volume. Not noise. A platform built on product curation, intelligent infrastructure,
+					and placement made with intention.
+				</p>
+				<p>
+					Designed for the environments that value quality, reliability, and brand alignment — where
+					retail, technology, and place meet.
+				</p>
+			</div>
+			<div class="values">
+				{#each values as v}
+					<div class="value" data-reveal>
+						<span class="vn">{v.n}</span>
+						<h3>{v.h}</h3>
+						<p>{v.p}</p>
+					</div>
+				{/each}
+			</div>
 		</div>
+	</section>
 
-		<p class="cat">Snacks</p>
-		<div class="menu">
-			{#each snacks as item}
-				<div class="item" data-reveal>
-					<span><span class="name">{item.name}</span><span class="desc">{item.desc}</span></span>
-					<span class="src">{item.src}</span>
-				</div>
-			{/each}
+	<!-- PATH -->
+	<section class="block alt" id="path">
+		<div class="wrap">
+			<span class="eyebrow">02 — Our path <span class="bs">\</span></span>
+			<h2 class="head" data-reveal>A deliberate progression.</h2>
+			<div class="path">
+				{#each path as st}
+					<div class="stage {st.s}" data-reveal>
+						<span class="bar"></span>
+						<span class="tick">{st.tick}</span>
+						<h4>{st.h}</h4>
+						<p>{st.p}</p>
+					</div>
+				{/each}
+			</div>
 		</div>
+	</section>
 
-		<p class="lineup-note">Products shown are indicative of the Vendr range.</p>
-	</div>
-</section>
+	<!-- LINEUP -->
+	<section class="block" id="lineup">
+		<div class="wrap">
+			<span class="eyebrow">03 — A sample lineup <span class="bs">\</span></span>
+			<h2 class="head" data-reveal>Curated. Irish-first. Seasonal.</h2>
+			<p class="sub" data-reveal>
+				Availability varies by location and season — products shown are indicative of the range.
+			</p>
+			<p class="cat">Hydration &amp; Drinks</p>
+			<div class="menu">
+				{#each drinks as i}
+					<div class="item" data-reveal>
+						<span><b>{i.n}</b><span class="d">{i.d}</span></span><span class="src">{i.s}</span>
+					</div>
+				{/each}
+			</div>
+			<p class="cat">Snacks</p>
+			<div class="menu">
+				{#each snacks as i}
+					<div class="item" data-reveal>
+						<span><b>{i.n}</b><span class="d">{i.d}</span></span><span class="src">{i.s}</span>
+					</div>
+				{/each}
+			</div>
+		</div>
+	</section>
 
-<!-- VENDR PASS -->
-<section class="block" id="pass">
-	<div class="wrap">
-		<div class="pass" data-reveal>
+	<!-- VENDR PASS -->
+	<section class="block alt" id="pass">
+		<div class="wrap pass" data-reveal>
 			<div>
-				<Eyebrow>04 — {subBrands.pass.name}</Eyebrow>
-				<h2 class="display pass-h">A rewards system designed to make premium vending feel fair.</h2>
-				<p class="pass-p">
-					Recognising the people who return. Quietly rewarding everyday choices, across every Vendr
+				<span class="eyebrow">04 — {subBrands.pass.name} <span class="bs">\</span></span>
+				<h2 class="head">A rewards system designed to make premium vending feel fair.</h2>
+				<p class="sub">
+					Recognising the people who return. Quietly rewarding everyday choices, across every
 					placement. More to share closer to launch.
 				</p>
 			</div>
-			<div class="pass-aside"><DataPanel rows={passRows} /></div>
+			<dl class="data">
+				{#each passRows as [k, v]}
+					<div><dt>{k}</dt><dd>{v}</dd></div>
+				{/each}
+			</dl>
 		</div>
-	</div>
-</section>
+	</section>
 
-<!-- CONTACT -->
-<section class="block" id="contact">
-	<div class="wrap">
-		<Eyebrow>05 — Enquire</Eyebrow>
-		<h2 class="display contact-h">A placement is a conversation.</h2>
-		<p class="path-sub wide">
-			Tell us where you'd like a Vendr machine. We respond to institutional and partnership enquiries
-			within two working days.
-		</p>
-		<div class="cta-row">
-			<a href={contact.enquiryHref} class="btn">Discuss a placement</a>
-			<a href={contact.href} class="text-link">{contact.email}</a>
+	<!-- CONTACT -->
+	<section class="block" id="contact">
+		<div class="wrap">
+			<span class="eyebrow">05 — Enquire <span class="bs">\</span></span>
+			<h2 class="head big-head" data-reveal>A placement is a conversation.</h2>
+			<p class="sub" data-reveal>
+				Tell us where you'd like a Vendr machine. We respond to institutional and partnership
+				enquiries within two working days.
+			</p>
+			<div class="cta" data-reveal>
+				<a href={contact.enquiryHref} class="btn">Discuss a placement →</a>
+				<a href={contact.href} class="link">{contact.email}</a>
+			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<div class="wrap"><Footer /></div>
+	<!-- FOOTER -->
+	<footer class="foot">
+		<div class="wrap foot-in">
+			<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={20} /></a>
+			<div class="entity">
+				<span>{brand.legalEntity}</span>
+				<span>
+					A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> company ·
+					sister to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a>
+				</span>
+				<span>Est. {brand.established}</span>
+			</div>
+			<nav class="foot-links" aria-label="Footer">
+				<a href="/privacy">Privacy</a>
+				<a href="/terms">Terms</a>
+				<a href="/legal">Legal</a>
+				<a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+			</nav>
+		</div>
+	</footer>
+</main>
 
 <style>
+	:global(body) {
+		background: var(--vd-paper);
+	}
+	main {
+		background: var(--vd-paper);
+		color: var(--vd-ink);
+	}
 	.wrap {
-		max-width: var(--maxw);
+		max-width: 1180px;
 		margin: 0 auto;
-		padding: 0 clamp(var(--s-24), 5vw, var(--s-64));
+		padding: 0 clamp(20px, 6vw, 80px);
+	}
+	.bs {
+		color: var(--vd-ink-grey);
 	}
 
-	/* TOP BAR */
-	.topbar {
-		position: fixed;
+	/* NAV */
+	.nav {
+		position: sticky;
 		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 50;
+		z-index: 40;
+		background: color-mix(in srgb, var(--vd-paper) 88%, transparent);
+		backdrop-filter: blur(6px);
+		border-bottom: 1px solid var(--vd-ink-rule);
+	}
+	.nav-in {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: var(--s-24) clamp(var(--s-24), 5vw, var(--s-64));
-		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+		height: 64px;
 	}
-	.meta {
+	.nav-links {
 		display: flex;
-		gap: var(--s-24);
+		gap: clamp(16px, 2.4vw, 32px);
 		align-items: center;
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: 0.18em;
+	}
+	.nav-links a {
+		font-family: var(--vd-mono);
+		font-size: 12px;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--grey);
+		color: var(--vd-ink-grey);
+		transition: color 200ms ease;
 	}
-	.meta a:hover {
-		color: var(--ink);
+	.nav-links a:hover,
+	.enquire {
+		color: var(--vd-ink) !important;
 	}
-	@media (max-width: 720px) {
-		.meta .hide-sm {
+	@media (max-width: 680px) {
+		.nav-links a:not(.enquire) {
 			display: none;
 		}
 	}
 
+	/* shared editorial bits */
+	.marker,
+	.eyebrow {
+		display: block;
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--vd-ink-grey);
+	}
+	.statement {
+		font-family: var(--vd-display);
+		font-weight: 500;
+		font-size: clamp(34px, 6vw, 80px);
+		line-height: 1.04;
+		letter-spacing: -0.02em;
+		margin: clamp(20px, 3vw, 32px) 0 0;
+		max-width: 15ch;
+	}
+	.lede {
+		font-family: var(--vd-mono);
+		font-size: clamp(13px, 1.3vw, 15px);
+		line-height: 1.8;
+		color: var(--vd-ink);
+		max-width: 60ch;
+		margin: clamp(24px, 3vw, 36px) 0 0;
+	}
+
+	.cta {
+		display: flex;
+		gap: clamp(16px, 3vw, 28px);
+		align-items: center;
+		flex-wrap: wrap;
+		margin-top: clamp(28px, 4vw, 40px);
+	}
+	.btn {
+		font-family: var(--vd-mono);
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		background: var(--vd-ink);
+		color: var(--vd-paper);
+		border: 1px solid var(--vd-ink);
+		padding: 14px 22px;
+		transition: opacity 200ms ease;
+	}
+	.btn:hover {
+		opacity: 0.86;
+	}
+	.link {
+		font-family: var(--vd-mono);
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--vd-ink-grey);
+		border-bottom: 1px solid var(--vd-ink-rule-strong);
+		padding-bottom: 3px;
+		transition: color 200ms ease;
+	}
+	.link:hover {
+		color: var(--vd-ink);
+	}
+
 	/* HERO */
 	.hero {
-		position: relative;
-		min-height: 100svh;
-		display: grid;
-		align-items: center;
-		overflow: hidden;
-		padding: var(--s-160) 0 var(--s-96);
+		padding: clamp(64px, 12vw, 140px) 0 clamp(48px, 8vw, 96px);
 	}
-	.hero-bg {
+
+	/* CINEMATIC DARK BAND */
+	.band {
+		position: relative;
+		overflow: hidden;
+		background: var(--vd-ground);
+		padding: clamp(64px, 12vw, 140px) 0;
+	}
+	.band-img {
 		position: absolute;
 		inset: 0;
-		z-index: 0;
-	}
-	.hero-bg img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		filter: brightness(0.4) saturate(0.85) contrast(1.02);
 	}
-	.hero-veil {
+	.band-veil {
 		position: absolute;
 		inset: 0;
-		background:
-			radial-gradient(120% 90% at 28% 32%, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.8) 70%),
-			linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(26, 23, 20, 0.15) 42%, rgba(0, 0, 0, 0.86));
+		background: linear-gradient(to right, rgba(11, 10, 9, 0.92), rgba(11, 10, 9, 0.55));
 	}
-	.hero-inner {
+	.band-in {
 		position: relative;
-		z-index: 1;
-		width: 100%;
-	}
-	.statement {
-		font-size: var(--t-64);
-		font-style: italic;
-		line-height: 1.1;
-		max-width: 16ch;
-		margin: var(--s-24) 0 0;
-		color: var(--ink);
-	}
-	.hero-lede {
-		margin-top: var(--s-24);
-		max-width: 52ch;
-		font-family: var(--mono);
-		font-size: var(--t-body);
-		color: var(--grey);
-	}
-	.cta-row {
 		display: flex;
-		gap: var(--s-24);
-		align-items: center;
-		flex-wrap: wrap;
-		margin-top: var(--s-40);
+		flex-direction: column;
+		gap: clamp(28px, 5vw, 48px);
 	}
-	.btn {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: var(--ls-eyebrow);
+	.band-copy {
+		font-family: var(--vd-mono);
+		font-size: clamp(14px, 1.6vw, 19px);
+		line-height: 1.8;
+		letter-spacing: 0.02em;
 		text-transform: uppercase;
-		color: var(--ink);
-		border: 1px solid var(--line-strong);
-		border-radius: var(--radius);
-		padding: var(--s-16) var(--s-24);
-		transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+		color: var(--vd-on-ground);
+		margin: 0;
 	}
-	.btn:hover {
-		background: var(--ink);
-		color: var(--bg);
-		border-color: var(--ink);
-	}
-	.text-link {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: var(--grey);
-		border-bottom: 1px solid transparent;
-		padding-bottom: var(--s-4);
-		transition: color 0.2s ease, border-color 0.2s ease;
-	}
-	.text-link:hover {
-		color: var(--ink);
-		border-color: var(--line-strong);
+	.band .bs {
+		color: var(--vd-faint);
 	}
 
-	/* SECTION SHELL */
+	/* BLOCKS */
 	.block {
-		padding: clamp(var(--s-64), 12vw, var(--s-160)) 0;
-		border-top: 1px solid var(--line);
+		padding: clamp(56px, 10vw, 128px) 0;
+		border-top: 1px solid var(--vd-ink-rule);
+	}
+	.block.alt {
+		background: color-mix(in srgb, var(--vd-ink) 4%, var(--vd-paper));
 	}
 	.big {
-		font-size: var(--t-48);
+		font-family: var(--vd-display);
+		font-weight: 500;
+		font-size: clamp(24px, 3.4vw, 44px);
 		line-height: 1.18;
-		max-width: 20ch;
-		margin: var(--s-24) 0 0;
-		color: var(--ink);
+		letter-spacing: -0.015em;
+		max-width: 22ch;
+		margin: clamp(20px, 3vw, 32px) 0 0;
 	}
-	.support {
+	.head {
+		font-family: var(--vd-display);
+		font-weight: 500;
+		font-size: clamp(22px, 3vw, 38px);
+		line-height: 1.1;
+		letter-spacing: -0.015em;
+		margin: clamp(14px, 2vw, 22px) 0 0;
+		max-width: 20ch;
+	}
+	.head.big-head {
+		font-size: clamp(28px, 4.4vw, 56px);
+		max-width: 16ch;
+	}
+	.cols {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: clamp(var(--s-24), 5vw, var(--s-64));
+		gap: clamp(24px, 5vw, 64px);
 		max-width: 820px;
-		margin-top: var(--s-40);
+		margin-top: clamp(28px, 4vw, 40px);
 	}
-	.support p {
-		font-family: var(--mono);
-		color: var(--grey);
+	.cols p,
+	.sub {
+		font-family: var(--vd-mono);
+		font-size: 13.5px;
+		line-height: 1.8;
+		color: var(--vd-ink-grey);
 	}
-	@media (max-width: 680px) {
-		.support {
+	.sub {
+		max-width: 56ch;
+		margin-top: 14px;
+	}
+	@media (max-width: 640px) {
+		.cols {
 			grid-template-columns: 1fr;
-			gap: var(--s-24);
+			gap: 18px;
 		}
 	}
 
@@ -372,51 +448,53 @@
 	.values {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		border-top: 1px solid var(--line);
-		margin-top: clamp(var(--s-40), 7vw, var(--s-96));
+		border-top: 1px solid var(--vd-ink-rule);
+		margin-top: clamp(40px, 6vw, 80px);
 	}
 	.value {
-		padding: var(--s-40) var(--s-24) var(--s-40) 0;
-		border-bottom: 1px solid var(--line);
+		padding: clamp(28px, 3vw, 40px) 24px 40px 0;
+		border-bottom: 1px solid var(--vd-ink-rule);
 	}
 	.value:not(:last-child) {
-		border-right: 1px solid var(--line);
-		padding-right: var(--s-24);
+		border-right: 1px solid var(--vd-ink-rule);
+		padding-right: 24px;
 	}
 	.value:not(:first-child) {
-		padding-left: var(--s-24);
+		padding-left: 24px;
 	}
 	.vn {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
+		font-family: var(--vd-mono);
+		font-size: 11px;
 		letter-spacing: 0.2em;
-		color: var(--grey-dim);
+		color: var(--vd-ink-faint);
 	}
 	.value h3 {
-		font-size: var(--t-24);
-		margin: var(--s-16) 0 var(--s-8);
-		color: var(--ink);
+		font-family: var(--vd-display);
+		font-weight: 500;
+		font-size: 20px;
+		margin: 14px 0 8px;
 	}
 	.value p {
-		font-family: var(--mono);
-		font-size: var(--t-small);
-		color: var(--grey);
+		font-family: var(--vd-mono);
+		font-size: 12.5px;
+		line-height: 1.65;
+		color: var(--vd-ink-grey);
 	}
 	@media (max-width: 860px) {
 		.values {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: 1fr 1fr;
 		}
 		.value {
-			padding-right: var(--s-24) !important;
+			padding-right: 24px !important;
 			padding-left: 0 !important;
 			border-right: none !important;
 		}
 		.value:nth-child(odd) {
-			border-right: 1px solid var(--line) !important;
-			padding-right: var(--s-24) !important;
+			border-right: 1px solid var(--vd-ink-rule) !important;
+			padding-right: 24px !important;
 		}
 		.value:nth-child(even) {
-			padding-left: var(--s-24) !important;
+			padding-left: 24px !important;
 		}
 	}
 	@media (max-width: 480px) {
@@ -431,107 +509,86 @@
 	}
 
 	/* PATH */
-	.path-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		flex-wrap: wrap;
-		gap: var(--s-16);
-		margin-bottom: var(--s-64);
-	}
-	.path-head h2 {
-		font-size: var(--t-36);
-		margin: var(--s-8) 0 0;
-		color: var(--ink);
-	}
-	.path-sub {
-		font-family: var(--mono);
-		color: var(--grey);
-		max-width: 34ch;
-		font-size: var(--t-small);
-	}
-	.path-sub.wide {
-		max-width: 56ch;
-		margin-top: var(--s-16);
-	}
 	.path {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		border-top: 1px solid var(--line-strong);
+		border-top: 1px solid var(--vd-ink-rule-strong);
+		margin-top: clamp(32px, 5vw, 56px);
 	}
-	.path .stage {
-		padding: var(--s-24) var(--s-24) var(--s-40) 0;
-		border-bottom: 1px solid var(--line);
+	.stage {
 		position: relative;
+		padding: 28px 24px 40px 0;
+		border-bottom: 1px solid var(--vd-ink-rule);
 	}
-	.path .stage:not(:last-child) {
-		border-right: 1px solid var(--line);
-		padding-right: var(--s-24);
+	.stage:not(:last-child) {
+		border-right: 1px solid var(--vd-ink-rule);
+		padding-right: 24px;
 	}
-	.path .stage:not(:first-child) {
-		padding-left: var(--s-24);
+	.stage:not(:first-child) {
+		padding-left: 24px;
 	}
-	.tick {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: var(--grey-dim);
-	}
-	.path .stage h4 {
-		font-size: var(--t-24);
-		margin: var(--s-16) 0 var(--s-8);
-		color: var(--ink);
-	}
-	.path .stage p {
-		font-family: var(--mono);
-		font-size: var(--t-small);
-		color: var(--grey);
-	}
-	.bar {
+	.stage .bar {
 		position: absolute;
 		top: -1px;
 		left: 0;
 		height: 2px;
 		width: 0;
-		background: var(--ink);
+		background: var(--vd-ink);
 	}
 	.stage.current .bar {
 		width: 100%;
 	}
 	.stage.done .bar {
 		width: 100%;
-		background: var(--grey-dim);
+		background: var(--vd-ink-faint);
+	}
+	.tick {
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--vd-ink-faint);
 	}
 	.stage.current .tick {
-		color: var(--ink);
+		color: var(--vd-ink);
 	}
-	.stage.done .tick,
+	.stage h4 {
+		font-family: var(--vd-display);
+		font-weight: 500;
+		font-size: 19px;
+		margin: 14px 0 8px;
+	}
 	.stage.done h4 {
-		color: var(--grey);
+		color: var(--vd-ink-grey);
+	}
+	.stage p {
+		font-family: var(--vd-mono);
+		font-size: 12.5px;
+		line-height: 1.65;
+		color: var(--vd-ink-grey);
 	}
 	@media (max-width: 860px) {
 		.path {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: 1fr 1fr;
 		}
-		.path .stage {
-			padding-right: var(--s-24) !important;
+		.stage {
+			padding-right: 24px !important;
 			padding-left: 0 !important;
 			border-right: none !important;
 		}
-		.path .stage:nth-child(odd) {
-			border-right: 1px solid var(--line) !important;
-			padding-right: var(--s-24) !important;
+		.stage:nth-child(odd) {
+			border-right: 1px solid var(--vd-ink-rule) !important;
+			padding-right: 24px !important;
 		}
-		.path .stage:nth-child(even) {
-			padding-left: var(--s-24) !important;
+		.stage:nth-child(even) {
+			padding-left: 24px !important;
 		}
 	}
 	@media (max-width: 480px) {
 		.path {
 			grid-template-columns: 1fr;
 		}
-		.path .stage {
+		.stage {
 			border-right: none !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
@@ -539,107 +596,152 @@
 	}
 
 	/* LINEUP */
-	.lineup-h {
-		font-size: var(--t-36);
-		margin: var(--s-8) 0 0;
-		color: var(--ink);
-	}
 	.cat {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: var(--ls-eyebrow);
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--grey);
-		margin: var(--s-40) 0 0;
+		color: var(--vd-ink-grey);
+		margin: clamp(36px, 5vw, 52px) 0 0;
 	}
 	.menu {
-		border-top: 1px solid var(--line);
-		margin-top: var(--s-8);
+		border-top: 1px solid var(--vd-ink-rule);
+		margin-top: 10px;
 	}
 	.item {
 		display: flex;
 		justify-content: space-between;
-		gap: var(--s-24);
+		gap: 24px;
 		align-items: baseline;
-		padding: var(--s-16) 0;
-		border-bottom: 1px solid var(--line);
+		padding: 16px 0;
+		border-bottom: 1px solid var(--vd-ink-rule);
 		transition: padding-left 0.25s ease;
 	}
 	.item:hover {
-		padding-left: var(--s-16);
+		padding-left: 12px;
 	}
-	.name {
-		font-family: var(--mono);
-		font-size: var(--t-body);
-		color: var(--ink);
+	.item b {
+		font-family: var(--vd-mono);
+		font-weight: 500;
+		font-size: 14px;
+		color: var(--vd-ink);
 		display: block;
 	}
-	.desc {
+	.item .d {
 		display: block;
-		font-family: var(--mono);
-		font-size: var(--t-small);
-		color: var(--grey);
-		margin-top: var(--s-4);
+		font-family: var(--vd-mono);
+		font-size: 12px;
+		color: var(--vd-ink-grey);
+		margin-top: 3px;
 	}
-	.src {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: 0.16em;
+	.item .src {
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: var(--grey-dim);
+		color: var(--vd-ink-faint);
 		white-space: nowrap;
 	}
-	.lineup-note {
-		margin-top: var(--s-40);
-		font-family: var(--mono);
-		font-size: var(--t-small);
-		color: var(--grey-dim);
-	}
 
-	/* VENDR PASS */
+	/* PASS */
 	.pass {
-		background: var(--warm);
-		border-radius: var(--radius);
-		padding: clamp(var(--s-40), 8vw, var(--s-96)) clamp(var(--s-24), 6vw, var(--s-64));
 		display: grid;
-		grid-template-columns: 1.3fr 1fr;
-		gap: clamp(var(--s-24), 6vw, var(--s-64));
+		grid-template-columns: 1.4fr 1fr;
+		gap: clamp(28px, 6vw, 72px);
 		align-items: center;
 	}
-	.pass-h {
-		font-size: var(--t-36);
-		line-height: 1.12;
-		margin: var(--s-16) 0 0;
-		color: var(--ink);
+	.pass .head {
+		margin-top: 16px;
 	}
-	.pass-p {
-		margin-top: var(--s-24);
-		font-family: var(--mono);
-		font-size: var(--t-small);
-		color: var(--grey);
-		max-width: 42ch;
+	.data {
+		margin: 0;
+		border-top: 1px solid var(--vd-ink-rule);
 	}
-	@media (max-width: 760px) {
+	.data div {
+		display: flex;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 14px 0;
+		border-bottom: 1px solid var(--vd-ink-rule);
+	}
+	.data dt {
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--vd-ink-faint);
+	}
+	.data dd {
+		margin: 0;
+		font-family: var(--vd-mono);
+		font-size: 13px;
+		color: var(--vd-ink-grey);
+	}
+	@media (max-width: 720px) {
 		.pass {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	/* CONTACT */
-	.contact-h {
-		font-size: var(--t-48);
-		font-style: italic;
-		margin: var(--s-16) 0 0;
-		max-width: 16ch;
-		color: var(--ink);
+	/* FOOTER */
+	.foot {
+		border-top: 1px solid var(--vd-ink-rule-strong);
+		padding: clamp(40px, 6vw, 64px) 0;
+	}
+	.foot-in {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 32px;
+		flex-wrap: wrap;
+	}
+	.entity {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.entity span {
+		font-family: var(--vd-mono);
+		font-size: 10px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--vd-ink-faint);
+		line-height: 1.5;
+	}
+	.entity a {
+		color: var(--vd-ink-grey);
+		transition: color 200ms ease;
+	}
+	.entity a:hover {
+		color: var(--vd-ink);
+	}
+	.foot-links {
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+	.foot-links a {
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--vd-ink-faint);
+		transition: color 200ms ease;
+	}
+	.foot-links a:hover {
+		color: var(--vd-ink);
+	}
+	@media (max-width: 640px) {
+		.foot-in {
+			gap: 24px;
+		}
 	}
 
 	/* reveal */
 	[data-reveal] {
 		opacity: 0;
-		transform: translateY(14px);
-		transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-			transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+		transform: translateY(12px);
+		transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 	}
 	[data-reveal].in {
 		opacity: 1;
