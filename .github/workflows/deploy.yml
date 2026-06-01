@@ -32,6 +32,9 @@ jobs:
         run: npm run build
         env:
           BASE_PATH: ""
+          # Site-mode feature flag. Change this one line to flip the public site,
+          # then push to main (auto-redeploys). Values: coming_soon | maintenance | live
+          PUBLIC_SITE_MODE: "coming_soon"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

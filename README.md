@@ -99,29 +99,54 @@ npm run preview
 * **Favicon:** `static/favicon.svg`
 * **Primary page:** `src/routes/+page.svelte`
 * **Global layout / fonts:** `src/routes/+layout.svelte`
-* **Contact:** `mailto:hello@vnta.studio`
+* **Contact:** `mailto:hello@vendr.ie`
 * **Styling:** No utility frameworks — spacing and layout are deliberate
 
 ---
 
-## VNTA Example — “Coming Soon” Landing Page
+## Vendr — design system & build notes
 
-This repository may be used to implement a restrained, premium **“Coming Soon”** landing page for **VNTA** or its subsidiaries.
+Executed to the **Felixto Brand Guidelines v1.0** (the law), with structure/interaction
+ideas taken from the static HTML wireframes. Two scoped exceptions only.
 
-### Typography & Design System
+### Typography
 
-* **Primary typeface:** Optima
-* **Weights:** Regular, Medium, Demi-Bold, Bold
-* **Type scale:**
+* **Andale Mono** runs everything — body, lede, eyebrows, labels, data rows, UI, buttons.
+  Single weight. Web-served fallbacks (`JetBrains Mono`, `IBM Plex Mono`) ship in `app.html`
+  since Andale isn't a Google webfont; the stack lives in `--mono`.
+* **Newsreader** (one editorial serif) is permitted for **large display headlines only**
+  (`.display`, ≥28px) and never for body/labels/UI. Token: `--serif`.
+* The **`vendr.` wordmark** is the bold-sans logotype (the sole brand identifier — no symbol).
 
-  * 64px — Primary heading
-  * 48px — Section heading
-  * 36px — Subheading
-  * 24px — Body / supporting text
-* **Tone:** Calm, confident, minimal, intentional
+### Tokens
 
-> Until licensed web embedding is finalised, define web-safe fallbacks
-> (e.g. `Optima, Segoe, Helvetica Neue, Arial, sans-serif`).
+One source: [`src/app.css`](src/app.css). Palette (`--bg --ink --warm --grey` + line alphas),
+type scale (`--t-64/48/36/24`), and a spacing scale (`--s-4/8/16/24/40/64/96/160`).
+Components import tokens only — none redefine them.
+
+### Site modes (feature flag)
+
+The home route switches between three states via the build-time flag `PUBLIC_SITE_MODE`:
+
+```
+PUBLIC_SITE_MODE = coming_soon | maintenance | live      # default: coming_soon
+```
+
+Set it in `.env` (see `.env.example`) for local dev, or in the GitHub Actions build step
+for production. The site is statically prerendered, so a mode change requires a redeploy
+(automatic on push to `main`, ~1–2 min). Sections live in `src/lib/sections/`.
+
+### Brand assets
+
+* **Favicon:** `static/favicon.svg` — `v.` wordmark, warm off-white on black.
+* **OG card:** `static/og.png` (1200×630, near-mono). Source: `assets/og.svg` →
+  `rsvg-convert -w 1200 -h 630 assets/og.svg -o static/og.png`.
+* **Wordmark:** `static/wordmark.png` — **drop the official Felixto `vendr.` logotype here**
+  (warm off-white on transparent). A Helvetica placeholder currently ships; the
+  `Wordmark` component reads `/wordmark.png` and sizes by height.
+
+> **Admin panel** is intentionally NOT in this static repo — it needs real auth, which
+> GitHub Pages can't provide. Planned as a separate Supabase-backed app.
 
 ---
 
@@ -181,5 +206,5 @@ This repository may be used to implement a restrained, premium **“Coming Soon�
 ## Notes
 
 * Favicon lives at `static/favicon.svg`
-* Contact link: `hello@vvendr.ie`
+* Contact link: `hello@vendr.ie`
 * Update this README as the subsidiary evolves
