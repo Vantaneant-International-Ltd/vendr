@@ -34,6 +34,7 @@
 		<Eyebrow>A {brand.parent} company</Eyebrow>
 		<a class="foot-link" href={contact.href}>{contact.email}</a>
 		<a class="foot-link" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+		<a class="foot-link staff" href="/admin">Staff</a>
 	</footer>
 </main>
 
@@ -118,6 +119,16 @@
 		transition: color 0.2s ease;
 	}
 	.foot-link:hover {
+		color: var(--ink);
+	}
+	.foot-link.staff {
+		margin-left: auto;
+		border-bottom-color: transparent;
+		color: var(--grey-dim);
+		opacity: 0.7;
+	}
+	.foot-link.staff:hover {
+		opacity: 1;
 		color: var(--ink);
 	}
 </style>

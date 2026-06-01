@@ -1,50 +1,55 @@
 <script>
-	// Square email capture. Soft-launch: there is NO backend on this static host,
-	// so submit composes a mailto. When a real endpoint exists, set `endpoint`
-	// (a POST URL) — see the marked block below — and it will POST instead.
+	// Square email capture. Writes to the Supabase `subscribers` table (anon
+	// insert is allowed by RLS; only admins can read). Falls back to mailto if
+	// the network call fails, so a sign-up is never lost.
 	import { contact } from '$lib/brand.js';
+	import { supabase } from '$lib/supabase.js';
 
 	let {
 		placeholder = 'Your email — be first to know',
 		cta = 'Notify me',
 		note = 'No noise. One message when we open.',
-		/** real subscribe endpoint, when built; null → mailto fallback */
-		endpoint = null
+		source = 'coming_soon'
 	} = $props();
 
 	let email = $state('');
+	let done = $state(false);
+	let busy = $state(false);
 
 	async function submit(e) {
 		e.preventDefault();
-		if (!email) return;
-		// ── REAL ENDPOINT SLOTS IN HERE ──────────────────────────────────────
-		if (endpoint) {
-			await fetch(endpoint, {
-				method: 'POST',
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({ email })
-			});
+		if (!email || busy) return;
+		busy = true;
+		const { error } = await supabase.from('subscribers').insert({ email: email.trim(), source });
+		busy = false;
+		// Unique-violation (already subscribed) is a success from the user's view.
+		if (error && error.code !== '23505') {
+			// Network/RLS failure → don't lose the lead: hand off to mail.
+			window.location.href = `${contact.href}?subject=${encodeURIComponent(
+				'Notify me — Vendr'
+			)}&body=${encodeURIComponent(email)}`;
 			return;
 		}
-		// ── Static / soft-launch fallback: mailto ────────────────────────────
-		window.location.href = `${contact.href}?subject=${encodeURIComponent(
-			'Notify me — Vendr'
-		)}&body=${encodeURIComponent(email)}`;
+		done = true;
 	}
 </script>
 
-<form class="capture" onsubmit={submit}>
-	<input
-		type="email"
-		bind:value={email}
-		{placeholder}
-		aria-label="Email"
-		autocomplete="email"
-		required
-	/>
-	<button type="submit">{cta}</button>
-</form>
-{#if note}<p class="note">{note}</p>{/if}
+{#if done}
+	<p class="thanks">You're on the list. One message when we open.</p>
+{:else}
+	<form class="capture" onsubmit={submit}>
+		<input
+			type="email"
+			bind:value={email}
+			{placeholder}
+			aria-label="Email"
+			autocomplete="email"
+			required
+		/>
+		<button type="submit" disabled={busy}>{busy ? '…' : cta}</button>
+	</form>
+	{#if note}<p class="note">{note}</p>{/if}
+{/if}
 
 <style>
 	.capture {
@@ -90,5 +95,12 @@
 		font-size: var(--t-eyebrow);
 		letter-spacing: 0.04em;
 		color: var(--grey-dim);
+	}
+	.thanks {
+		font-family: var(--mono);
+		font-size: var(--t-small);
+		color: var(--ink);
+		border-left: 1px solid var(--line-strong);
+		padding-left: var(--s-16);
 	}
 </style>
