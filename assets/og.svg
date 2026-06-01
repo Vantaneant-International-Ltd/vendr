@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Source for static/og.png. Near-mono, wordmark left, tagline right.
+       Regenerate: rsvg-convert -w 1200 -h 630 assets/og.svg -o static/og.png -->
+  <rect width="1200" height="630" fill="#000000"/>
+
+  <!-- mono eyebrow -->
+  <text x="80" y="110" font-family="Menlo, 'DejaVu Sans Mono', monospace"
+        font-size="22" letter-spacing="6" fill="#9a9b96">PREMIUM VENDING SOLUTIONS</text>
+
+  <!-- wordmark (bold sans logotype) -->
+  <text x="76" y="360" font-family="Helvetica, Arial, sans-serif" font-weight="700"
+        font-size="190" letter-spacing="-6" fill="#f4f3f0">vendr.</text>
+
+  <!-- hairline rule -->
+  <rect x="80" y="500" width="1040" height="1" fill="rgba(154,155,150,0.42)"/>
+
+  <!-- footer row: site left, tagline right -->
+  <text x="80" y="552" font-family="Menlo, 'DejaVu Sans Mono', monospace"
+        font-size="24" letter-spacing="3" fill="#9a9b96">vendr.ie</text>
+  <text x="1120" y="552" text-anchor="end" font-family="Menlo, 'DejaVu Sans Mono', monospace"
+        font-size="24" letter-spacing="2" fill="#9a9b96">Premium vending, Ireland — Spring 2026</text>
+</svg>
