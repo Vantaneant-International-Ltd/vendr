@@ -14,6 +14,13 @@ export const supabase = createClient(
 	}
 );
 
+/** Add an email to the waitlist. Treats a duplicate as success. */
+export async function subscribe(email, source = 'coming_soon') {
+	const { error } = await supabase.from('subscribers').insert({ email: email.trim(), source });
+	if (error && error.code !== '23505') return { ok: false, error };
+	return { ok: true };
+}
+
 /** Is the currently signed-in user an admin? Uses the SECURITY DEFINER RPC. */
 export async function isAdmin() {
 	const { data, error } = await supabase.rpc('is_admin');

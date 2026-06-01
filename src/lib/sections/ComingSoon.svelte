@@ -1,134 +1,325 @@
 <script>
-	// STATE: coming_soon — teaser with email capture. Canon: left-aligned,
-	// cinematic darkened hero + veil, mono body, serif display statement, square.
+	// STATE: coming_soon — v2 (Éirvox-inspired): warm dark ground, Inter Tight,
+	// Newsreader-italic editorial line, champagne accent, underline-only capture,
+	// staggered "film title-card" fade-in. Vendr brand + content.
 	import { brand, contact } from '$lib/brand.js';
+	import { subscribe } from '$lib/supabase.js';
 	import Wordmark from '$lib/components/Wordmark.svelte';
-	import Eyebrow from '$lib/components/Eyebrow.svelte';
-	import EmailCapture from '$lib/components/EmailCapture.svelte';
+
+	let email = $state('');
+	let done = $state(false);
+	let busy = $state(false);
+	let error = $state('');
+
+	function valid(e) {
+		return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e);
+	}
+
+	async function submit(e) {
+		e.preventDefault();
+		if (busy) return;
+		error = '';
+		const value = email.trim();
+		if (!valid(value)) {
+			error = 'Please enter a valid email.';
+			return;
+		}
+		busy = true;
+		const res = await subscribe(value, 'coming_soon');
+		busy = false;
+		if (!res.ok) {
+			error = 'Something went wrong — try again.';
+			return;
+		}
+		done = true;
+	}
 </script>
 
-<main class="stage">
-	<div class="bg" aria-hidden="true">
-		<img src="/assets/machine1.jpg" alt="" class="bg-img" loading="eager" decoding="async" />
-		<div class="veil"></div>
-	</div>
-
+<main class="cs">
 	<div class="inner">
-		<header class="head">
-			<Wordmark size={28} />
-			<Eyebrow>{brand.tagline}</Eyebrow>
-		</header>
+		<div class="fade fade-1"><Wordmark size={64} /></div>
 
-		<h1 class="display statement">{brand.statement}</h1>
-		<p class="lede">
-			We're bringing a quieter, more considered form of retail to Ireland's workplaces and
-			hospitality spaces. {brand.launchLine}.
+		<p class="statement fade fade-2">{brand.statement}</p>
+
+		<p class="lede fade fade-2">
+			A quieter, more considered form of retail for Ireland's workplaces and hospitality spaces.
 		</p>
 
-		<div class="capture-wrap">
-			<EmailCapture />
-		</div>
-	</div>
+		<div class="group fade fade-3">
+			<span class="rule" aria-hidden="true"></span>
+			<span class="eyebrow">Launching {brand.launchLabel}</span>
 
-	<footer class="foot">
-		<Eyebrow>A {brand.parent} company</Eyebrow>
-		<a class="foot-link" href={contact.href}>{contact.email}</a>
-		<a class="foot-link" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-		<a class="foot-link staff" href="/admin">Staff</a>
-	</footer>
+			{#if done}
+				<p class="confirm">You're on the list. One note when we open.</p>
+			{:else}
+				<form class="form" onsubmit={submit}>
+					<label class="sr-only" for="cs-email">Email address</label>
+					<input
+						id="cs-email"
+						type="email"
+						class="input"
+						placeholder="Your email"
+						bind:value={email}
+						autocomplete="email"
+						disabled={busy}
+						required
+					/>
+					<button type="submit" class="btn" disabled={busy}>{busy ? 'Sending…' : 'Notify me'}</button>
+				</form>
+				{#if error}<p class="error" role="alert">{error}</p>{/if}
+			{/if}
+		</div>
+
+		<footer class="foot fade fade-4">
+			<span class="entity">{brand.legalEntity} · A {brand.parent} company</span>
+			<nav class="legal" aria-label="Legal">
+				<a href="/privacy">Privacy</a><span aria-hidden="true">·</span>
+				<a href="/terms">Terms</a><span aria-hidden="true">·</span>
+				<a href="/legal">Legal</a>
+			</nav>
+			<div class="social">
+				<a href={contact.linkedin} target="_blank" rel="noopener" aria-label="Vendr on LinkedIn">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+						<path d="M19.5 3h-15A1.5 1.5 0 003 4.5v15A1.5 1.5 0 004.5 21h15a1.5 1.5 0 001.5-1.5v-15A1.5 1.5 0 0019.5 3zM8.3 18H5.7V9.7h2.6V18zM7 8.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM18.3 18h-2.6v-4.2c0-1-.4-1.7-1.3-1.7-.7 0-1.1.5-1.3 1-.1.2-.1.4-.1.7V18h-2.6V9.7H13v1.1c.4-.6 1-1.3 2.2-1.3 1.6 0 3 1 3 3.3V18z" />
+					</svg>
+				</a>
+				<a class="staff" href="/admin">Staff</a>
+			</div>
+		</footer>
+	</div>
 </main>
 
 <style>
-	.stage {
-		position: relative;
+	.cs {
 		min-height: 100svh;
+		background: var(--vd-ground);
+		color: var(--vd-on-ground);
 		display: flex;
-		flex-direction: column;
+		align-items: center;
 		justify-content: center;
-		overflow: hidden;
-		padding: var(--s-96) clamp(var(--s-24), 6vw, var(--s-96));
-	}
-	.bg {
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-	}
-	.bg-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: brightness(0.34) saturate(0.82) contrast(1.02);
-	}
-	.veil {
-		position: absolute;
-		inset: 0;
-		background:
-			radial-gradient(120% 90% at 30% 30%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.82) 72%),
-			linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(26, 23, 20, 0.2) 45%, rgba(0, 0, 0, 0.88));
+		padding: 64px 24px;
 	}
 	.inner {
-		position: relative;
-		z-index: 1;
 		width: 100%;
-		max-width: var(--maxw);
-		margin: 0 auto;
-	}
-	.head {
+		max-width: 540px;
 		display: flex;
 		flex-direction: column;
-		gap: var(--s-16);
-		margin-bottom: var(--s-64);
+		align-items: center;
+		text-align: center;
 	}
+
 	.statement {
-		font-size: var(--t-64);
+		font-family: var(--vd-editorial);
 		font-style: italic;
-		line-height: 1.08;
-		max-width: 14ch;
-		margin: 0;
-		color: var(--ink);
+		font-size: clamp(28px, 5vw, 44px);
+		line-height: 1.12;
+		color: var(--vd-on-ground);
+		margin: 28px 0 0;
 	}
 	.lede {
-		margin-top: var(--s-24);
-		max-width: 48ch;
-		font-family: var(--mono);
-		font-size: var(--t-body);
-		line-height: 1.65;
-		color: var(--grey);
+		font-family: var(--vd-display);
+		font-weight: 400;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--vd-muted);
+		margin: 18px 0 0;
+		max-width: 400px;
 	}
-	.capture-wrap {
-		margin-top: var(--s-40);
-	}
-	.foot {
-		position: relative;
-		z-index: 1;
+
+	.group {
 		display: flex;
-		gap: var(--s-24);
-		flex-wrap: wrap;
+		flex-direction: column;
 		align-items: center;
-		max-width: var(--maxw);
-		margin: var(--s-64) auto 0;
+		width: 100%;
+		margin: 48px 0 56px;
 	}
-	.foot-link {
-		font-family: var(--mono);
-		font-size: var(--t-eyebrow);
-		letter-spacing: 0.12em;
+	.rule {
+		width: 120px;
+		height: 1px;
+		background: var(--vd-rule);
+		margin-bottom: 22px;
+	}
+	.eyebrow {
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: var(--grey-dim);
-		border-bottom: 1px solid var(--line-strong);
-		padding-bottom: var(--s-4);
-		transition: color 0.2s ease;
+		color: var(--vd-champagne);
+		margin-bottom: 22px;
 	}
-	.foot-link:hover {
-		color: var(--ink);
+
+	.form {
+		display: flex;
+		align-items: flex-end;
+		gap: 12px;
+		width: 100%;
+		max-width: 420px;
 	}
-	.foot-link.staff {
-		margin-left: auto;
-		border-bottom-color: transparent;
-		color: var(--grey-dim);
-		opacity: 0.7;
+	.input {
+		flex: 1;
+		min-width: 0;
+		background: transparent;
+		border: none;
+		border-bottom: 1px solid var(--vd-faint);
+		border-radius: 0;
+		color: var(--vd-on-ground);
+		font-family: var(--vd-display);
+		font-size: 15px;
+		padding: 9px 2px;
+		outline: none;
+		transition: border-color 200ms ease;
 	}
-	.foot-link.staff:hover {
-		opacity: 1;
-		color: var(--ink);
+	.input::placeholder {
+		color: var(--vd-faint);
+	}
+	.input:focus {
+		border-bottom-color: var(--vd-on-ground);
+	}
+	.input:disabled {
+		opacity: 0.6;
+	}
+	.btn {
+		background: var(--vd-champagne);
+		color: #1a1714;
+		border: none;
+		border-radius: 2px;
+		font-family: var(--vd-display);
+		font-size: 14px;
+		font-weight: 500;
+		padding: 11px 24px;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: opacity 200ms ease;
+	}
+	.btn:hover {
+		opacity: 0.85;
+	}
+	.btn:disabled {
+		opacity: 0.6;
+		cursor: default;
+	}
+	.error {
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.03em;
+		color: #c98b7b;
+		margin-top: 14px;
+	}
+	.confirm {
+		font-family: var(--vd-display);
+		font-size: 15px;
+		color: var(--vd-on-ground);
+		padding: 8px 0;
+	}
+
+	.foot {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 14px;
+	}
+	.entity {
+		font-family: var(--vd-mono);
+		font-size: 10px;
+		letter-spacing: 0.05em;
+		color: var(--vd-faint);
+	}
+	.legal {
+		display: flex;
+		gap: 8px;
+		font-family: var(--vd-mono);
+		font-size: 10px;
+		letter-spacing: 0.05em;
+		color: var(--vd-faint);
+	}
+	.legal a {
+		color: var(--vd-faint);
+		transition: color 200ms ease;
+	}
+	.legal a:hover {
+		color: var(--vd-champagne);
+	}
+	.social {
+		display: flex;
+		align-items: center;
+		gap: 18px;
+	}
+	.social a {
+		display: inline-flex;
+		align-items: center;
+		color: var(--vd-faint);
+		transition: color 200ms ease;
+	}
+	.social a:hover {
+		color: var(--vd-champagne);
+	}
+	.staff {
+		font-family: var(--vd-mono);
+		font-size: 10px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	/* Staggered title-card fade-in */
+	.fade {
+		opacity: 0;
+		animation: cs-fade 0.8s ease-out forwards;
+	}
+	.fade-1 {
+		animation-duration: 1.2s;
+		animation-delay: 0.3s;
+	}
+	.fade-2 {
+		animation-delay: 1s;
+	}
+	.fade-3 {
+		animation-delay: 1.5s;
+	}
+	.fade-4 {
+		animation-duration: 0.6s;
+		animation-delay: 2s;
+	}
+	@keyframes cs-fade {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.fade {
+			animation: none;
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.cs {
+			padding: 48px 20px;
+		}
+		.form {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 14px;
+		}
+		.input {
+			text-align: center;
+		}
+		.btn {
+			width: 100%;
+		}
 	}
 </style>

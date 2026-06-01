@@ -83,3 +83,28 @@ a {
 	font-weight: 400;
 	letter-spacing: 0;
 }
+
+/* ============================================================================
+   VENDR v2 — Éirvox-inspired language (Inter Tight + champagne accent)
+   Introduced for the Coming Soon redesign; rolling across the site in later
+   passes. Coexists with the v1 tokens above until each page is migrated.
+   ============================================================================ */
+:root {
+	/* Ground / ink */
+	--vd-paper: #f5f2ed; /* warm paper — live site ground (later passes) */
+	--vd-on-paper: #1a1a1a; /* ink text on paper */
+	--vd-ground: #161311; /* warm near-black — Coming Soon ground */
+	--vd-on-ground: #f4f3f0; /* off-white text on the dark ground */
+	--vd-muted: #8c8a85; /* secondary text */
+	--vd-faint: #5c5a55; /* footer / placeholders */
+	--vd-rule: rgba(244, 243, 240, 0.14);
+
+	/* Accent — champagne / brass */
+	--vd-champagne: #c9a961;
+	--vd-champagne-dim: rgba(201, 169, 97, 0.55);
+
+	/* Type */
+	--vd-display: 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+	--vd-editorial: 'Newsreader', Georgia, serif;
+	--vd-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
