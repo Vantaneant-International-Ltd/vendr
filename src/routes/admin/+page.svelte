@@ -8,6 +8,8 @@
 
 	let phase = $state('loading'); // loading | signin | sent | denied | ready
 	let email = $state('');
+	let password = $state('');
+	let newPassword = $state('');
 	let userEmail = $state('');
 	let busy = $state(false);
 	let toast = $state('');
@@ -66,6 +68,31 @@
 		busy = false;
 		phase = error ? 'signin' : 'sent';
 		if (error) flash(error.message);
+	}
+
+	async function signInPassword(e) {
+		e.preventDefault();
+		if (!email || !password) return;
+		busy = true;
+		const { error } = await supabase.auth.signInWithPassword({
+			email: email.trim(),
+			password
+		});
+		busy = false;
+		password = '';
+		if (error) return flash(error.message);
+		await resolve();
+	}
+
+	async function setPassword() {
+		if (newPassword.length < 8) return flash('Use at least 8 characters');
+		busy = true;
+		const { error } = await supabase.auth.updateUser({ password: newPassword });
+		busy = false;
+		if (error) return flash(error.message);
+		newPassword = '';
+		await logActivity('set account password');
+		flash('Password set — you can now sign in with email + password');
 	}
 
 	async function signOut() {
@@ -188,11 +215,16 @@
 		<div class="auth">
 			<Eyebrow>Restricted</Eyebrow>
 			<h1 class="display">Admin access</h1>
-			<p class="muted">Dev sessions only. Enter your email — we'll send a one-time sign-in link.</p>
-			<form onsubmit={sendLink} class="authform">
-				<input type="email" bind:value={email} placeholder="you@vnta.xyz" required />
-				<button type="submit" disabled={busy}>{busy ? 'Sending…' : 'Send magic link'}</button>
+			<p class="muted">Dev sessions only. Sign in with your password, or get a one-time email link.</p>
+			<form onsubmit={signInPassword} class="authform">
+				<input type="email" bind:value={email} placeholder="you@vnta.xyz" autocomplete="username" required />
+				<input type="password" bind:value={password} placeholder="Password" autocomplete="current-password" />
+				<div class="authrow">
+					<button type="submit" disabled={busy}>{busy ? '…' : 'Sign in'}</button>
+					<button type="button" class="ghost" onclick={sendLink} disabled={busy}>Email me a link</button>
+				</div>
 			</form>
+			<p class="muted small">No password yet? Use the email link once, then set one under <b>Your account</b>.</p>
 		</div>
 	{:else if phase === 'sent'}
 		<div class="auth">
@@ -312,6 +344,21 @@
 					<div class="lrow"><span class="muted">{fmt(a.created_at)}</span><span><b>{a.actor_email ?? '—'}</b> {a.action}{a.detail ? ` · ${a.detail}` : ''}</span></div>
 				{/each}
 			</section>
+
+			<!-- YOUR ACCOUNT -->
+			<section class="card">
+				<div class="card-h"><h2 class="display">Your account</h2><span class="count">{userEmail}</span></div>
+				<div class="additem">
+					<input
+						type="password"
+						placeholder="Set a new password (min 8 chars)"
+						autocomplete="new-password"
+						bind:value={newPassword}
+					/>
+					<button class="primary" disabled={busy} onclick={setPassword}>Set password</button>
+				</div>
+				<p class="note">Once set, sign in with email + password — no email link needed.</p>
+			</section>
 		</main>
 	{/if}
 
@@ -329,10 +376,13 @@
 
 	.auth { max-width: 460px; margin: var(--s-96) auto 0; display: grid; gap: var(--s-16); }
 	.auth h1 { font-size: var(--t-36); color: var(--ink); }
-	.authform { display: flex; border: 1px solid var(--line-strong); margin-top: var(--s-8); }
+	.authform { display: grid; gap: var(--s-8); margin-top: var(--s-8); }
 	.authform input, .additem input, .field input, .field select { background: var(--warm); border: 1px solid var(--line-strong); color: var(--ink); font-family: var(--mono); font-size: var(--t-small); padding: var(--s-16); outline: none; }
-	.authform input { flex: 1; border: 0; background: transparent; }
-	.authform button, .primary { font-family: var(--mono); font-size: var(--t-eyebrow); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; background: var(--ink); color: var(--bg); border: 0; padding: 0 var(--s-24); cursor: pointer; }
+	.authrow { display: flex; gap: var(--s-8); }
+	.authrow button { flex: 1; }
+	.authform button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-strong); }
+	.muted.small { font-size: var(--t-eyebrow); }
+	.authform button, .primary { font-family: var(--mono); font-size: var(--t-eyebrow); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; background: var(--ink); color: var(--bg); border: 0; padding: var(--s-16) var(--s-24); cursor: pointer; }
 	.primary { padding: var(--s-16) var(--s-24); margin-top: var(--s-8); }
 	.ghost { font-family: var(--mono); font-size: var(--t-eyebrow); letter-spacing: 0.14em; text-transform: uppercase; background: transparent; color: var(--ink); border: 1px solid var(--line-strong); padding: var(--s-8) var(--s-16); cursor: pointer; }
 	.ghost.sm { font-size: 10px; padding: var(--s-4) var(--s-8); color: var(--grey); }
