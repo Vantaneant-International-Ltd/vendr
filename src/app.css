@@ -85,26 +85,23 @@ a {
 }
 
 /* ============================================================================
-   VENDR v2 — Éirvox-inspired language (Inter Tight + champagne accent)
-   Introduced for the Coming Soon redesign; rolling across the site in later
-   passes. Coexists with the v1 tokens above until each page is migrated.
+   VENDR v2 — on-brand system (Felixto book): heavy grotesk + mono, monochrome.
+   Drawn straight from the brand book — sharp black, muted grey (exact book
+   value rgb(154,155,150)), the "\" motif, structured/technical. No serif, no
+   chroma. Distinct from Éirvox. Rolling across the site in later passes.
    ============================================================================ */
 :root {
-	/* Ground / ink */
-	--vd-paper: #f5f2ed; /* warm paper — live site ground (later passes) */
-	--vd-on-paper: #1a1a1a; /* ink text on paper */
-	--vd-ground: #161311; /* warm near-black — Coming Soon ground */
-	--vd-on-ground: #f4f3f0; /* off-white text on the dark ground */
-	--vd-muted: #8c8a85; /* secondary text */
-	--vd-faint: #5c5a55; /* footer / placeholders */
-	--vd-rule: rgba(244, 243, 240, 0.14);
+	/* Ground / ink — monochrome */
+	--vd-ground: #0b0a09; /* sharp warm-black — dark pages */
+	--vd-paper: #ece9e3; /* light grey-paper — live site ground (later passes) */
+	--vd-on-ground: #f4f3f0; /* off-white text on dark */
+	--vd-grey: rgb(154, 155, 150); /* muted GREY — exact book value */
+	--vd-muted: rgba(154, 155, 150, 0.86);
+	--vd-faint: rgba(154, 155, 150, 0.5);
+	--vd-rule: rgba(154, 155, 150, 0.18);
+	--vd-rule-strong: rgba(154, 155, 150, 0.34);
 
-	/* Accent — champagne / brass */
-	--vd-champagne: #c9a961;
-	--vd-champagne-dim: rgba(201, 169, 97, 0.55);
-
-	/* Type */
-	--vd-display: 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-	--vd-editorial: 'Newsreader', Georgia, serif;
+	/* Type — heavy grotesk display + mono technical. No serif. */
+	--vd-display: 'Archivo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	--vd-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
