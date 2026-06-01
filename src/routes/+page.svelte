@@ -31,17 +31,23 @@
 	};
 	const m = $derived(meta[buildMode]); // SEO always reflects the real public state
 
+	const MODES = ['coming_soon', 'maintenance', 'live'];
+
 	onMount(async () => {
+		// ?preview=<mode> previews any state client-side — review convenience.
+		// Crawlers/SEO still see the deployed (prerendered) mode. The on-page
+		// switcher stays admin-only.
+		const url = new URL(location.href);
+		const req = url.searchParams.get('preview');
+		if (req && MODES.includes(req)) override = req === buildMode ? null : req;
+
 		const { data } = await supabase.auth.getSession();
 		if (!data.session) return;
 		admin = await isAdmin();
-		if (!admin) return;
-		// resolve a preview request: ?preview=<mode> wins, else last choice
-		const url = new URL(location.href);
-		const req = url.searchParams.get('preview');
-		const stored = localStorage.getItem('vendr_preview');
-		const choice = req || stored;
-		if (choice && choice !== buildMode) override = choice;
+		if (admin && !req) {
+			const stored = localStorage.getItem('vendr_preview');
+			if (stored && stored !== buildMode) override = stored;
+		}
 	});
 
 	function selectPreview(v) {
