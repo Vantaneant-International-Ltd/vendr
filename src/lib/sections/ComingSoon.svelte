@@ -129,12 +129,12 @@
 	}
 	.headline {
 		font-family: var(--vd-display);
-		font-weight: 700;
-		font-size: clamp(44px, 9vw, 120px);
-		line-height: 0.96;
-		letter-spacing: -0.03em;
+		font-weight: 500;
+		font-size: clamp(34px, 6.2vw, 84px);
+		line-height: 1.03;
+		letter-spacing: -0.02em;
 		color: var(--vd-on-ground);
-		max-width: 16ch;
+		max-width: 15ch;
 		margin: 0;
 	}
 	.bs {
@@ -282,15 +282,45 @@
 		}
 	}
 
-	@media (max-width: 560px) {
+	/* Mobile — cosy, never dense or stressful. More air, calmer type,
+	   stacked footer, just the mark up top. */
+	@media (max-width: 600px) {
+		.cs {
+			padding: 28px 22px 34px;
+			gap: 40px;
+		}
+		.top .tag {
+			display: none;
+		}
+		.marker {
+			margin-bottom: 22px;
+		}
+		.headline {
+			font-size: clamp(30px, 8.5vw, 40px);
+			line-height: 1.08;
+			max-width: 18ch;
+		}
+		.lede {
+			font-size: 13.5px;
+			line-height: 1.75;
+			margin-top: 22px;
+		}
+		.capture {
+			margin-top: 32px;
+		}
 		.form {
 			flex-direction: column;
 		}
 		.btn {
-			padding: 13px 22px;
+			padding: 15px 22px;
 		}
 		.bar.bottom {
-			gap: var(--s-16);
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 18px;
+		}
+		.links {
+			gap: 16px 22px;
 		}
 	}
 </style>
