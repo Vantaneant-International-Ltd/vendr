@@ -73,7 +73,14 @@
 	</section>
 
 	<footer class="bar bottom rise d4">
-		<span class="tag">{brand.legalEntity} · A {brand.parent} company</span>
+		<div class="entity">
+			<span>{brand.legalEntity}</span>
+			<span>
+				A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> company · sister
+				to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a>
+			</span>
+			<span>Est. {brand.established}</span>
+		</div>
 		<nav class="links" aria-label="Footer">
 			<a href="/privacy">Privacy</a>
 			<a href="/terms">Terms</a>
@@ -214,6 +221,28 @@
 		font-family: var(--vd-mono);
 		font-size: 14px;
 		letter-spacing: 0.02em;
+		color: var(--vd-on-ground);
+	}
+
+	/* footer entity — corporate family */
+	.entity {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.entity span {
+		font-family: var(--vd-mono);
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--vd-faint);
+		line-height: 1.5;
+	}
+	.entity a {
+		color: var(--vd-grey);
+		transition: color 200ms ease;
+	}
+	.entity a:hover {
 		color: var(--vd-on-ground);
 	}
 

@@ -14,8 +14,12 @@ export const brand = {
 	launchLine: 'Launching Spring 2026',
 	launchLabel: 'Spring 2026',
 	statement: 'Where vending evolves.',
+	legalEntity: 'Atlas Refreshments Limited',
+	established: '2026',
+	// Corporate family
 	parent: 'VNTA',
-	legalEntity: 'Atlas Refreshments Ltd.'
+	parentUrl: 'https://www.vnta.xyz',
+	affiliate: { name: 'Éirvox', url: 'https://eirvox.ie' } // sister company
 };
 
 // First-class sub-brands. Reference by key; never inline the strings.
