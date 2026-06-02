@@ -8,8 +8,8 @@
 
 	let {
 		status = 'Scheduled maintenance',
-		eta = 'Today, 18:00 IST',
-		affected = 'vendr.ie · Pass app'
+		eta = 'When ready',
+		affected = 'vendr.ie'
 	} = $props();
 
 	const rows = [
