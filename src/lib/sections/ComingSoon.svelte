@@ -72,12 +72,13 @@
 		</div>
 	</section>
 
-	<footer class="bar bottom rise d4">
-		<div class="entity">
-			<span>{brand.legalEntity}</span>
+	<footer class="foot rise d4">
+		<div class="credit">
+			<span class="lead">{brand.legalEntity}</span>
+			<span>A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> Company</span>
 			<span>
-				A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> company · sister
-				to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a>
+				In affiliation with
+				<a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a>
 			</span>
 			<span>Est. {brand.established}</span>
 		</div>
@@ -109,9 +110,6 @@
 		justify-content: space-between;
 		gap: var(--s-24);
 		flex-wrap: wrap;
-	}
-	.bar.bottom {
-		align-items: flex-end; /* links sit on the baseline of the 3-line entity */
 	}
 	.tag {
 		font-family: var(--vd-mono);
@@ -227,34 +225,46 @@
 		color: var(--vd-on-ground);
 	}
 
-	/* footer entity — corporate family */
-	.entity {
+	/* footer — centered cinematic production card */
+	.foot {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
+		align-items: center;
+		text-align: center;
+		gap: clamp(20px, 3vh, 30px);
 	}
-	.entity span {
+	.credit {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.credit span {
 		font-family: var(--vd-mono);
 		font-size: 10px;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.26em;
 		text-transform: uppercase;
 		color: var(--vd-faint);
-		line-height: 1.5;
+		line-height: 1.4;
+		text-indent: 0.26em; /* optical-centre the tracked text */
 	}
-	.entity a {
+	.credit .lead {
+		color: var(--vd-grey);
+	}
+	.credit a {
 		color: var(--vd-grey);
 		transition: color 200ms ease;
 	}
-	.entity a:hover {
+	.credit a:hover {
 		color: var(--vd-on-ground);
 	}
 
 	/* footer links */
 	.links {
 		display: flex;
-		gap: clamp(14px, 2vw, 28px);
+		gap: clamp(16px, 2.4vw, 30px);
 		flex-wrap: wrap;
 		align-items: center;
+		justify-content: center;
 	}
 	.links a {
 		font-family: var(--vd-mono);
@@ -346,13 +356,12 @@
 		.btn {
 			padding: 15px 22px;
 		}
-		.bar.bottom {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 18px;
-		}
 		.links {
-			gap: 16px 22px;
+			gap: 14px 22px;
+		}
+		.credit span {
+			letter-spacing: 0.2em;
+			text-indent: 0.2em;
 		}
 	}
 </style>
