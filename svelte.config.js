@@ -11,7 +11,14 @@ const config = {
 			base: ''
 		},
 		prerender: {
-			entries: ['*']
+			entries: ['*'],
+			// /hero.jpg is an OPTIONAL cinematic plate — when absent the CSS
+			// frame stands in and the client onerror hides the <img>. Don't fail
+			// the build over the missing-by-design asset.
+			handleHttpError: ({ path, message }) => {
+				if (path === '/hero.jpg') return;
+				throw new Error(message);
+			}
 		}
 	}
 };

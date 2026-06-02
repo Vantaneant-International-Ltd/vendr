@@ -57,6 +57,9 @@
 
 html {
 	scroll-behavior: smooth;
+	/* Dark canvas: full-bleed page roots paint over this; any sub-pixel gap from
+	   svh/dvh rounding stays invisible instead of flashing the browser default. */
+	background: var(--bg);
 }
 
 body {
