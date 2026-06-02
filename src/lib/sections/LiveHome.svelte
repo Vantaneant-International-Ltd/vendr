@@ -1,13 +1,18 @@
 <script>
-	// STATE: live — CINEMATIC film-studio surface (one world with the Coming Soon).
-	// A dark cinematic spine — hero, machine scene, path, lineup, contact — lit by
-	// two PAPER "intermissions" (ethos/values + Vendr Pass) for rhythm, like lit
-	// scenes inside a dark film. Heavy grotesk statements, mono technical labels,
-	// the "\" motif, vignettes, slow reveals. Monochrome. Cosy mobile.
+	// STATE: live — EDITORIAL, paper-led. Paper is the home base (warm paper,
+	// ink mono + Archivo statements, structured mastheads and rules); the dark
+	// cinematic world appears only as PUNCTUATION — the machine film-still and an
+	// inverted Vendr Pass moment. Its own identity: a confident editorial site,
+	// distinct from the Coming Soon title-card. Monochrome, the "\" motif. Cosy mobile.
 	import { onMount } from 'svelte';
 	import { brand, subBrands, contact } from '$lib/brand.js';
 	import Wordmark from '$lib/components/Wordmark.svelte';
 
+	const index = [
+		{ k: 'Approach', v: 'Curated · Irish-first' },
+		{ k: 'Placement', v: 'Workplaces & hospitality' },
+		{ k: 'Status', v: `Launching ${brand.launchLabel}` }
+	];
 	const values = [
 		{ n: '01', h: 'Clarity', p: 'Systems and interactions designed to be simple, legible, intuitive.' },
 		{ n: '02', h: 'Intent', p: 'Every placement is deliberate — thoughtful integration over scale.' },
@@ -41,26 +46,19 @@
 		['For', 'Returning members']
 	];
 
-	let scrolled = $state(false);
-
 	onMount(() => {
 		const io = new IntersectionObserver(
 			(es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
 			{ threshold: 0.12 }
 		);
 		document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
-
-		const onScroll = () => (scrolled = window.scrollY > 24);
-		onScroll();
-		window.addEventListener('scroll', onScroll, { passive: true });
-		return () => window.removeEventListener('scroll', onScroll);
 	});
 </script>
 
 <!-- NAV -->
-<header class="nav" class:scrolled>
+<header class="nav">
 	<div class="wrap nav-in">
-		<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark.png" size={22} /></a>
+		<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={22} /></a>
 		<nav class="nav-links" aria-label="Sections">
 			<a href="#about">About</a>
 			<a href="#path">Path</a>
@@ -72,10 +70,9 @@
 </header>
 
 <main id="top">
-	<!-- HERO — cinematic dark opening -->
+	<!-- HERO — editorial masthead -->
 	<section class="hero">
-		<div class="plate" aria-hidden="true"></div>
-		<div class="wrap hero-in">
+		<div class="wrap">
 			<span class="marker" data-reveal>Curated vending — Ireland <span class="bs">\</span> Est. {brand.established}</span>
 			<h1 class="statement" data-reveal>Where vending evolves <span class="bs">\</span></h1>
 			<p class="lede" data-reveal>
@@ -87,10 +84,17 @@
 				<a href="#path" class="link">See the path</a>
 			</div>
 		</div>
-		<span class="scroll-cue" aria-hidden="true">Scroll <span class="bs">\</span></span>
+		<div class="wrap hero-index" data-reveal>
+			{#each index as i}
+				<div class="idx">
+					<span class="ik">{i.k}</span>
+					<span class="iv">{i.v}</span>
+				</div>
+			{/each}
+		</div>
 	</section>
 
-	<!-- MACHINE SCENE -->
+	<!-- MACHINE SCENE — dark punctuation -->
 	<section class="band" aria-label="Vendr in space">
 		<img src="/assets/machine1.jpg" alt="" class="band-img" loading="lazy" decoding="async" />
 		<div class="band-veil"></div>
@@ -105,8 +109,8 @@
 		</div>
 	</section>
 
-	<!-- PAPER INTERMISSION I — ETHOS + VALUES -->
-	<section class="block paper" id="about">
+	<!-- ABOUT + VALUES -->
+	<section class="block" id="about">
 		<div class="wrap">
 			<span class="eyebrow">01 — About <span class="bs">\</span></span>
 			<p class="big" data-reveal>
@@ -135,8 +139,8 @@
 		</div>
 	</section>
 
-	<!-- PATH — dark scene -->
-	<section class="block" id="path">
+	<!-- PATH -->
+	<section class="block alt" id="path">
 		<div class="wrap">
 			<span class="eyebrow">02 — Our path <span class="bs">\</span></span>
 			<h2 class="head" data-reveal>A deliberate progression.</h2>
@@ -153,7 +157,7 @@
 		</div>
 	</section>
 
-	<!-- LINEUP — dark scene -->
+	<!-- LINEUP -->
 	<section class="block" id="lineup">
 		<div class="wrap">
 			<span class="eyebrow">03 — A sample lineup <span class="bs">\</span></span>
@@ -180,8 +184,8 @@
 		</div>
 	</section>
 
-	<!-- PAPER INTERMISSION II — VENDR PASS -->
-	<section class="block paper" id="pass">
+	<!-- VENDR PASS — dark punctuation -->
+	<section class="block dark" id="pass">
 		<div class="wrap pass" data-reveal>
 			<div>
 				<span class="eyebrow">04 — {subBrands.pass.name} <span class="bs">\</span></span>
@@ -199,8 +203,8 @@
 		</div>
 	</section>
 
-	<!-- CONTACT — dark closing scene -->
-	<section class="block contact" id="contact">
+	<!-- CONTACT -->
+	<section class="block" id="contact">
 		<div class="wrap">
 			<span class="eyebrow">05 — Enquire <span class="bs">\</span></span>
 			<h2 class="head big-head" data-reveal>A placement is a conversation.</h2>
@@ -215,22 +219,19 @@
 		</div>
 	</section>
 
-	<!-- FOOTER — cinematic production card -->
+	<!-- FOOTER — plain editorial -->
 	<footer class="foot">
-		<div class="foot-card">
-			<a href="#top" aria-label={brand.name} class="foot-mark"><Wordmark src="/wordmark.png" size={22} /></a>
-			<p class="entity">
+		<div class="wrap foot-in">
+			<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={20} /></a>
+			<div class="entity">
 				<span class="lead">{brand.legalEntity}</span>
-				<span>A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> Company · sister to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a></span>
+				<span>A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> Company — sister to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a></span>
 				<span>Est. {brand.established}</span>
-			</p>
+			</div>
 			<nav class="foot-links" aria-label="Footer">
 				<a href="/privacy">Privacy</a>
-				<span class="dot"></span>
 				<a href="/terms">Terms</a>
-				<span class="dot"></span>
 				<a href="/legal">Legal</a>
-				<span class="dot"></span>
 				<a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
 			</nav>
 		</div>
@@ -239,11 +240,11 @@
 
 <style>
 	:global(body) {
-		background: var(--vd-ground);
+		background: var(--vd-paper);
 	}
 	main {
-		background: var(--vd-ground);
-		color: var(--vd-on-ground);
+		background: var(--vd-paper);
+		color: var(--vd-ink);
 	}
 	.wrap {
 		max-width: 1180px;
@@ -251,27 +252,23 @@
 		padding: 0 clamp(20px, 6vw, 80px);
 	}
 	.bs {
-		color: var(--vd-grey);
+		color: var(--vd-ink-grey);
 	}
 
-	/* NAV — transparent over the hero, faint dark bar once scrolled */
+	/* NAV — paper */
 	.nav {
 		position: sticky;
 		top: 0;
 		z-index: 40;
-		border-bottom: 1px solid transparent;
-		transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
-	}
-	.nav.scrolled {
-		background: color-mix(in srgb, var(--vd-ground) 78%, transparent);
-		backdrop-filter: blur(10px);
-		border-bottom-color: var(--vd-rule);
+		background: color-mix(in srgb, var(--vd-paper) 86%, transparent);
+		backdrop-filter: blur(8px);
+		border-bottom: 1px solid var(--vd-ink-rule);
 	}
 	.nav-in {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 68px;
+		height: 66px;
 	}
 	.nav-links {
 		display: flex;
@@ -281,14 +278,14 @@
 	.nav-links a {
 		font-family: var(--vd-mono);
 		font-size: 12px;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--vd-faint);
+		color: var(--vd-ink-grey);
 		transition: color 200ms ease;
 	}
 	.nav-links a:hover,
 	.enquire {
-		color: var(--vd-on-ground) !important;
+		color: var(--vd-ink) !important;
 	}
 	@media (max-width: 680px) {
 		.nav-links a:not(.enquire) {
@@ -302,26 +299,25 @@
 		display: block;
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.18em;
+		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--vd-grey);
+		color: var(--vd-ink-grey);
 	}
 	.statement {
 		font-family: var(--vd-display);
 		font-weight: 500;
-		font-size: clamp(38px, 6.6vw, 92px);
-		line-height: 1.02;
-		letter-spacing: -0.022em;
-		color: var(--vd-on-ground);
+		font-size: clamp(40px, 7vw, 96px);
+		line-height: 1.0;
+		letter-spacing: -0.024em;
+		color: var(--vd-ink);
 		margin: clamp(22px, 3vw, 36px) 0 0;
-		max-width: 14ch;
-		text-shadow: 0 0 60px rgba(244, 243, 240, 0.06);
+		max-width: 13ch;
 	}
 	.lede {
 		font-family: var(--vd-mono);
 		font-size: clamp(13px, 1.3vw, 15px);
 		line-height: 1.85;
-		color: var(--vd-muted);
+		color: var(--vd-ink);
 		max-width: 58ch;
 		margin: clamp(24px, 3vw, 36px) 0 0;
 	}
@@ -331,17 +327,17 @@
 		gap: clamp(16px, 3vw, 28px);
 		align-items: center;
 		flex-wrap: wrap;
-		margin-top: clamp(30px, 4vw, 44px);
+		margin-top: clamp(28px, 4vw, 40px);
 	}
 	.btn {
 		font-family: var(--vd-mono);
 		font-size: 12px;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		background: var(--vd-on-ground);
-		color: var(--vd-ground);
-		border: 1px solid var(--vd-on-ground);
-		padding: 15px 24px;
+		background: var(--vd-ink);
+		color: var(--vd-paper);
+		border: 1px solid var(--vd-ink);
+		padding: 14px 22px;
 		transition: opacity 200ms ease;
 	}
 	.btn:hover {
@@ -350,68 +346,60 @@
 	.link {
 		font-family: var(--vd-mono);
 		font-size: 12px;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--vd-grey);
-		border-bottom: 1px solid var(--vd-rule-strong);
+		color: var(--vd-ink-grey);
+		border-bottom: 1px solid var(--vd-ink-rule-strong);
 		padding-bottom: 3px;
 		transition: color 200ms ease;
 	}
 	.link:hover {
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 	}
 
-	/* HERO — cinematic plate (light-pool + vignette), statement-led */
+	/* HERO — editorial masthead with an index strip */
 	.hero {
-		position: relative;
-		min-height: 92svh;
+		padding: clamp(64px, 11vw, 132px) 0 0;
+	}
+	.hero-index {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: clamp(16px, 3vw, 40px);
+		margin-top: clamp(48px, 8vw, 104px);
+		padding: clamp(20px, 2.4vw, 28px) 0 clamp(56px, 9vw, 112px);
+		border-top: 1px solid var(--vd-ink-rule-strong);
+	}
+	.idx {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		padding: clamp(80px, 14vh, 160px) 0 clamp(64px, 10vh, 120px);
-		margin-top: -68px; /* slide hero under the transparent nav */
-		overflow: hidden;
+		gap: 7px;
 	}
-	.hero .plate {
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-		background:
-			radial-gradient(120% 80% at 18% 30%, rgba(154, 155, 150, 0.06), transparent 56%),
-			radial-gradient(120% 90% at 70% 100%, rgba(86, 70, 48, 0.34), transparent 60%),
-			radial-gradient(150% 130% at 50% 50%, transparent 42%, rgba(4, 3, 2, 0.66) 100%),
-			var(--vd-ground);
-	}
-	.hero-in {
-		position: relative;
-		z-index: 1;
-		width: 100%;
-	}
-	.scroll-cue {
-		position: absolute;
-		left: 50%;
-		bottom: clamp(20px, 4vh, 36px);
-		transform: translateX(-50%);
-		z-index: 1;
+	.ik {
 		font-family: var(--vd-mono);
-		font-size: 10px;
-		letter-spacing: 0.3em;
+		font-size: 10.5px;
+		letter-spacing: 0.18em;
 		text-transform: uppercase;
-		text-indent: 0.3em;
-		color: var(--vd-faint);
-		animation: cue 2.4s ease-in-out infinite;
+		color: var(--vd-ink-faint);
 	}
-	@keyframes cue {
-		0%, 100% { opacity: 0.4; transform: translate(-50%, 0); }
-		50% { opacity: 0.85; transform: translate(-50%, 4px); }
+	.iv {
+		font-family: var(--vd-mono);
+		font-size: 13px;
+		letter-spacing: 0.02em;
+		color: var(--vd-ink);
+	}
+	@media (max-width: 640px) {
+		.hero-index {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
 	}
 
-	/* MACHINE SCENE — full-bleed dark film still */
+	/* MACHINE SCENE — dark punctuation */
 	.band {
 		position: relative;
 		overflow: hidden;
 		background: var(--vd-ground);
-		padding: clamp(96px, 18vw, 220px) 0;
+		padding: clamp(88px, 16vw, 200px) 0;
 	}
 	.band-img {
 		position: absolute;
@@ -427,20 +415,19 @@
 		inset: 0;
 		background:
 			linear-gradient(to right, rgba(11, 10, 9, 0.94) 8%, rgba(11, 10, 9, 0.5) 55%, rgba(11, 10, 9, 0.7)),
-			linear-gradient(to bottom, rgba(11, 10, 9, 0.6), transparent 30%, rgba(11, 10, 9, 0.75)),
-			radial-gradient(140% 120% at 30% 50%, transparent 42%, rgba(4, 3, 2, 0.55));
+			linear-gradient(to bottom, rgba(11, 10, 9, 0.55), transparent 32%, rgba(11, 10, 9, 0.72));
 	}
 	.band-in {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: clamp(32px, 5vw, 56px);
+		gap: clamp(28px, 5vw, 48px);
 	}
 	.band-copy {
 		font-family: var(--vd-mono);
-		font-size: clamp(14px, 1.7vw, 20px);
+		font-size: clamp(14px, 1.6vw, 19px);
 		line-height: 1.85;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.03em;
 		text-transform: uppercase;
 		color: var(--vd-on-ground);
 		margin: 0;
@@ -449,43 +436,22 @@
 		color: var(--vd-faint);
 	}
 
-	/* BLOCKS — dark by default */
+	/* BLOCKS — paper by default */
 	.block {
-		position: relative;
-		padding: clamp(72px, 13vw, 168px) 0;
-		border-top: 1px solid var(--vd-rule);
+		padding: clamp(56px, 10vw, 128px) 0;
+		border-top: 1px solid var(--vd-ink-rule);
 	}
-
-	/* PAPER INTERMISSIONS — the lit scenes */
-	.block.paper {
-		background: var(--vd-paper);
-		color: var(--vd-ink);
-		border-top: none;
-	}
-	.paper .eyebrow,
-	.paper .marker {
-		color: var(--vd-ink-grey);
-	}
-	.paper .bs {
-		color: var(--vd-ink-grey);
-	}
-	.paper .big {
-		color: var(--vd-ink);
-	}
-	.paper .head {
-		color: var(--vd-ink);
-	}
-	.paper .cols p,
-	.paper .sub {
-		color: var(--vd-ink-grey);
+	.block.alt {
+		background: color-mix(in srgb, var(--vd-ink) 4%, var(--vd-paper));
 	}
 
 	.big {
 		font-family: var(--vd-display);
 		font-weight: 500;
 		font-size: clamp(26px, 3.6vw, 48px);
-		line-height: 1.16;
+		line-height: 1.14;
 		letter-spacing: -0.016em;
+		color: var(--vd-ink);
 		max-width: 22ch;
 		margin: clamp(20px, 3vw, 34px) 0 0;
 	}
@@ -495,12 +461,12 @@
 		font-size: clamp(24px, 3.2vw, 42px);
 		line-height: 1.08;
 		letter-spacing: -0.016em;
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 		margin: clamp(14px, 2vw, 24px) 0 0;
 		max-width: 20ch;
 	}
 	.head.big-head {
-		font-size: clamp(30px, 4.8vw, 62px);
+		font-size: clamp(30px, 4.8vw, 60px);
 		max-width: 15ch;
 	}
 	.cols {
@@ -515,7 +481,7 @@
 		font-family: var(--vd-mono);
 		font-size: 13.5px;
 		line-height: 1.85;
-		color: var(--vd-muted);
+		color: var(--vd-ink-grey);
 	}
 	.sub {
 		max-width: 56ch;
@@ -528,7 +494,7 @@
 		}
 	}
 
-	/* VALUES (paper) */
+	/* VALUES */
 	.values {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
@@ -593,20 +559,20 @@
 		}
 	}
 
-	/* PATH (dark) */
+	/* PATH */
 	.path {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		border-top: 1px solid var(--vd-rule-strong);
+		border-top: 1px solid var(--vd-ink-rule-strong);
 		margin-top: clamp(32px, 5vw, 56px);
 	}
 	.stage {
 		position: relative;
 		padding: 28px 24px 40px 0;
-		border-bottom: 1px solid var(--vd-rule);
+		border-bottom: 1px solid var(--vd-ink-rule);
 	}
 	.stage:not(:last-child) {
-		border-right: 1px solid var(--vd-rule);
+		border-right: 1px solid var(--vd-ink-rule);
 		padding-right: 24px;
 	}
 	.stage:not(:first-child) {
@@ -618,40 +584,40 @@
 		left: 0;
 		height: 2px;
 		width: 0;
-		background: var(--vd-on-ground);
+		background: var(--vd-ink);
 	}
 	.stage.current .bar {
 		width: 100%;
 	}
 	.stage.done .bar {
 		width: 100%;
-		background: var(--vd-faint);
+		background: var(--vd-ink-faint);
 	}
 	.tick {
 		font-family: var(--vd-mono);
 		font-size: 11px;
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--vd-faint);
+		color: var(--vd-ink-faint);
 	}
 	.stage.current .tick {
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 	}
 	.stage h4 {
 		font-family: var(--vd-display);
 		font-weight: 500;
 		font-size: 19px;
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 		margin: 14px 0 8px;
 	}
 	.stage.done h4 {
-		color: var(--vd-grey);
+		color: var(--vd-ink-grey);
 	}
 	.stage p {
 		font-family: var(--vd-mono);
 		font-size: 12.5px;
 		line-height: 1.65;
-		color: var(--vd-muted);
+		color: var(--vd-ink-grey);
 	}
 	@media (max-width: 860px) {
 		.path {
@@ -663,7 +629,7 @@
 			border-right: none !important;
 		}
 		.stage:nth-child(odd) {
-			border-right: 1px solid var(--vd-rule) !important;
+			border-right: 1px solid var(--vd-ink-rule) !important;
 			padding-right: 24px !important;
 		}
 		.stage:nth-child(even) {
@@ -681,17 +647,17 @@
 		}
 	}
 
-	/* LINEUP (dark) */
+	/* LINEUP */
 	.cat {
 		font-family: var(--vd-mono);
 		font-size: 11px;
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--vd-grey);
+		color: var(--vd-ink-grey);
 		margin: clamp(36px, 5vw, 52px) 0 0;
 	}
 	.menu {
-		border-top: 1px solid var(--vd-rule);
+		border-top: 1px solid var(--vd-ink-rule);
 		margin-top: 10px;
 	}
 	.item {
@@ -700,25 +666,24 @@
 		gap: 24px;
 		align-items: baseline;
 		padding: 16px 0;
-		border-bottom: 1px solid var(--vd-rule);
-		transition: padding-left 0.25s ease, background 0.25s ease;
+		border-bottom: 1px solid var(--vd-ink-rule);
+		transition: padding-left 0.25s ease;
 	}
 	.item:hover {
-		padding-left: 14px;
-		background: rgba(154, 155, 150, 0.04);
+		padding-left: 12px;
 	}
 	.item b {
 		font-family: var(--vd-mono);
 		font-weight: 500;
 		font-size: 14px;
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 		display: block;
 	}
 	.item .d {
 		display: block;
 		font-family: var(--vd-mono);
 		font-size: 12px;
-		color: var(--vd-muted);
+		color: var(--vd-ink-grey);
 		margin-top: 3px;
 	}
 	.item .src {
@@ -726,11 +691,28 @@
 		font-size: 11px;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: var(--vd-faint);
+		color: var(--vd-ink-faint);
 		white-space: nowrap;
 	}
 
-	/* PASS (paper) */
+	/* PASS — dark punctuation */
+	.block.dark {
+		background: var(--vd-ground);
+		color: var(--vd-on-ground);
+		border-top: none;
+	}
+	.dark .eyebrow {
+		color: var(--vd-grey);
+	}
+	.dark .bs {
+		color: var(--vd-faint);
+	}
+	.dark .head {
+		color: var(--vd-on-ground);
+	}
+	.dark .sub {
+		color: var(--vd-muted);
+	}
 	.pass {
 		display: grid;
 		grid-template-columns: 1.4fr 1fr;
@@ -742,27 +724,27 @@
 	}
 	.data {
 		margin: 0;
-		border-top: 1px solid var(--vd-ink-rule);
+		border-top: 1px solid var(--vd-rule);
 	}
 	.data div {
 		display: flex;
 		justify-content: space-between;
 		gap: 16px;
 		padding: 14px 0;
-		border-bottom: 1px solid var(--vd-ink-rule);
+		border-bottom: 1px solid var(--vd-rule);
 	}
 	.data dt {
 		font-family: var(--vd-mono);
 		font-size: 11px;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: var(--vd-ink-faint);
+		color: var(--vd-faint);
 	}
 	.data dd {
 		margin: 0;
 		font-family: var(--vd-mono);
 		font-size: 13px;
-		color: var(--vd-ink-grey);
+		color: var(--vd-grey);
 	}
 	@media (max-width: 720px) {
 		.pass {
@@ -770,94 +752,68 @@
 		}
 	}
 
-	/* CONTACT — closing scene with a faint light pool */
-	.contact {
-		overflow: hidden;
-	}
-	.contact::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-		background: radial-gradient(90% 120% at 50% 120%, rgba(86, 70, 48, 0.26), transparent 60%);
-		pointer-events: none;
-	}
-	.contact .wrap {
-		position: relative;
-		z-index: 1;
-	}
-
-	/* FOOTER — centered cinematic production card (echoes the Coming Soon) */
+	/* FOOTER — plain editorial */
 	.foot {
-		border-top: 1px solid var(--vd-rule);
-		padding: clamp(56px, 9vw, 96px) 0 clamp(40px, 6vw, 64px);
+		border-top: 1px solid var(--vd-ink-rule-strong);
+		padding: clamp(40px, 6vw, 64px) 0;
 	}
-	.foot-card {
+	.foot-in {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		gap: clamp(20px, 3vw, 30px);
-	}
-	.foot-mark {
-		opacity: 0.92;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 32px;
+		flex-wrap: wrap;
 	}
 	.entity {
 		display: flex;
 		flex-direction: column;
-		gap: 9px;
-		margin: 0;
+		gap: 5px;
 	}
 	.entity span {
 		font-family: var(--vd-mono);
 		font-size: 10px;
-		letter-spacing: 0.3em;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		text-indent: 0.3em;
-		color: var(--vd-faint);
-		line-height: 1.4;
+		color: var(--vd-ink-faint);
+		line-height: 1.5;
 	}
 	.entity .lead {
-		color: var(--vd-grey);
+		color: var(--vd-ink-grey);
 	}
 	.entity a {
-		color: var(--vd-grey);
+		color: var(--vd-ink-grey);
 		transition: color 200ms ease;
 	}
 	.entity a:hover {
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 	}
 	.foot-links {
 		display: flex;
-		align-items: center;
-		gap: 12px;
+		gap: 20px;
 		flex-wrap: wrap;
-		justify-content: center;
 	}
 	.foot-links a {
 		font-family: var(--vd-mono);
-		font-size: 10px;
-		letter-spacing: 0.2em;
+		font-size: 11px;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		text-indent: 0.2em;
-		color: var(--vd-faint);
+		color: var(--vd-ink-faint);
 		transition: color 200ms ease;
 	}
 	.foot-links a:hover {
-		color: var(--vd-on-ground);
+		color: var(--vd-ink);
 	}
-	.foot-links .dot {
-		width: 2px;
-		height: 2px;
-		border-radius: 50%;
-		background: var(--vd-rule-strong);
+	@media (max-width: 640px) {
+		.foot-in {
+			gap: 24px;
+		}
 	}
 
 	/* reveal */
 	[data-reveal] {
 		opacity: 0;
-		transform: translateY(14px);
-		transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 0.84, 0.3, 1);
+		transform: translateY(12px);
+		transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 	}
 	[data-reveal].in {
 		opacity: 1;
@@ -869,22 +825,14 @@
 			transform: none;
 			transition: none;
 		}
-		.scroll-cue {
-			animation: none;
-		}
 	}
 
-	/* Mobile — cosy */
 	@media (max-width: 600px) {
-		.hero {
-			min-height: 88svh;
-		}
 		.band {
-			padding: 110px 0;
+			padding: 100px 0;
 		}
 		.band-veil {
-			background:
-				linear-gradient(to bottom, rgba(11, 10, 9, 0.66), rgba(11, 10, 9, 0.4) 36%, rgba(11, 10, 9, 0.82));
+			background: linear-gradient(to bottom, rgba(11, 10, 9, 0.66), rgba(11, 10, 9, 0.4) 36%, rgba(11, 10, 9, 0.8));
 		}
 	}
 </style>
