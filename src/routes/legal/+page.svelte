@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>Legal — Vendr</title>
+	<title>Legal | Vendr</title>
 	<meta name="description" content="Vendr legal information." />
 </svelte:head>
 

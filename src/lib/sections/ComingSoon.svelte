@@ -29,7 +29,7 @@
 		const res = await subscribe(value, 'coming_soon');
 		busy = false;
 		if (!res.ok) {
-			error = 'Something went wrong — try again.';
+			error = 'Something went wrong. Try again.';
 			return;
 		}
 		done = true;

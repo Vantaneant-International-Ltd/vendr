@@ -92,7 +92,7 @@
 		if (error) return flash(error.message);
 		newPassword = '';
 		await logActivity('set account password');
-		flash('Password set — you can now sign in with email + password');
+		flash('Password set. You can now sign in with email + password');
 	}
 
 	async function signOut() {
@@ -198,7 +198,7 @@
 	}
 </script>
 
-<svelte:head><title>Admin — Vendr</title><meta name="robots" content="noindex" /></svelte:head>
+<svelte:head><title>Admin | Vendr</title><meta name="robots" content="noindex" /></svelte:head>
 
 <div class="shell">
 	<header class="top">
@@ -341,7 +341,7 @@
 			<section class="card">
 				<div class="card-h"><h2 class="display">Activity</h2></div>
 				{#each activity as a}
-					<div class="lrow"><span class="muted">{fmt(a.created_at)}</span><span><b>{a.actor_email ?? '—'}</b> {a.action}{a.detail ? ` · ${a.detail}` : ''}</span></div>
+					<div class="lrow"><span class="muted">{fmt(a.created_at)}</span><span><b>{a.actor_email ?? '-'}</b> {a.action}{a.detail ? ` · ${a.detail}` : ''}</span></div>
 				{/each}
 			</section>
 
@@ -357,7 +357,7 @@
 					/>
 					<button class="primary" disabled={busy} onclick={setPassword}>Set password</button>
 				</div>
-				<p class="note">Once set, sign in with email + password — no email link needed.</p>
+				<p class="note">Once set, sign in with email + password. No email link needed.</p>
 			</section>
 		</main>
 	{/if}

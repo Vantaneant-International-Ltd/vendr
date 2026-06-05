@@ -11,7 +11,7 @@
 
 <div class="wrap">
 	<header class="head">
-		<a href="/" aria-label="Vendr — home"><Wordmark size={20} /></a>
+		<a href="/" aria-label="Vendr home"><Wordmark size={20} /></a>
 		<Eyebrow>{eyebrow}</Eyebrow>
 		<h1 class="display">{title}</h1>
 	</header>

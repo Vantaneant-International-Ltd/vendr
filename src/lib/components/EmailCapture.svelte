@@ -6,7 +6,7 @@
 	import { supabase } from '$lib/supabase.js';
 
 	let {
-		placeholder = 'Your email — be first to know',
+		placeholder = 'Your email, be first to know',
 		cta = 'Notify me',
 		note = 'No noise. One message when we open.',
 		source = 'coming_soon'
@@ -26,7 +26,7 @@
 		if (error && error.code !== '23505') {
 			// Network/RLS failure → don't lose the lead: hand off to mail.
 			window.location.href = `${contact.href}?subject=${encodeURIComponent(
-				'Notify me — Vendr'
+				'Notify me about Vendr'
 			)}&body=${encodeURIComponent(email)}`;
 			return;
 		}

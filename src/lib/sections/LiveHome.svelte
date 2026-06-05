@@ -15,7 +15,7 @@
 	];
 	const values = [
 		{ n: '01', h: 'Clarity', p: 'Systems and interactions designed to be simple, legible, intuitive.' },
-		{ n: '02', h: 'Intent', p: 'Every placement is deliberate — thoughtful integration over scale.' },
+		{ n: '02', h: 'Intent', p: 'Every placement is deliberate: thoughtful integration over scale.' },
 		{ n: '03', h: 'Infrastructure', p: 'Reliable, unobtrusive. Built into the environment, not bolted on.' },
 		{ n: '04', h: 'Longevity', p: 'Made for durability and long-term relevance over short-term trend.' }
 	];
@@ -73,7 +73,7 @@
 	<!-- HERO — editorial masthead -->
 	<section class="hero">
 		<div class="wrap">
-			<span class="marker" data-reveal>Curated vending — Ireland <span class="bs">\</span> Est. {brand.established}</span>
+			<span class="marker" data-reveal>Curated vending <span class="bs">\</span> Ireland <span class="bs">\</span> Est. {brand.established}</span>
 			<h1 class="statement" data-reveal>Where vending evolves <span class="bs">\</span></h1>
 			<p class="lede" data-reveal>
 				A quieter form of retail. <span class="bs">\</span> Curated products. Reliable infrastructure.
@@ -112,9 +112,9 @@
 	<!-- ABOUT + VALUES -->
 	<section class="block" id="about">
 		<div class="wrap">
-			<span class="eyebrow">01 — About <span class="bs">\</span></span>
+			<span class="eyebrow">01 <span class="bs">\</span> About</span>
 			<p class="big" data-reveal>
-				Vendr exists to modernise vending — replacing outdated machines with something more
+				Vendr exists to modernise vending, replacing outdated machines with something more
 				considered.
 			</p>
 			<div class="cols" data-reveal>
@@ -123,7 +123,7 @@
 					and placement made with intention.
 				</p>
 				<p>
-					Designed for the environments that value quality, reliability, and brand alignment — where
+					Designed for the environments that value quality, reliability, and brand alignment, where
 					retail, technology, and place meet.
 				</p>
 			</div>
@@ -142,7 +142,7 @@
 	<!-- PATH -->
 	<section class="block alt" id="path">
 		<div class="wrap">
-			<span class="eyebrow">02 — Our path <span class="bs">\</span></span>
+			<span class="eyebrow">02 <span class="bs">\</span> Our path</span>
 			<h2 class="head" data-reveal>A deliberate progression.</h2>
 			<div class="path">
 				{#each path as st}
@@ -160,10 +160,10 @@
 	<!-- LINEUP -->
 	<section class="block" id="lineup">
 		<div class="wrap">
-			<span class="eyebrow">03 — A sample lineup <span class="bs">\</span></span>
+			<span class="eyebrow">03 <span class="bs">\</span> A sample lineup</span>
 			<h2 class="head" data-reveal>Curated. Irish-first. Seasonal.</h2>
 			<p class="sub" data-reveal>
-				Availability varies by location and season — products shown are indicative of the range.
+				Availability varies by location and season. Products shown are indicative of the range.
 			</p>
 			<p class="cat">Hydration &amp; Drinks</p>
 			<div class="menu">
@@ -188,7 +188,7 @@
 	<section class="block dark" id="pass">
 		<div class="wrap pass" data-reveal>
 			<div>
-				<span class="eyebrow">04 — {subBrands.pass.name} <span class="bs">\</span></span>
+				<span class="eyebrow">04 <span class="bs">\</span> {subBrands.pass.name}</span>
 				<h2 class="head">A rewards system designed to make premium vending feel fair.</h2>
 				<p class="sub">
 					Recognising the people who return. Quietly rewarding everyday choices, across every
@@ -206,7 +206,7 @@
 	<!-- CONTACT -->
 	<section class="block" id="contact">
 		<div class="wrap">
-			<span class="eyebrow">05 — Enquire <span class="bs">\</span></span>
+			<span class="eyebrow">05 <span class="bs">\</span> Enquire</span>
 			<h2 class="head big-head" data-reveal>A placement is a conversation.</h2>
 			<p class="sub" data-reveal>
 				Tell us where you'd like a Vendr machine. We respond to institutional and partnership
@@ -225,7 +225,7 @@
 			<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={20} /></a>
 			<div class="entity">
 				<span class="lead">{brand.legalEntity}</span>
-				<span>A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> Company — sister to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a></span>
+				<span>A <a href={brand.parentUrl} target="_blank" rel="noopener">{brand.parent}</a> Company, sister to <a href={brand.affiliate.url} target="_blank" rel="noopener">{brand.affiliate.name}</a></span>
 				<span>Est. {brand.established}</span>
 			</div>
 			<nav class="foot-links" aria-label="Footer">

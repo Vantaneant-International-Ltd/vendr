@@ -17,15 +17,15 @@
 
 	const meta = {
 		coming_soon: {
-			title: `${brand.name} — Coming Soon | ${brand.tagline}`,
+			title: `${brand.name} | Coming Soon`,
 			desc: `${brand.name} is bringing a quieter, more considered form of retail to Ireland. ${brand.launchLine}.`
 		},
 		maintenance: {
-			title: `${brand.name} — We'll be back shortly`,
+			title: `${brand.name} | We'll be back shortly`,
 			desc: 'Vendr is briefly offline for scheduled maintenance.'
 		},
 		live: {
-			title: `${brand.name} — ${brand.tagline}`,
+			title: `${brand.name} | ${brand.tagline}`,
 			desc: `A quieter form of retail. ${brand.launchLine}.`
 		}
 	};

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Privacy — Vendr</title>
+	<title>Privacy | Vendr</title>
 	<meta name="description" content="Vendr privacy notice." />
 </svelte:head>
 

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Terms — Vendr</title>
+	<title>Terms | Vendr</title>
 	<meta name="description" content="Vendr terms of use." />
 </svelte:head>
 
