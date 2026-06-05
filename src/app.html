@@ -9,6 +9,45 @@
 		<!-- Vendr on-brand (Felixto book): heavy grotesk display (Archivo) + mono
 		     technical type (JetBrains Mono). Monochrome. No serif. -->
 		<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+		<!-- ============================================================
+		     Google Analytics (gtag.js) with Consent Mode v2
+		     ============================================================
+		     GA loads on every page but is GATED on cookie consent. Default
+		     is "denied" for analytics_storage; CookieBanner.svelte flips it
+		     to "granted" on Accept all, leaves it denied on Decline. Until
+		     granted, gtag drops no cookies and sends only cookie-less pings
+		     (advanced consent mode). GDPR-compliant.
+
+		     Auto-pageview is disabled (send_page_view: false). SvelteKit
+		     does client-side navigation, so $lib/analytics emits page_view
+		     on every afterNavigate instead. -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SZ12MW245T"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			window.gtag = gtag;
+			gtag('js', new Date());
+
+			// Read prior-visit consent BEFORE the first config call
+			var VD_CONSENT_KEY = 'vendr-cookie-consent';
+			var __vdConsent = null;
+			try { __vdConsent = localStorage.getItem(VD_CONSENT_KEY); } catch (e) {}
+			var __vdAnalyticsGranted = __vdConsent === 'all';
+
+			gtag('consent', 'default', {
+				ad_storage: 'denied',
+				ad_user_data: 'denied',
+				ad_personalization: 'denied',
+				analytics_storage: __vdAnalyticsGranted ? 'granted' : 'denied',
+				wait_for_update: 500
+			});
+
+			gtag('config', 'G-SZ12MW245T', {
+				anonymize_ip: true,
+				send_page_view: false
+			});
+		</script>
 		%sveltekit.head%
 	</head>
 	<!-- Inline dark paint: client-only routes (admin: ssr=false) would otherwise
