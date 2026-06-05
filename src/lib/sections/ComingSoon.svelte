@@ -96,8 +96,6 @@
 				<a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
 				<span class="dot"></span>
 				<a href="/privacy">Privacy</a>
-				<span class="dot"></span>
-				<a class="staff" href="/admin">Staff</a>
 			</nav>
 		</footer>
 	</div>
@@ -335,9 +333,6 @@
 	}
 	.meta a:hover {
 		color: var(--vd-on-ground);
-	}
-	.meta .staff {
-		color: var(--vd-grey);
 	}
 	.meta .dot {
 		width: 2px;
