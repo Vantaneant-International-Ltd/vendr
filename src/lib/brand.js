@@ -10,7 +10,7 @@
 export const brand = {
 	name: 'Vendr',
 	mark: 'vendr.', // official logotype (bold sans), per brand book pp.9–13
-	tagline: 'Premium Vending Solutions · Ireland',
+	tagline: 'Premium vending. Ireland.',
 	launchLine: 'Launching Spring 2026',
 	launchLabel: 'Spring 2026',
 	statement: 'Where vending evolves.',

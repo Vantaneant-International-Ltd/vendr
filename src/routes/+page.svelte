@@ -18,7 +18,7 @@
 	const meta = {
 		coming_soon: {
 			title: `${brand.name} | Coming Soon`,
-			desc: `${brand.name} is bringing a quieter, more considered form of retail to Ireland. ${brand.launchLine}.`
+			desc: `A quieter form of retail, coming to Ireland. ${brand.launchLine}.`
 		},
 		maintenance: {
 			title: `${brand.name} | We'll be back shortly`,

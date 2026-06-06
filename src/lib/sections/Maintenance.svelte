@@ -29,8 +29,7 @@
 		<span class="marker">System paused <span class="bs">\</span> back shortly</span>
 		<h1 class="headline">We're refining something <span class="bs">\</span></h1>
 		<p class="lede">
-			Vendr is briefly offline for scheduled maintenance. The machines are fine, we're just
-			tightening a few bolts behind the scenes.
+			Vendr is briefly offline for scheduled maintenance. Nothing is wrong. Back shortly.
 		</p>
 
 		<dl class="data">

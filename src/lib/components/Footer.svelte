@@ -17,7 +17,7 @@
 				© {year}
 				{brand.legalEntity} All rights reserved.<br />
 				Vendr is a trading name of {brand.legalEntity}<br />
-				Part of {brand.parent} · Ireland. Soft launch.
+				Part of {brand.parent}. Ireland.
 			</p>
 		</div>
 

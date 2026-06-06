@@ -75,7 +75,7 @@
 							required
 						/>
 						<button type="submit" class="btn" disabled={busy} aria-label="Notify me">
-							{busy ? '·' : '→'}
+							{busy ? '…' : '→'}
 						</button>
 					</form>
 					<span class="micro">{error ? error : 'One message when we open. No noise.'}</span>

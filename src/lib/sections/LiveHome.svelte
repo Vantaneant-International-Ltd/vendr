@@ -9,21 +9,21 @@
 	import Wordmark from '$lib/components/Wordmark.svelte';
 
 	const index = [
-		{ k: 'Approach', v: 'Curated · Irish-first' },
+		{ k: 'Approach', v: 'Irish-first' },
 		{ k: 'Placement', v: 'Workplaces & hospitality' },
 		{ k: 'Status', v: `Launching ${brand.launchLabel}` }
 	];
 	const values = [
-		{ n: '01', h: 'Clarity', p: 'Systems and interactions designed to be simple, legible, intuitive.' },
-		{ n: '02', h: 'Intent', p: 'Every placement is deliberate: thoughtful integration over scale.' },
-		{ n: '03', h: 'Infrastructure', p: 'Reliable, unobtrusive. Built into the environment, not bolted on.' },
-		{ n: '04', h: 'Longevity', p: 'Made for durability and long-term relevance over short-term trend.' }
+		{ n: '01', h: 'Clarity', p: 'Legible at a glance. Nothing to puzzle over.' },
+		{ n: '02', h: 'Intent', p: 'Every placement is chosen. One room done well before a hundred filled.' },
+		{ n: '03', h: 'Infrastructure', p: 'Built into the wall, not bolted onto it. Quiet when idle.' },
+		{ n: '04', h: 'Longevity', p: 'Made to last years, not seasons.' }
 	];
 	const path = [
-		{ tick: 'Complete', h: 'Soft Launch', p: 'Presence established. We listened, learned, refined.', s: 'done' },
-		{ tick: 'Now', h: 'Validation', p: 'Selective pilot placements. Proving reliability and fit.', s: 'current' },
-		{ tick: 'Then', h: 'Operations', p: 'Operational foundations locked. Systems proven at scale.', s: '' },
-		{ tick: brand.launchLabel, h: 'Launch', p: 'Careful expansion begins across Ireland.', s: '' }
+		{ tick: 'Complete', h: 'Foundation', p: 'The brand is set. The website is live.', s: 'done' },
+		{ tick: 'Now', h: 'First placements', p: 'Selecting the first locations. Conversations underway with venues.', s: 'current' },
+		{ tick: 'Then', h: 'Operations', p: 'Install, stock, service. The routine that keeps a machine full.', s: '' },
+		{ tick: brand.launchLabel, h: 'Launch', p: 'Wider rollout across Ireland.', s: '' }
 	];
 	const drinks = [
 		{ n: 'Ballygowan Still', d: 'Irish natural spring water', s: 'Ballygowan' },
@@ -42,7 +42,7 @@
 	const passRows = [
 		['Status', subBrands.pass.status],
 		['Arrives', 'With launch, 2026'],
-		['Where', 'Every placement'],
+		['Where', 'Every machine'],
 		['For', 'Returning members']
 	];
 
@@ -73,11 +73,11 @@
 	<!-- HERO — editorial masthead -->
 	<section class="hero">
 		<div class="wrap">
-			<span class="marker" data-reveal>Curated vending <span class="bs">\</span> Ireland <span class="bs">\</span> Est. {brand.established}</span>
+			<span class="marker" data-reveal>Premium vending <span class="bs">\</span> Ireland <span class="bs">\</span> Est. {brand.established}</span>
 			<h1 class="statement" data-reveal>Where vending evolves <span class="bs">\</span></h1>
 			<p class="lede" data-reveal>
-				A quieter form of retail. <span class="bs">\</span> Curated products. Reliable infrastructure.
-				Placement made with intention. <span class="bs">\</span> Quietly emerging in Ireland.
+				A quieter form of retail. <span class="bs">\</span> A short, Irish-first list. Machines that
+				simply work. <span class="bs">\</span> Coming to Ireland in 2026.
 			</p>
 			<div class="cta" data-reveal>
 				<a href="#contact" class="btn">Discuss a placement →</a>
@@ -114,17 +114,17 @@
 		<div class="wrap">
 			<span class="eyebrow">01 <span class="bs">\</span> About</span>
 			<p class="big" data-reveal>
-				Vendr exists to modernise vending, replacing outdated machines with something more
-				considered.
+				Vendr modernises vending. The tired machine in the corner, replaced by something
+				quieter and better made.
 			</p>
 			<div class="cols" data-reveal>
 				<p>
-					Not volume. Not noise. A platform built on product curation, intelligent infrastructure,
-					and placement made with intention.
+					Not volume. Not noise. A short product list, dependable machines, and locations chosen
+					one at a time.
 				</p>
 				<p>
-					Designed for the environments that value quality, reliability, and brand alignment, where
-					retail, technology, and place meet.
+					Made for places that care how things look and work. Offices, hotels, gyms. The lobby
+					that sets the tone.
 				</p>
 			</div>
 			<div class="values">
@@ -161,9 +161,9 @@
 	<section class="block" id="lineup">
 		<div class="wrap">
 			<span class="eyebrow">03 <span class="bs">\</span> A sample lineup</span>
-			<h2 class="head" data-reveal>Curated. Irish-first. Seasonal.</h2>
+			<h2 class="head" data-reveal>Irish-first. Stocked by season.</h2>
 			<p class="sub" data-reveal>
-				Availability varies by location and season. Products shown are indicative of the range.
+				A sample, not the full list. What you find varies by location and season.
 			</p>
 			<p class="cat">Hydration &amp; Drinks</p>
 			<div class="menu">
@@ -189,10 +189,9 @@
 		<div class="wrap pass" data-reveal>
 			<div>
 				<span class="eyebrow">04 <span class="bs">\</span> {subBrands.pass.name}</span>
-				<h2 class="head">A rewards system designed to make premium vending feel fair.</h2>
+				<h2 class="head">A rewards programme for the people who come back.</h2>
 				<p class="sub">
-					Recognising the people who return. Quietly rewarding everyday choices, across every
-					placement. More to share closer to launch.
+					Buy often and it should count for something. More to share closer to launch.
 				</p>
 			</div>
 			<dl class="data">
@@ -209,8 +208,7 @@
 			<span class="eyebrow">05 <span class="bs">\</span> Enquire</span>
 			<h2 class="head big-head" data-reveal>A placement is a conversation.</h2>
 			<p class="sub" data-reveal>
-				Tell us where you'd like a Vendr machine. We respond to institutional and partnership
-				enquiries within two working days.
+				Tell us where a Vendr machine should go. We read every enquiry and reply ourselves.
 			</p>
 			<div class="cta" data-reveal>
 				<a href={contact.enquiryHref} class="btn">Discuss a placement →</a>
