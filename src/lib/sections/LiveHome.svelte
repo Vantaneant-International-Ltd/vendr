@@ -19,12 +19,6 @@
 		{ n: '03', h: 'Infrastructure', p: 'Built into the wall, not bolted onto it. Quiet when idle.' },
 		{ n: '04', h: 'Longevity', p: 'Made to last years, not seasons.' }
 	];
-	const path = [
-		{ tick: 'Complete', h: 'Foundation', p: 'The brand is set. The website is live.', s: 'done' },
-		{ tick: 'Now', h: 'First placements', p: 'Selecting the first locations. Conversations underway with venues.', s: 'current' },
-		{ tick: 'Then', h: 'Operations', p: 'Install, stock, service. The routine that keeps a machine full.', s: '' },
-		{ tick: brand.launchLabel, h: 'Launch', p: 'Wider rollout across Ireland.', s: '' }
-	];
 	const drinks = [
 		{ n: 'Ballygowan Still', d: 'Irish natural spring water', s: 'Ballygowan' },
 		{ n: 'Ballygowan Sparkling', d: 'Irish sparkling spring water', s: 'Ballygowan' },
@@ -61,7 +55,6 @@
 		<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={22} /></a>
 		<nav class="nav-links" aria-label="Sections">
 			<a href="#about">About</a>
-			<a href="#path">Path</a>
 			<a href="#lineup">Lineup</a>
 			<a href="#pass">Pass</a>
 			<a href="#contact" class="enquire">Enquire →</a>
@@ -80,7 +73,6 @@
 			</p>
 			<div class="cta" data-reveal>
 				<a href="#contact" class="btn">Discuss a placement →</a>
-				<a href="#path" class="link">See the path</a>
 			</div>
 		</div>
 		<div class="wrap hero-index" data-reveal>
@@ -131,24 +123,6 @@
 						<span class="vn">{v.n}</span>
 						<h3>{v.h}</h3>
 						<p>{v.p}</p>
-					</div>
-				{/each}
-			</div>
-		</div>
-	</section>
-
-	<!-- PATH -->
-	<section class="block alt" id="path">
-		<div class="wrap">
-			<span class="eyebrow">02 <span class="bs">\</span> Our path</span>
-			<h2 class="head" data-reveal>A deliberate progression.</h2>
-			<div class="path">
-				{#each path as st}
-					<div class="stage {st.s}" data-reveal>
-						<span class="bar"></span>
-						<span class="tick">{st.tick}</span>
-						<h4>{st.h}</h4>
-						<p>{st.p}</p>
 					</div>
 				{/each}
 			</div>
@@ -427,10 +401,6 @@
 		padding: clamp(56px, 10vw, 128px) 0;
 		border-top: 1px solid var(--vd-ink-rule);
 	}
-	.block.alt {
-		background: color-mix(in srgb, var(--vd-ink) 4%, var(--vd-paper));
-	}
-
 	.big {
 		font-family: var(--vd-display);
 		font-weight: 500;
@@ -539,94 +509,6 @@
 			grid-template-columns: 1fr;
 		}
 		.value {
-			border-right: none !important;
-			padding-left: 0 !important;
-			padding-right: 0 !important;
-		}
-	}
-
-	/* PATH */
-	.path {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		border-top: 1px solid var(--vd-ink-rule-strong);
-		margin-top: clamp(32px, 5vw, 56px);
-	}
-	.stage {
-		position: relative;
-		padding: 28px 24px 40px 0;
-		border-bottom: 1px solid var(--vd-ink-rule);
-	}
-	.stage:not(:last-child) {
-		border-right: 1px solid var(--vd-ink-rule);
-		padding-right: 24px;
-	}
-	.stage:not(:first-child) {
-		padding-left: 24px;
-	}
-	.stage .bar {
-		position: absolute;
-		top: -1px;
-		left: 0;
-		height: 2px;
-		width: 0;
-		background: var(--vd-ink);
-	}
-	.stage.current .bar {
-		width: 100%;
-	}
-	.stage.done .bar {
-		width: 100%;
-		background: var(--vd-ink-faint);
-	}
-	.tick {
-		font-family: var(--vd-mono);
-		font-size: 11px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--vd-ink-faint);
-	}
-	.stage.current .tick {
-		color: var(--vd-ink);
-	}
-	.stage h4 {
-		font-family: var(--vd-display);
-		font-weight: 500;
-		font-size: 19px;
-		color: var(--vd-ink);
-		margin: 14px 0 8px;
-	}
-	.stage.done h4 {
-		color: var(--vd-ink-grey);
-	}
-	.stage p {
-		font-family: var(--vd-mono);
-		font-size: 12.5px;
-		line-height: 1.65;
-		color: var(--vd-ink-grey);
-	}
-	@media (max-width: 860px) {
-		.path {
-			grid-template-columns: 1fr 1fr;
-		}
-		.stage {
-			padding-right: 24px !important;
-			padding-left: 0 !important;
-			border-right: none !important;
-		}
-		.stage:nth-child(odd) {
-			border-right: 1px solid var(--vd-ink-rule) !important;
-			padding-right: 24px !important;
-		}
-		.stage:nth-child(even) {
-			padding-left: 24px !important;
-		}
-	}
-	@media (max-width: 480px) {
-		.path {
-			grid-template-columns: 1fr;
-		}
-		.stage {
 			border-right: none !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
