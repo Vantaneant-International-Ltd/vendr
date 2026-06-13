@@ -19,20 +19,6 @@
 		{ n: '03', h: 'Infrastructure', p: 'Built into the wall, not bolted onto it. Quiet when idle.' },
 		{ n: '04', h: 'Longevity', p: 'Made to last years, not seasons.' }
 	];
-	const drinks = [
-		{ n: 'Ballygowan Still', d: 'Irish natural spring water', s: 'Ballygowan' },
-		{ n: 'Ballygowan Sparkling', d: 'Irish sparkling spring water', s: 'Ballygowan' },
-		{ n: 'BLK Water', d: 'Mineral-rich alkaline water', s: 'BLK' },
-		{ n: 'Actiph Alkaline 8.0+', d: 'Functional hydration', s: 'Actiph' },
-		{ n: 'San Pellegrino Limonata', d: 'Premium citrus soft drink', s: 'San Pellegrino' }
-	];
-	const snacks = [
-		{ n: "Keogh's Sweet Chilli & Irish Red Pepper", d: 'Irish artisan crisps', s: "Keogh's" },
-		{ n: "Keogh's Shamrock & Sour Cream", d: 'Irish artisan crisps', s: "Keogh's" },
-		{ n: 'Butlers Chocolate Bar', d: 'Irish chocolate', s: 'Butlers' },
-		{ n: 'Fulfil Protein Bar', d: 'High-protein, low sugar', s: 'Fulfil' },
-		{ n: 'Graze Savoury Snack', d: 'Portion-controlled snacking', s: 'Graze' }
-	];
 	const passRows = [
 		['Status', subBrands.pass.status],
 		['Arrives', 'With launch, 2026'],
@@ -55,9 +41,8 @@
 		<a href="#top" aria-label={brand.name}><Wordmark src="/wordmark-dark.png" size={22} /></a>
 		<nav class="nav-links" aria-label="Sections">
 			<a href="#about">About</a>
-			<a href="#lineup">Lineup</a>
 			<a href="#pass">Pass</a>
-			<a href="#contact" class="enquire">Enquire →</a>
+			<a href="/placement" class="enquire">Placement →</a>
 		</nav>
 	</div>
 </header>
@@ -71,9 +56,6 @@
 				A quieter form of retail. <span class="bs">\</span> A short, Irish-first list. Machines that
 				simply work. <span class="bs">\</span> Coming to Ireland in 2026.
 			</p>
-			<div class="cta" data-reveal>
-				<a href="#contact" class="btn">Discuss a placement →</a>
-			</div>
 		</div>
 		<div class="wrap hero-index" data-reveal>
 			{#each index as i}
@@ -112,10 +94,6 @@
 					Not volume. Not noise. A short product list, dependable machines, and locations chosen
 					one at a time.
 				</p>
-				<p>
-					Made for places that care how things look and work. Offices, hotels, gyms. The lobby
-					that sets the tone.
-				</p>
 			</div>
 			<div class="values">
 				{#each values as v}
@@ -129,38 +107,11 @@
 		</div>
 	</section>
 
-	<!-- LINEUP -->
-	<section class="block" id="lineup">
-		<div class="wrap">
-			<span class="eyebrow">03 <span class="bs">\</span> A sample lineup</span>
-			<h2 class="head" data-reveal>Irish-first. Stocked by season.</h2>
-			<p class="sub" data-reveal>
-				A sample, not the full list. What you find varies by location and season.
-			</p>
-			<p class="cat">Hydration &amp; Drinks</p>
-			<div class="menu">
-				{#each drinks as i}
-					<div class="item" data-reveal>
-						<span><b>{i.n}</b><span class="d">{i.d}</span></span><span class="src">{i.s}</span>
-					</div>
-				{/each}
-			</div>
-			<p class="cat">Snacks</p>
-			<div class="menu">
-				{#each snacks as i}
-					<div class="item" data-reveal>
-						<span><b>{i.n}</b><span class="d">{i.d}</span></span><span class="src">{i.s}</span>
-					</div>
-				{/each}
-			</div>
-		</div>
-	</section>
-
 	<!-- VENDR PASS — dark punctuation -->
 	<section class="block dark" id="pass">
 		<div class="wrap pass" data-reveal>
 			<div>
-				<span class="eyebrow">04 <span class="bs">\</span> {subBrands.pass.name}</span>
+				<span class="eyebrow">02 <span class="bs">\</span> {subBrands.pass.name}</span>
 				<h2 class="head">A rewards programme for the people who come back.</h2>
 				<p class="sub">
 					Buy often and it should count for something. More to share closer to launch.
@@ -171,21 +122,6 @@
 					<div><dt>{k}</dt><dd>{v}</dd></div>
 				{/each}
 			</dl>
-		</div>
-	</section>
-
-	<!-- CONTACT -->
-	<section class="block" id="contact">
-		<div class="wrap">
-			<span class="eyebrow">05 <span class="bs">\</span> Enquire</span>
-			<h2 class="head big-head" data-reveal>A placement is a conversation.</h2>
-			<p class="sub" data-reveal>
-				Tell us where a Vendr machine should go. We read every enquiry and reply ourselves.
-			</p>
-			<div class="cta" data-reveal>
-				<a href={contact.enquiryHref} class="btn">Discuss a placement →</a>
-				<a href={contact.href} class="link">{contact.email}</a>
-			</div>
 		</div>
 	</section>
 
@@ -280,41 +216,6 @@
 		color: var(--vd-ink);
 		max-width: 58ch;
 		margin: clamp(24px, 3vw, 36px) 0 0;
-	}
-
-	.cta {
-		display: flex;
-		gap: clamp(16px, 3vw, 28px);
-		align-items: center;
-		flex-wrap: wrap;
-		margin-top: clamp(28px, 4vw, 40px);
-	}
-	.btn {
-		font-family: var(--vd-mono);
-		font-size: 12px;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		background: var(--vd-ink);
-		color: var(--vd-paper);
-		border: 1px solid var(--vd-ink);
-		padding: 14px 22px;
-		transition: opacity 200ms ease;
-	}
-	.btn:hover {
-		opacity: 0.86;
-	}
-	.link {
-		font-family: var(--vd-mono);
-		font-size: 12px;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--vd-ink-grey);
-		border-bottom: 1px solid var(--vd-ink-rule-strong);
-		padding-bottom: 3px;
-		transition: color 200ms ease;
-	}
-	.link:hover {
-		color: var(--vd-ink);
 	}
 
 	/* HERO — editorial masthead with an index strip */
@@ -421,10 +322,6 @@
 		margin: clamp(14px, 2vw, 24px) 0 0;
 		max-width: 20ch;
 	}
-	.head.big-head {
-		font-size: clamp(30px, 4.8vw, 60px);
-		max-width: 15ch;
-	}
 	.cols {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -513,54 +410,6 @@
 			padding-left: 0 !important;
 			padding-right: 0 !important;
 		}
-	}
-
-	/* LINEUP */
-	.cat {
-		font-family: var(--vd-mono);
-		font-size: 11px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--vd-ink-grey);
-		margin: clamp(36px, 5vw, 52px) 0 0;
-	}
-	.menu {
-		border-top: 1px solid var(--vd-ink-rule);
-		margin-top: 10px;
-	}
-	.item {
-		display: flex;
-		justify-content: space-between;
-		gap: 24px;
-		align-items: baseline;
-		padding: 16px 0;
-		border-bottom: 1px solid var(--vd-ink-rule);
-		transition: padding-left 0.25s ease;
-	}
-	.item:hover {
-		padding-left: 12px;
-	}
-	.item b {
-		font-family: var(--vd-mono);
-		font-weight: 500;
-		font-size: 14px;
-		color: var(--vd-ink);
-		display: block;
-	}
-	.item .d {
-		display: block;
-		font-family: var(--vd-mono);
-		font-size: 12px;
-		color: var(--vd-ink-grey);
-		margin-top: 3px;
-	}
-	.item .src {
-		font-family: var(--vd-mono);
-		font-size: 11px;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--vd-ink-faint);
-		white-space: nowrap;
 	}
 
 	/* PASS — dark punctuation */
