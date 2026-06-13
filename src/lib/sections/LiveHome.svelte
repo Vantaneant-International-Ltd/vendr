@@ -73,7 +73,7 @@
 	<!-- HERO — editorial masthead -->
 	<section class="hero">
 		<div class="wrap">
-			<span class="marker" data-reveal>Premium vending <span class="bs">\</span> Ireland <span class="bs">\</span> Est. {brand.established}</span>
+			<span class="marker" data-reveal>Ireland <span class="bs">\</span> Est. {brand.established}</span>
 			<p class="lede" data-reveal>
 				A quieter form of retail. <span class="bs">\</span> A short, Irish-first list. Machines that
 				simply work. <span class="bs">\</span> Coming to Ireland in 2026.

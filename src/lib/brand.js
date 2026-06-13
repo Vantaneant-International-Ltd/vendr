@@ -10,7 +10,7 @@
 export const brand = {
 	name: 'Vendr',
 	mark: 'vendr.', // official logotype (bold sans), per brand book pp.9–13
-	tagline: 'Premium vending. Ireland.',
+	tagline: 'A quieter form of retail',
 	launchLine: 'Launching Spring 2026',
 	launchLabel: 'Spring 2026',
 	legalEntity: 'Atlas Refreshments Limited',
