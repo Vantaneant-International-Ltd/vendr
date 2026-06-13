@@ -113,8 +113,7 @@
 		<div class="wrap">
 			<span class="eyebrow">01 <span class="bs">\</span> About</span>
 			<p class="big" data-reveal>
-				Vendr modernises vending. The tired machine in the corner, replaced by something
-				quieter and better made.
+				No queue. No upsell. Nothing asking for your attention. Just the thing you came for.
 			</p>
 			<div class="cols" data-reveal>
 				<p>
