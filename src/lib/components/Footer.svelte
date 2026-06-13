@@ -25,9 +25,8 @@
 			<nav class="col" aria-label="Explore">
 				<h5>Explore</h5>
 				<a href="/#about">About</a>
-				<a href="/#path">Our path</a>
-				<a href="/#lineup">Lineup</a>
 				<a href="/#pass">Vendr Pass</a>
+				<a href="/placement#lineup">Lineup</a>
 			</nav>
 		{/if}
 
