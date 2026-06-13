@@ -42,7 +42,6 @@
 		<nav class="nav-links" aria-label="Sections">
 			<a href="#about">About</a>
 			<a href="#pass">Pass</a>
-			<a href="/placement" class="enquire">Placement →</a>
 		</nav>
 	</div>
 </header>
@@ -135,6 +134,7 @@
 				<span>Est. {brand.established}</span>
 			</div>
 			<nav class="foot-links" aria-label="Footer">
+				<a href="/placement">Placement</a>
 				<a href="/privacy">Privacy</a>
 				<a href="/terms">Terms</a>
 				<a href="/legal">Legal</a>
@@ -189,14 +189,8 @@
 		color: var(--vd-ink-grey);
 		transition: color 200ms ease;
 	}
-	.nav-links a:hover,
-	.enquire {
+	.nav-links a:hover {
 		color: var(--vd-ink) !important;
-	}
-	@media (max-width: 680px) {
-		.nav-links a:not(.enquire) {
-			display: none;
-		}
 	}
 
 	/* shared technical bits */
