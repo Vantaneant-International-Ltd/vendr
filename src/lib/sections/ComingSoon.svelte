@@ -56,7 +56,6 @@
 		<!-- the ident -->
 		<section class="ident">
 			<img class="mark" src="/wordmark.png" alt={brand.name} />
-			<p class="statement">Where vending evolves<span class="bs"> \</span></p>
 
 			<div class="capture">
 				{#if done}
@@ -196,15 +195,6 @@
 		height: auto;
 		filter: drop-shadow(0 0 46px rgba(244, 243, 240, 0.16))
 			drop-shadow(0 14px 40px rgba(0, 0, 0, 0.55));
-	}
-	.statement {
-		font-family: var(--vd-mono);
-		font-size: clamp(12px, 1.25vw, 14.5px);
-		letter-spacing: 0.34em;
-		text-transform: uppercase;
-		text-indent: 0.34em;
-		color: var(--vd-muted);
-		margin: 0;
 	}
 	.bs {
 		color: var(--vd-grey);
@@ -384,11 +374,6 @@
 		}
 		.mark {
 			width: min(70vw, 280px);
-		}
-		.statement {
-			font-size: 11px;
-			letter-spacing: 0.28em;
-			text-indent: 0.28em;
 		}
 		.card span {
 			letter-spacing: 0.26em;

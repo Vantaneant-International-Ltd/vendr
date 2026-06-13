@@ -13,7 +13,6 @@ export const brand = {
 	tagline: 'Premium vending. Ireland.',
 	launchLine: 'Launching Spring 2026',
 	launchLabel: 'Spring 2026',
-	statement: 'Where vending evolves.',
 	legalEntity: 'Atlas Refreshments Limited',
 	established: '2026',
 	// Corporate family

@@ -74,7 +74,6 @@
 	<section class="hero">
 		<div class="wrap">
 			<span class="marker" data-reveal>Premium vending <span class="bs">\</span> Ireland <span class="bs">\</span> Est. {brand.established}</span>
-			<h1 class="statement" data-reveal>Where vending evolves <span class="bs">\</span></h1>
 			<p class="lede" data-reveal>
 				A quieter form of retail. <span class="bs">\</span> A short, Irish-first list. Machines that
 				simply work. <span class="bs">\</span> Coming to Ireland in 2026.
@@ -300,16 +299,6 @@
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
 		color: var(--vd-ink-grey);
-	}
-	.statement {
-		font-family: var(--vd-display);
-		font-weight: 500;
-		font-size: clamp(40px, 7vw, 96px);
-		line-height: 1.0;
-		letter-spacing: -0.024em;
-		color: var(--vd-ink);
-		margin: clamp(22px, 3vw, 36px) 0 0;
-		max-width: 13ch;
 	}
 	.lede {
 		font-family: var(--vd-mono);
