@@ -1,4 +1,3 @@
-![Vendr Roadmap](docs/vendr-roadmap-current.svg)
 
 ## Brand source of truth
 
