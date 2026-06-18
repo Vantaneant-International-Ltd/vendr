@@ -79,10 +79,46 @@
 		</div>
 	</section>
 
+	<!-- THE MACHINE — the unit that carries it (third beat: conversation, stock, machine, ask) -->
+	<section class="block" id="machine">
+		<div class="wrap">
+			<span class="eyebrow">02 <span class="bs">\</span> The machine</span>
+			<h2 class="head big-head" data-reveal>One machine, chosen once.</h2>
+			<p class="lede" data-reveal>
+				Every Vendr runs on a commercial-grade Magex unit, chosen for reliability,
+				faced and stocked to a standard. Bottles and delicate items are lowered, not
+				dropped. Selection is by touchscreen, the way you would choose in a shop. It is
+				monitored remotely, so most faults are resolved before anyone notices. One unit
+				to start, with a companion alongside it when the space asks for more.
+			</p>
+			<div class="machines" data-reveal>
+				<figure class="machine-card">
+					<div class="machine-shot">
+						<img src="/assets/idea9-master.jpg" alt="idea9 master vending unit" loading="lazy" decoding="async" />
+					</div>
+					<figcaption>
+						<span class="mc-label">idea9 <span class="bs">\</span></span>
+						<p class="mc-role">The master unit. Touchscreen, payment, full curation.</p>
+						<p class="mc-note">Refrigerated, with elevator dispensing.</p>
+					</figcaption>
+				</figure>
+				<figure class="machine-card">
+					<div class="machine-shot">
+						<img src="/assets/idea9-module.jpg" alt="idea9 companion module" loading="lazy" decoding="async" />
+					</div>
+					<figcaption>
+						<span class="mc-label">idea9 module <span class="bs">\</span></span>
+						<p class="mc-role">The companion. Added capacity, the same standard.</p>
+					</figcaption>
+				</figure>
+			</div>
+		</div>
+	</section>
+
 	<!-- CONTACT -->
 	<section class="block" id="contact">
 		<div class="wrap">
-			<span class="eyebrow">02 <span class="bs">\</span> Enquire</span>
+			<span class="eyebrow">03 <span class="bs">\</span> Enquire</span>
 			<h2 class="head big-head" data-reveal>Tell us where a Vendr machine should go.</h2>
 			<p class="sub" data-reveal>We read every enquiry and reply ourselves.</p>
 			<div class="cta" data-reveal>
@@ -355,6 +391,67 @@
 	@media (max-width: 640px) {
 		.foot-in {
 			gap: 24px;
+		}
+	}
+
+	/* THE MACHINE — quiet evidence, two cards, never a catalogue */
+	.machines {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: clamp(20px, 4vw, 40px);
+		margin-top: clamp(36px, 5vw, 56px);
+		max-width: 760px;
+	}
+	.machine-card {
+		margin: 0;
+	}
+	.machine-shot {
+		aspect-ratio: 1 / 1;
+		background: var(--vd-paper);
+		border: 1px solid var(--vd-ink-rule-strong);
+		border-radius: 2px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.machine-shot img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		filter: grayscale(1) contrast(1.02);
+	}
+	.machine-card figcaption {
+		margin-top: 16px;
+	}
+	.mc-label {
+		display: block;
+		font-family: var(--vd-mono);
+		font-size: 11px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--vd-ink-grey);
+	}
+	.mc-role {
+		font-family: var(--vd-mono);
+		font-size: 13px;
+		line-height: 1.6;
+		color: var(--vd-ink);
+		margin: 8px 0 0;
+		max-width: 30ch;
+	}
+	.mc-note {
+		font-family: var(--vd-mono);
+		font-size: 12px;
+		line-height: 1.6;
+		color: var(--vd-ink-grey);
+		margin: 6px 0 0;
+		max-width: 30ch;
+	}
+	@media (max-width: 640px) {
+		.machines {
+			grid-template-columns: 1fr;
+			gap: 28px;
 		}
 	}
 
