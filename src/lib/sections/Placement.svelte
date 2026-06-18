@@ -4,7 +4,6 @@
 	// the CTAs stay direct, "Premium" and "machine" are fine here. Copy relocated
 	// as-is from the old mixed LiveHome. Same paper-led editorial idiom, the "\"
 	// motif, cosy mobile.
-	import { onMount } from 'svelte';
 	import { brand, contact } from '$lib/brand.js';
 	import Wordmark from '$lib/components/Wordmark.svelte';
 
@@ -23,13 +22,6 @@
 		{ n: 'Graze Savoury Snack', d: 'Portion-controlled snacking', s: 'Graze' }
 	];
 
-	onMount(() => {
-		const io = new IntersectionObserver(
-			(es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
-			{ threshold: 0.12 }
-		);
-		document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
-	});
 </script>
 
 <!-- NAV -->
@@ -366,21 +358,27 @@
 		}
 	}
 
-	/* reveal */
+	/* reveal — pure CSS, zero JS dependency. Content is VISIBLE by default; when
+	   JS confirms (html.vd-js, set synchronously in app.html) a one-shot fade-up
+	   plays on load. If the animation never runs, content simply stays visible —
+	   the page can never be blank. */
 	[data-reveal] {
-		opacity: 0;
-		transform: translateY(12px);
-		transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-	}
-	[data-reveal].in {
 		opacity: 1;
 		transform: none;
 	}
-	@media (prefers-reduced-motion: reduce) {
-		[data-reveal] {
+	@media (prefers-reduced-motion: no-preference) {
+		:global(html.vd-js) [data-reveal] {
+			animation: vd-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+		}
+	}
+	@keyframes vd-rise {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
 			opacity: 1;
 			transform: none;
-			transition: none;
 		}
 	}
 </style>

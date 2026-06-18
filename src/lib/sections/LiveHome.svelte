@@ -387,7 +387,7 @@
 			padding-left: 24px !important;
 		}
 	}
-	@media (max-width: 480px) {
+	@media (max-width: 640px) {
 		.values {
 			grid-template-columns: 1fr;
 		}
@@ -542,6 +542,41 @@
 		}
 		.band-veil {
 			background: linear-gradient(to bottom, rgba(11, 10, 9, 0.66), rgba(11, 10, 9, 0.4) 36%, rgba(11, 10, 9, 0.8));
+		}
+	}
+
+	/* mobile cosiness — airier type and rhythm so the page never reads cramped */
+	@media (max-width: 640px) {
+		.lede {
+			font-size: 14px;
+			line-height: 1.95;
+		}
+		.cols p,
+		.sub {
+			font-size: 14px;
+			line-height: 1.9;
+		}
+		.hero-index {
+			gap: 22px;
+		}
+		.value {
+			padding-top: 30px;
+			padding-bottom: 30px;
+		}
+		.value h3 {
+			font-size: 21px;
+			margin: 16px 0 10px;
+		}
+		.value p {
+			font-size: 13.5px;
+			line-height: 1.8;
+		}
+		.data div {
+			padding: 16px 0;
+		}
+		.entity span {
+			font-size: 10.5px;
+			line-height: 1.6;
 		}
 	}
 </style>
