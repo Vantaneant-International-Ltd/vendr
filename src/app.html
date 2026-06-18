@@ -4,6 +4,10 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Arm JS-only reveal animations synchronously (pre-paint) so the fade-up
+		     has no flash. If JS is disabled or fails, this class is never added and
+		     [data-reveal] content stays visible by default — the page is never blank. -->
+		<script>document.documentElement.classList.add('vd-js')</script>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<!-- Vendr on-brand (Felixto book): heavy grotesk display (Archivo) + mono

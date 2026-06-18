@@ -27,11 +27,22 @@
 	];
 
 	onMount(() => {
-		const io = new IntersectionObserver(
-			(es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
-			{ threshold: 0.12 }
-		);
-		document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+		const els = Array.from(document.querySelectorAll('[data-reveal]'));
+		const revealAll = () => els.forEach((el) => el.classList.add('in'));
+		// Never leave the page invisible: if IntersectionObserver is missing or
+		// anything throws, just show everything.
+		if (typeof IntersectionObserver !== 'function') return revealAll();
+		try {
+			const io = new IntersectionObserver(
+				(es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
+				{ threshold: 0.12 }
+			);
+			els.forEach((el) => io.observe(el));
+			// Backstop: reveal anything still hidden shortly after load.
+			setTimeout(revealAll, 1600);
+		} catch (e) {
+			revealAll();
+		}
 	});
 </script>
 
@@ -520,18 +531,25 @@
 		}
 	}
 
-	/* reveal */
+	/* reveal — progressive enhancement. Visible by default so the page is NEVER
+	   blank if JS fails; the fade-up only arms once JS confirms (html.vd-js, set
+	   synchronously in app.html → no flash). */
 	[data-reveal] {
+		opacity: 1;
+		transform: none;
+	}
+	:global(html.vd-js) [data-reveal] {
 		opacity: 0;
 		transform: translateY(12px);
 		transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 	}
-	[data-reveal].in {
+	:global(html.vd-js) [data-reveal].in {
 		opacity: 1;
 		transform: none;
 	}
 	@media (prefers-reduced-motion: reduce) {
-		[data-reveal] {
+		[data-reveal],
+		:global(html.vd-js) [data-reveal] {
 			opacity: 1;
 			transform: none;
 			transition: none;
