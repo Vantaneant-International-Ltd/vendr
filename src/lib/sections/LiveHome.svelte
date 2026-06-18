@@ -34,6 +34,7 @@
 		<nav class="nav-links" aria-label="Sections">
 			<a href="#about">About</a>
 			<a href="#pass">Pass</a>
+			<a href="/placement">Placement</a>
 		</nav>
 	</div>
 </header>
