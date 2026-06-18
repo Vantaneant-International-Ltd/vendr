@@ -291,7 +291,7 @@
 	}
 	.big {
 		font-family: var(--vd-display);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: clamp(26px, 3.6vw, 48px);
 		line-height: 1.14;
 		letter-spacing: -0.016em;
@@ -301,7 +301,7 @@
 	}
 	.head {
 		font-family: var(--vd-display);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: clamp(24px, 3.2vw, 42px);
 		line-height: 1.08;
 		letter-spacing: -0.016em;
@@ -360,7 +360,7 @@
 	}
 	.value h3 {
 		font-family: var(--vd-display);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: 20px;
 		color: var(--vd-ink);
 		margin: 14px 0 8px;

@@ -268,7 +268,7 @@
 	}
 	.head {
 		font-family: var(--vd-display);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: clamp(24px, 3.2vw, 42px);
 		line-height: 1.08;
 		letter-spacing: -0.016em;

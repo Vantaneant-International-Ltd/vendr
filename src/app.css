@@ -21,7 +21,7 @@
 	/* ── Type ──────────────────────────────────────────────────────────────
 	   Andale isn't a Google webfont; we ship the system Andale + closest
 	   web-served mono fallbacks (loaded in app.html). Serif is display-only. */
-	--mono: 'Andale Mono', Consolas, 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+	--mono: 'Andale Mono', 'Cousine', Consolas, ui-monospace, monospace;
 	--serif: 'Newsreader', 'Bodoni Moda', 'Didot', Georgia, serif;
 
 	/* Type scale — brand book (Type Scaling, 4.3) */
@@ -118,7 +118,8 @@ a {
 	--vd-ink-rule: rgba(22, 20, 15, 0.16);
 	--vd-ink-rule-strong: rgba(22, 20, 15, 0.34);
 
-	/* Type — heavy grotesk display + mono technical. No serif. */
-	--vd-display: 'Archivo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-	--vd-mono: 'JetBrains Mono', ui-monospace, monospace;
+	/* Type — Andale Mono runs everything (book §4.1), single weight. Cousine is
+	   the metric-compatible web substitute. No grotesk, no serif. */
+	--vd-display: 'Andale Mono', 'Cousine', Consolas, ui-monospace, monospace;
+	--vd-mono: 'Andale Mono', 'Cousine', Consolas, ui-monospace, monospace;
 }

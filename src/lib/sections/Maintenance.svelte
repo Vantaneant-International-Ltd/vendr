@@ -88,7 +88,7 @@
 	}
 	.headline {
 		font-family: var(--vd-display);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: clamp(30px, 5vw, 60px);
 		line-height: 1.05;
 		letter-spacing: -0.02em;

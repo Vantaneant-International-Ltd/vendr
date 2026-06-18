@@ -115,10 +115,11 @@
 		position: absolute;
 		inset: 0;
 		z-index: 0;
-		/* CSS-only cinematic space when no photo: warm low light-pool over warm
-		   black, a faint cool top fill, sealed by a deep vignette. */
+		/* CSS-only cinematic space when no photo: a faint neutral light-pool over
+		   warm black (book grey, no chroma), a faint top fill, sealed by a deep
+		   vignette. Monochrome — grey + black only. */
 		background:
-			radial-gradient(115% 80% at 50% 92%, rgba(86, 70, 48, 0.5), rgba(86, 70, 48, 0) 58%),
+			radial-gradient(115% 80% at 50% 92%, rgba(154, 155, 150, 0.08), rgba(154, 155, 150, 0) 58%),
 			radial-gradient(85% 60% at 50% 12%, rgba(154, 155, 150, 0.05), transparent 60%),
 			radial-gradient(150% 120% at 50% 50%, transparent 38%, rgba(5, 4, 3, 0.72) 100%),
 			var(--vd-ground);
