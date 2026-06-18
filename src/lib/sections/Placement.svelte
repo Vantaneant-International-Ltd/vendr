@@ -208,7 +208,7 @@
 		display: block;
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.16em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-ink-grey);
 	}
@@ -293,7 +293,7 @@
 	.cat {
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.16em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-ink-grey);
 		margin: clamp(36px, 5vw, 52px) 0 0;
@@ -316,7 +316,7 @@
 	}
 	.item b {
 		font-family: var(--vd-mono);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: 14px;
 		color: var(--vd-ink);
 		display: block;
@@ -331,7 +331,7 @@
 	.item .src {
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-ink-faint);
 		white-space: nowrap;
@@ -428,7 +428,7 @@
 		display: block;
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.18em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-ink-grey);
 	}

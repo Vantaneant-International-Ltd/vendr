@@ -194,8 +194,8 @@
 	.mark {
 		width: clamp(208px, 33vw, 432px);
 		height: auto;
-		filter: drop-shadow(0 0 46px rgba(244, 243, 240, 0.16))
-			drop-shadow(0 14px 40px rgba(0, 0, 0, 0.55));
+		/* No glow / drop-shadow (book Never-list). The mark sits clean on the
+		   plate; the vignette and grain carry the depth. */
 	}
 	.bs {
 		color: var(--vd-grey);
@@ -258,7 +258,7 @@
 		margin-top: 14px;
 		font-family: var(--vd-mono);
 		font-size: 10.5px;
-		letter-spacing: 0.14em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		text-indent: 0.14em;
 		color: var(--vd-faint);
@@ -328,7 +328,7 @@
 	.meta .dot {
 		width: 2px;
 		height: 2px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: var(--vd-rule-strong);
 	}
 

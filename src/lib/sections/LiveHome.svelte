@@ -192,7 +192,7 @@
 		display: block;
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.16em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-ink-grey);
 	}
@@ -225,7 +225,7 @@
 	.ik {
 		font-family: var(--vd-mono);
 		font-size: 10.5px;
-		letter-spacing: 0.18em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-ink-faint);
 	}
@@ -440,7 +440,7 @@
 	.data dt {
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.14em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-faint);
 	}

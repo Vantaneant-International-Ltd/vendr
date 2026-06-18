@@ -33,7 +33,7 @@
 	dt {
 		font-family: var(--mono);
 		font-size: var(--t-eyebrow);
-		letter-spacing: 0.16em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--grey-dim);
 	}

@@ -67,7 +67,7 @@
 	.tag {
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-faint);
 	}
@@ -81,7 +81,7 @@
 	.marker {
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.18em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-grey);
 		margin-bottom: clamp(20px, 4vh, 32px);
@@ -122,7 +122,7 @@
 	.data dt {
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.14em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-faint);
 	}
@@ -137,7 +137,7 @@
 		margin-top: clamp(28px, 4vh, 40px);
 		font-family: var(--vd-mono);
 		font-size: 11px;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: var(--vd-grey);
 		border-bottom: 1px solid var(--vd-rule-strong);

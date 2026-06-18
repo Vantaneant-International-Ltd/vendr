@@ -19,7 +19,7 @@
 		position: relative;
 		width: 10px;
 		height: 10px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: var(--grey);
 		flex: none;
 	}
@@ -27,7 +27,7 @@
 		content: '';
 		position: absolute;
 		inset: -8px;
-		border-radius: 50%;
+		border-radius: 0;
 		border: 1px solid var(--line-strong);
 		animation: ring 2.8s ease-out infinite;
 	}
