@@ -80,7 +80,7 @@
 	</section>
 
 	<!-- THE MACHINE — the unit that carries it (third beat: conversation, stock, machine, ask) -->
-	<section class="block" id="machine">
+	<section class="block dark" id="machine">
 		<div class="wrap">
 			<span class="eyebrow">02 <span class="bs">\</span> The machine</span>
 			<h2 class="head big-head" data-reveal>One machine, chosen once.</h2>
@@ -453,6 +453,38 @@
 			grid-template-columns: 1fr;
 			gap: 28px;
 		}
+	}
+
+	/* THE MACHINE — dark punctuation, mirroring the homepage rhythm so the page
+	   is not wall-to-wall paper. Machine renders sit as light plates on dark. */
+	.block.dark {
+		background: var(--vd-ground);
+		color: var(--vd-on-ground);
+		border-top: none;
+	}
+	.dark .eyebrow {
+		color: var(--vd-grey);
+	}
+	.dark .bs {
+		color: var(--vd-faint);
+	}
+	.dark .head {
+		color: var(--vd-on-ground);
+	}
+	.dark .lede {
+		color: var(--vd-muted);
+	}
+	.dark .mc-label {
+		color: var(--vd-grey);
+	}
+	.dark .mc-role {
+		color: var(--vd-on-ground);
+	}
+	.dark .mc-note {
+		color: var(--vd-muted);
+	}
+	.dark .machine-shot {
+		border-color: var(--vd-rule-strong);
 	}
 
 	/* reveal — pure CSS, zero JS dependency. Content is VISIBLE by default; when
