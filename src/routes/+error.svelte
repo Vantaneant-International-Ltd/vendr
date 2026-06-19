@@ -319,7 +319,7 @@
 		flex-direction: column;
 		/* Single restrained shadow — the sanctioned physical-depth exception for
 		   the dispensed card only (book: shadows are an exception, never default). */
-		box-shadow: 0 18px 30px -24px rgba(22, 20, 15, 0.4);
+		box-shadow: 0 18px 30px -24px rgba(0, 0, 0, 0.4);
 	}
 	.card.show {
 		transform: translateY(-244px);
@@ -456,7 +456,7 @@
 		animation: none;
 	}
 	.home:hover {
-		background: var(--vd-warm, #1a1714);
+		background: var(--warm); /* neutral near-black lift */
 	}
 	.home:focus-visible {
 		outline: 2px solid var(--vd-ink);

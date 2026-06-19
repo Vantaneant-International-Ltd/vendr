@@ -262,8 +262,8 @@
 		position: absolute;
 		inset: 0;
 		background:
-			linear-gradient(to right, rgba(11, 10, 9, 0.94) 8%, rgba(11, 10, 9, 0.5) 55%, rgba(11, 10, 9, 0.7)),
-			linear-gradient(to bottom, rgba(11, 10, 9, 0.55), transparent 32%, rgba(11, 10, 9, 0.72));
+			linear-gradient(to right, rgba(0, 0, 0, 0.94) 8%, rgba(0, 0, 0, 0.5) 55%, rgba(0, 0, 0, 0.7)),
+			linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 32%, rgba(0, 0, 0, 0.72));
 	}
 	.band-in {
 		position: relative;
@@ -542,7 +542,7 @@
 			padding: 100px 0;
 		}
 		.band-veil {
-			background: linear-gradient(to bottom, rgba(11, 10, 9, 0.66), rgba(11, 10, 9, 0.4) 36%, rgba(11, 10, 9, 0.8));
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.4) 36%, rgba(0, 0, 0, 0.8));
 		}
 	}
 

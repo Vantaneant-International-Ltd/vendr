@@ -389,7 +389,7 @@
 	button:disabled { opacity: 0.5; cursor: default; }
 
 	.panel { display: grid; gap: var(--s-24); margin-top: var(--s-24); }
-	.card { border: 1px solid var(--line); background: var(--panel, #121211); }
+	.card { border: 1px solid var(--line); background: var(--panel, #111111); }
 	.card-h { display: flex; align-items: center; gap: var(--s-16); padding: var(--s-16) var(--s-24); border-bottom: 1px solid var(--line); }
 	.card-h h2 { font-size: var(--t-24); color: var(--ink); margin: 0; }
 	.count { margin-left: auto; font-family: var(--mono); font-size: var(--t-small); color: var(--grey); }

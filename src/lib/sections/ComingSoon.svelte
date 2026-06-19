@@ -121,7 +121,7 @@
 		background:
 			radial-gradient(115% 80% at 50% 92%, rgba(154, 155, 150, 0.08), rgba(154, 155, 150, 0) 58%),
 			radial-gradient(85% 60% at 50% 12%, rgba(154, 155, 150, 0.05), transparent 60%),
-			radial-gradient(150% 120% at 50% 50%, transparent 38%, rgba(5, 4, 3, 0.72) 100%),
+			radial-gradient(150% 120% at 50% 50%, transparent 38%, rgba(0, 0, 0, 0.72) 100%),
 			var(--vd-ground);
 	}
 	.photo {
@@ -131,7 +131,7 @@
 		height: 100%;
 		object-fit: cover;
 		object-position: center 62%;
-		filter: brightness(0.82) contrast(1.04) saturate(0.9);
+		filter: brightness(0.82) contrast(1.04) saturate(0); /* lock monochrome — book no-chroma */
 	}
 	.veil {
 		position: absolute;
@@ -139,12 +139,12 @@
 		background:
 			linear-gradient(
 				to bottom,
-				rgba(11, 10, 9, 0.62) 0%,
-				rgba(11, 10, 9, 0.32) 34%,
-				rgba(11, 10, 9, 0.52) 72%,
-				rgba(11, 10, 9, 0.86) 100%
+				rgba(0, 0, 0, 0.62) 0%,
+				rgba(0, 0, 0, 0.32) 34%,
+				rgba(0, 0, 0, 0.52) 72%,
+				rgba(0, 0, 0, 0.86) 100%
 			),
-			radial-gradient(140% 110% at 50% 46%, transparent 40%, rgba(4, 3, 2, 0.6) 100%);
+			radial-gradient(140% 110% at 50% 46%, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
 	}
 	.grain {
 		position: absolute;

@@ -1,18 +1,18 @@
 /* ============================================================================
    VENDR — Single token source
-   Felixto Brand Guidelines v1.0 is the law. Two scoped exceptions:
-   1. One editorial serif (Newsreader) for the wordmark-scale display headlines
-      ONLY. Never below ~28px, never in body/labels/UI.
-   2. Warm off-white / warm near-black are permitted SHADES of the book's
-      black + white poles. No chroma beyond warm-neutral.
+   Felixto Brand Guidelines v1.0 is the law. Strict palette: the book's two
+   sanctioned combinations only (p.18) — muted GREY ground + black, and sharp
+   black ground + white. No warm cast, no chroma. One scoped type exception:
+   one editorial serif (Newsreader) for wordmark-scale display headlines ONLY,
+   never below ~28px, never in body/labels/UI.
    Andale (mono) runs everything else. Single weight.
    ============================================================================ */
 
 :root {
 	/* ── Palette — flat near-mono ──────────────────────────────────────────── */
 	--bg: #000000; /* sharp black (book pole) */
-	--ink: #f4f3f0; /* warm off-white — primary text (shade) */
-	--warm: #1a1714; /* warm near-black — surfaces / gradient base (shade) */
+	--ink: #ffffff; /* white on black — book pole */
+	--warm: #141414; /* neutral near-black — surfaces / gradient base */
 	--grey: rgb(154, 155, 150); /* muted GREY — exact brand-book value */
 	--grey-dim: rgba(154, 155, 150, 0.62);
 	--line: rgba(154, 155, 150, 0.2);
@@ -102,23 +102,24 @@ a {
    ============================================================================ */
 :root {
 	/* Dark side — Coming Soon / cinematic */
-	--vd-ground: #0b0a09; /* sharp warm-black — dark pages */
-	--vd-on-ground: #f4f3f0; /* off-white text on dark */
+	--vd-ground: #000000; /* sharp black — dark pages (book pole) */
+	--vd-on-ground: #ffffff; /* white text on black (book combo) */
 	--vd-grey: rgb(154, 155, 150); /* muted GREY — exact book value */
 	--vd-muted: rgba(154, 155, 150, 0.86);
 	--vd-faint: rgba(154, 155, 150, 0.5);
 	--vd-rule: rgba(154, 155, 150, 0.18);
 	--vd-rule-strong: rgba(154, 155, 150, 0.34);
 
-	/* Paper side — live editorial surface (the lightbox panels) */
-	--vd-paper: #e9e7e0; /* warm off-white paper */
-	--vd-paper-card: #f4f3f0; /* warm card face — a half-shade above paper (dispensed cards, panels) */
-	--vd-paper-edge: rgba(22, 20, 15, 0.14); /* card hairline edge on paper */
-	--vd-ink: #16140f; /* warm near-black ink on paper */
-	--vd-ink-grey: #6f6d66; /* muted ink-grey on paper */
-	--vd-ink-faint: rgba(22, 20, 15, 0.5);
-	--vd-ink-rule: rgba(22, 20, 15, 0.16);
-	--vd-ink-rule-strong: rgba(22, 20, 15, 0.34);
+	/* Paper side — live editorial surface. Book light combo (p.18): muted GREY
+	   ground + black ink. No warm cast. */
+	--vd-paper: #9a9b96; /* muted grey — exact book value (rgb 154,155,150) */
+	--vd-paper-card: #b4b5b0; /* lighter grey-shade so cards/panels still lift off the ground */
+	--vd-paper-edge: rgba(0, 0, 0, 0.14); /* card hairline edge on grey */
+	--vd-ink: #000000; /* sharp black ink on grey (book combo) */
+	--vd-ink-grey: rgba(0, 0, 0, 0.62); /* muted ink — black shade on grey */
+	--vd-ink-faint: rgba(0, 0, 0, 0.55);
+	--vd-ink-rule: rgba(0, 0, 0, 0.16);
+	--vd-ink-rule-strong: rgba(0, 0, 0, 0.34);
 
 	/* Type — Andale Mono runs everything (book §4.1), single weight. Cousine is
 	   the metric-compatible web substitute. No grotesk, no serif. */
