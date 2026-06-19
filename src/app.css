@@ -112,6 +112,8 @@ a {
 
 	/* Paper side — live editorial surface (the lightbox panels) */
 	--vd-paper: #e9e7e0; /* warm off-white paper */
+	--vd-paper-card: #f4f3f0; /* warm card face — a half-shade above paper (dispensed cards, panels) */
+	--vd-paper-edge: rgba(22, 20, 15, 0.14); /* card hairline edge on paper */
 	--vd-ink: #16140f; /* warm near-black ink on paper */
 	--vd-ink-grey: #6f6d66; /* muted ink-grey on paper */
 	--vd-ink-faint: rgba(22, 20, 15, 0.5);
