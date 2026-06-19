@@ -26,13 +26,11 @@
 
 	let i = $state(0); // index of the next card to dispense
 	let current = $state(null); // the card showing in the slot (null = empty)
+	let cardState = $state('hidden'); // 'hidden' | 'show' (dispensing) | 'hide' (retracting)
 	let animating = $state(false);
 	let dispensed = $state(false); // reached the exit card
-	let reduce = false;
-
-	let cardEl; // the physical card node (for the slide animation)
-	let homeEl; // the revealed exit link (focus target on the final pull)
-	let leverEl;
+	let reduce = $state(false);
+	let homeEl = $state(null); // the revealed exit link (focus target on the final pull)
 
 	const status = $derived(
 		dispensed
@@ -42,6 +40,8 @@
 				: 'READY.'
 	);
 	const leverLabel = $derived(current ? 'DISPENSE AGAIN' : 'DISPENSE');
+
+	const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 	onMount(() => {
 		reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -55,6 +55,9 @@
 		}
 	}
 
+	// State-driven so Svelte keeps both .show/.hide in the scoped CSS (a class
+	// only toggled from JS gets pruned). Each phase change swaps the animation
+	// name, which restarts the keyframe — no manual reflow needed.
 	async function dispense() {
 		if (animating || i >= deck.length) return;
 		const item = deck[i];
@@ -62,35 +65,21 @@
 
 		if (reduce) {
 			current = item;
+			cardState = 'show';
 			await settle(item);
 			return;
 		}
 
 		animating = true;
-		const drop = async () => {
-			current = item;
-			await tick();
-			if (cardEl) {
-				cardEl.classList.remove('retract');
-				void cardEl.offsetWidth; // reflow so the dispense keyframe re-runs
-				cardEl.classList.add('out');
-			}
-		};
-
-		if (current && cardEl) {
-			// retract the showing card up into the slot, then drop the next
-			cardEl.classList.remove('out');
-			cardEl.classList.add('retract');
-			setTimeout(async () => {
-				await drop();
-				setTimeout(() => settle(item), 820);
-				animating = false;
-			}, 320);
-		} else {
-			await drop();
-			setTimeout(() => settle(item), 820);
-			animating = false;
+		if (current) {
+			cardState = 'hide'; // retract the showing card up into the slot
+			await wait(320);
 		}
+		current = item;
+		cardState = 'show'; // drop the next card down
+		await wait(820);
+		await settle(item);
+		animating = false;
 	}
 </script>
 
@@ -121,8 +110,8 @@
 						{#if current}
 							<article
 								class="card"
-								class:out={!reduce}
-								bind:this={cardEl}
+								class:show={cardState === 'show'}
+								class:hide={cardState === 'hide'}
 								role="status"
 								aria-live="polite"
 							>
@@ -140,7 +129,6 @@
 					<div class="controls">
 						<button
 							class="lever"
-							bind:this={leverEl}
 							onclick={dispense}
 							disabled={dispensed}
 							aria-label="Dispense"
@@ -221,19 +209,21 @@
 		color: var(--vd-ink-grey);
 	}
 	.dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
+		width: 4px;
+		height: 4px;
+		border-radius: 0; /* square — book discipline, matches live components' dots */
 		background: var(--vd-ink);
 	}
 
-	/* ── stage (centered — deliberate single-focus exception) ─────────────── */
+	/* ── stage — left/grid aligned (book §4.4). Copy reads left like the
+	   Maintenance control panel; only the machine below centers itself, as the
+	   single deliberate exception. ─────────────────────────────────────────── */
 	.stage {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
-		text-align: center;
+		text-align: left;
 		padding: clamp(16px, 4vh, 40px) 0;
 	}
 	.kick {
@@ -268,6 +258,10 @@
 		position: relative;
 		width: 540px;
 		max-width: 100%;
+		margin-top: clamp(8px, 2vh, 16px);
+		/* the dispenser is the one centered object — a deliberate, sparing
+		   exception (book §4.4), like the Coming Soon ident */
+		align-self: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -327,12 +321,12 @@
 		   the dispensed card only (book: shadows are an exception, never default). */
 		box-shadow: 0 18px 30px -24px rgba(22, 20, 15, 0.4);
 	}
-	.card.out {
+	.card.show {
 		transform: translateY(-244px);
 		opacity: 0;
 		animation: dispense 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 	}
-	.card.retract {
+	.card.hide {
 		animation: retract 0.32s ease-in forwards;
 	}
 	@keyframes dispense {
@@ -438,9 +432,9 @@
 		outline-offset: 3px;
 	}
 	.ldot {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
+		width: 6px;
+		height: 6px;
+		border-radius: 0; /* square — book discipline */
 		background: var(--vd-ink);
 		transition: background 0.15s;
 	}
@@ -483,7 +477,7 @@
 	.status {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
 		gap: 12px;
 		height: 80px;
 		border-top: 1px solid var(--vd-ink-rule);
@@ -493,9 +487,9 @@
 		color: var(--vd-ink-faint);
 	}
 	.sdot {
-		width: 7px;
-		height: 7px;
-		border-radius: 50%;
+		width: 4px;
+		height: 4px;
+		border-radius: 0; /* square — book discipline */
 		background: var(--vd-ink-faint);
 		transition: background 0.3s;
 	}
@@ -518,7 +512,7 @@
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.card.out {
+		.card.show {
 			animation: none;
 			transform: translateY(0);
 			opacity: 1;
