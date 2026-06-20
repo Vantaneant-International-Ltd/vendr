@@ -1,3 +1,32 @@
+# Vendr
+
+Vendr's public site: a static SvelteKit app deployed to GitHub Pages on a custom
+domain (vendr.ie). A VNTA (Vantanéant International) subsidiary. The Supabase-backed
+admin panel is a separate app, not in this repo.
+
+## Stack
+
+SvelteKit + Vite, bespoke CSS (no Tailwind, no UI kits), statically prerendered.
+Node 20.19+ or 22 LTS recommended.
+
+## Run
+
+```sh
+npm install
+npm run dev        # local dev server
+npm run build      # production build
+npm run preview    # preview the production build locally
+```
+
+Site state is controlled by the build-time flag `PUBLIC_SITE_MODE`
+(`coming_soon | maintenance | live`, default `coming_soon`). Set it in `.env`
+(see `.env.example`) for local dev, or in the GitHub Actions build step for
+production. Because the site is prerendered, a mode change needs a redeploy. See
+"Site modes (feature flag)" below for detail.
+
+The fuller brand, design-system, and build notes follow.
+
+---
 
 ## Brand source of truth
 
@@ -10,7 +39,7 @@ emotional bible before making anything for Vendr.
 | **Emotional bible** ([`docs/vendr-emotional-bible.md`](docs/vendr-emotional-bible.md)) | How Vendr **feels** | the one feeling, tone, what it stands against |
 | **Content gate** ([`docs/vendr-how-to-use-the-bible.md`](docs/vendr-how-to-use-the-bible.md)) | How the bible is **applied** | the three-question gate every piece must pass |
 
-**The one feeling:** relief — the exhale. *"...oh. I'm safe here. Nothing here
+**The one feeling:** relief, the exhale. *"...oh. I'm safe here. Nothing here
 wants anything from me."* Vendr is a pocket of calm in a world that is constantly
 grabbing. If a piece of Vendr content leaves the viewer calmer than it found
 them, it worked; if they feel sold to, it failed.
@@ -19,15 +48,15 @@ them, it worked; if they feel sold to, it failed.
 resolve in favour of the **feeling**. A page can be visually clean and still be
 wrong if it sells, hurries, states the theme out loud, or crosses a §7 guardrail.
 
-**The stance:** the villain is greed — vending as extraction. There is no hero,
-deliberately: no founder, no face, no name on the surface — *the absence is the
-message*. The theme is always felt, never stated (§5). Vendr should feel
+**The stance:** the villain is greed: vending as extraction. There is no hero,
+deliberately: no founder, no face, no name on the surface. *The absence is the
+message.* The theme is always felt, never stated (§5). Vendr should feel
 inevitable, not invented.
 
 The emotional bible is authoritative for all Vendr content: site, captions,
 video (Higgsfield or otherwise), and any brief given to a human or an AI.
 
-# SV — VNTA Subsidiary (SvelteKit)
+# SV: VNTA Subsidiary (SvelteKit)
 
 This repository contains a **SvelteKit project scaffolded with [`sv`](https://github.com/sveltejs/cli)** and maintained as a **subsidiary of VNTA (Vantanéant International)**.
 
@@ -42,7 +71,7 @@ All technical and design decisions are intentional and aligned with holding-comp
 This repository represents a **subsidiary implementation** operating under VNTA’s brand, technical, and philosophical direction.
 
 > Design systems, tone of voice, and structural decisions are governed by the
-> **VNTA Brand Guidelines (Felixto Brandworks, v1.0)** — not included in this repository.
+> **VNTA Brand Guidelines (Felixto Brandworks, v1.0)**, not included in this repository.
 
 ---
 
@@ -127,29 +156,29 @@ npm run preview
 * **Primary page:** `src/routes/+page.svelte`
 * **Global layout / fonts:** `src/routes/+layout.svelte`
 * **Contact:** `mailto:hello@vendr.ie`
-* **Styling:** No utility frameworks — spacing and layout are deliberate
+* **Styling:** No utility frameworks: spacing and layout are deliberate
 
 ---
 
-## Vendr — design system & build notes
+## Vendr: design system & build notes
 
 Executed to the **Felixto Brand Guidelines v1.0** (the law), with structure/interaction
 ideas taken from the static HTML wireframes. Two scoped exceptions only.
 
 ### Typography
 
-* **Andale Mono** runs everything — body, lede, eyebrows, labels, data rows, UI, buttons.
+* **Andale Mono** runs everything: body, lede, eyebrows, labels, data rows, UI, buttons.
   Single weight. Web-served fallbacks (`JetBrains Mono`, `IBM Plex Mono`) ship in `app.html`
   since Andale isn't a Google webfont; the stack lives in `--mono`.
 * **Newsreader** (one editorial serif) is permitted for **large display headlines only**
   (`.display`, ≥28px) and never for body/labels/UI. Token: `--serif`.
-* The **`vendr.` wordmark** is the bold-sans logotype (the sole brand identifier — no symbol).
+* The **`vendr.` wordmark** is the bold-sans logotype (the sole brand identifier, no symbol).
 
 ### Tokens
 
 One source: [`src/app.css`](src/app.css). Palette (`--bg --ink --warm --grey` + line alphas),
 type scale (`--t-64/48/36/24`), and a spacing scale (`--s-4/8/16/24/40/64/96/160`).
-Components import tokens only — none redefine them.
+Components import tokens only. None redefine them.
 
 ### Site modes (feature flag)
 
@@ -161,18 +190,18 @@ PUBLIC_SITE_MODE = coming_soon | maintenance | live      # default: coming_soon
 
 Set it in `.env` (see `.env.example`) for local dev, or in the GitHub Actions build step
 for production. The site is statically prerendered, so a mode change requires a redeploy
-(automatic on push to `main`, ~1–2 min). Sections live in `src/lib/sections/`.
+(automatic on push to `main`, about 1 to 2 min). Sections live in `src/lib/sections/`.
 
 ### Brand assets
 
-* **Favicon:** `static/favicon.svg` — `v.` wordmark, warm off-white on black.
+* **Favicon:** `static/favicon.svg`: `v.` wordmark, warm off-white on black.
 * **OG card:** `static/og.png` (1200×630, near-mono). Source: `assets/og.svg` →
   `rsvg-convert -w 1200 -h 630 assets/og.svg -o static/og.png`.
-* **Wordmark:** `static/wordmark.png` — **drop the official Felixto `vendr.` logotype here**
+* **Wordmark:** `static/wordmark.png`: **drop the official Felixto `vendr.` logotype here**
   (warm off-white on transparent). A Helvetica placeholder currently ships; the
   `Wordmark` component reads `/wordmark.png` and sizes by height.
 
-> **Admin panel** is intentionally NOT in this static repo — it needs real auth, which
+> **Admin panel** is intentionally NOT in this static repo: it needs real auth, which
 > GitHub Pages can't provide. Planned as a separate Supabase-backed app.
 
 ---
