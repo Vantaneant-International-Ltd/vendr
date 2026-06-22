@@ -1,10 +1,11 @@
 /* ============================================================================
    VENDR — Single token source
-   Felixto Brand Guidelines v1.0 is the law. Strict palette: monochrome, no
-   chroma. Two sanctioned grounds, each with its ink: a warm off-white paper
-   ground (book build value #e9e7e0) with black ink, and a sharp black ground
-   with white. The light pole carries a faint warm cast on purpose, never retail
-   brightness. One scoped type exception:
+   Felixto Brand Guidelines v1.0 is the law, with one deliberate operator
+   decision on top (22 Jun 2026): the palette is a pure two-tone. A pure white
+   paper ground (#ffffff) with black ink, and a sharp black ground (#000000)
+   with white. Both poles kept cold so the light and dark sections share one
+   temperature. This diverges from the book's warm build values on purpose. No
+   chroma. One scoped type exception:
    one editorial serif (Newsreader) for wordmark-scale display headlines ONLY,
    never below ~28px, never in body/labels/UI.
    Andale (mono) runs everything else. Single weight.
@@ -112,13 +113,14 @@ a {
 	--vd-rule: rgba(154, 155, 150, 0.18);
 	--vd-rule-strong: rgba(154, 155, 150, 0.34);
 
-	/* Paper side — live editorial surface. Warm off-white paper ground (book
-	   build value #e9e7e0) + black ink. Reads as white, keeps Vendr's warmth,
-	   stays distinct from the VNTA parent's pure monochrome. No retail brightness. */
-	--vd-paper: #e9e7e0; /* warm off-white, book build value */
-	--vd-paper-card: #f4f3f0; /* lighter warm off-white so cards/panels lift off the ground */
-	--vd-paper-edge: rgba(0, 0, 0, 0.14); /* card hairline edge on paper */
-	--vd-ink: #000000; /* sharp black ink on paper */
+	/* Paper side — live editorial surface. Pure white ground + black ink, a
+	   deliberate two-tone (operator decision, 22 Jun 2026). Kept cold to match
+	   the pure-black dark pole so the light and dark sections share one
+	   temperature. Diverges from the book's warm off-white build value on purpose. */
+	--vd-paper: #ffffff; /* pure white ground (operator decision) */
+	--vd-paper-card: #ffffff; /* pure white; cards lift via the hairline edge below */
+	--vd-paper-edge: rgba(0, 0, 0, 0.14); /* card hairline edge on white */
+	--vd-ink: #000000; /* sharp black ink on white */
 	--vd-ink-grey: rgba(0, 0, 0, 0.62); /* muted ink — black shade on grey */
 	--vd-ink-faint: rgba(0, 0, 0, 0.55);
 	--vd-ink-rule: rgba(0, 0, 0, 0.16);

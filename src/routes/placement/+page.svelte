@@ -14,7 +14,7 @@
 	<title>{title}</title>
 	<meta name="description" content={desc} />
 	<link rel="canonical" href={$page.url.href} />
-	<meta name="theme-color" content="#e9e7e0" />
+	<meta name="theme-color" content="#ffffff" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={desc} />
