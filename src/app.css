@@ -1,11 +1,12 @@
 /* ============================================================================
    VENDR — Single token source
-   Felixto Brand Guidelines v1.0 is the law, with one deliberate operator
-   decision on top (22 Jun 2026): the palette is a pure two-tone. A pure white
-   paper ground (#ffffff) with black ink, and a sharp black ground (#000000)
-   with white. Both poles kept cold so the light and dark sections share one
-   temperature. This diverges from the book's warm build values on purpose. No
-   chroma. One scoped type exception:
+   Felixto Brand Guidelines v1.0 is the law, with one recorded amendment
+   (v1.1, 22 Jun 2026): a neutral near-white paper tint (#f4f4f4) is added to
+   the palette as the live light ground, sitting above the book's muted grey.
+   Strictly neutral, no warm cast, no chroma. Two grounds: the near-white paper
+   with black ink, and the book's sharp black (#000000) with white. The muted
+   grey rgb(154,155,150) and its shades stay valid for hairlines and panels.
+   One scoped type exception:
    one editorial serif (Newsreader) for wordmark-scale display headlines ONLY,
    never below ~28px, never in body/labels/UI.
    Andale (mono) runs everything else. Single weight.
@@ -113,14 +114,14 @@ a {
 	--vd-rule: rgba(154, 155, 150, 0.18);
 	--vd-rule-strong: rgba(154, 155, 150, 0.34);
 
-	/* Paper side — live editorial surface. Pure white ground + black ink, a
-	   deliberate two-tone (operator decision, 22 Jun 2026). Kept cold to match
-	   the pure-black dark pole so the light and dark sections share one
-	   temperature. Diverges from the book's warm off-white build value on purpose. */
-	--vd-paper: #ffffff; /* pure white ground (operator decision) */
-	--vd-paper-card: #ffffff; /* pure white; cards lift via the hairline edge below */
-	--vd-paper-edge: rgba(0, 0, 0, 0.14); /* card hairline edge on white */
-	--vd-ink: #000000; /* sharp black ink on white */
+	/* Paper side — live editorial surface. Neutral near-white paper ground +
+	   black ink. Felixto v1.1 amendment (22 Jun 2026): adds one neutral paper
+	   tint above the book's muted grey, strictly no warm cast. Card is pure
+	   white so it lifts off the ground via the hairline edge below. */
+	--vd-paper: #f4f4f4; /* neutral near-white, Felixto v1.1 paper tint */
+	--vd-paper-card: #ffffff; /* pure white card, lifts off the near-white ground */
+	--vd-paper-edge: rgba(0, 0, 0, 0.14); /* card hairline edge on paper */
+	--vd-ink: #000000; /* sharp black ink on paper */
 	--vd-ink-grey: rgba(0, 0, 0, 0.62); /* muted ink — black shade on grey */
 	--vd-ink-faint: rgba(0, 0, 0, 0.55);
 	--vd-ink-rule: rgba(0, 0, 0, 0.16);
