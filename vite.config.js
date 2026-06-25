@@ -6,6 +6,9 @@ import { defineConfig, loadEnv } from 'vite';
 // override via env (.env or CI) if the project ever changes.
 const SUPABASE_URL = 'https://fmmvqlqdhytcxeucdfbj.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_rpmSPCHja3L2Uy2_RrxjAA_Cz_NyHB2';
+// Cloudflare Turnstile site key (public, safe in the client). The secret key is
+// server-only and lives as a Supabase edge-function secret, never here.
+const TURNSTILE_SITE_KEY = '0x4AAAAAADrAgdwjUX9NIVP3';
 
 export default defineConfig(({ mode }) => {
 	// Build-time values. Read from .env* (local) or the shell/CI env, inlined as
@@ -20,6 +23,9 @@ export default defineConfig(({ mode }) => {
 			'import.meta.env.PUBLIC_SUPABASE_URL': JSON.stringify(get('PUBLIC_SUPABASE_URL', SUPABASE_URL)),
 			'import.meta.env.PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(
 				get('PUBLIC_SUPABASE_ANON_KEY', SUPABASE_KEY)
+			),
+			'import.meta.env.PUBLIC_TURNSTILE_SITE_KEY': JSON.stringify(
+				get('PUBLIC_TURNSTILE_SITE_KEY', TURNSTILE_SITE_KEY)
 			)
 		}
 	};

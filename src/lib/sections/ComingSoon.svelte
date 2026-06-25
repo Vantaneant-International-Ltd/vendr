@@ -5,13 +5,36 @@
 	// emerges from the dark like a studio ident; a restrained capture; and a
 	// centered production-card credit. Drop a transit photo at static/hero.jpg
 	// and it becomes the hero plate behind the veil — zero code change.
+	import { onMount } from 'svelte';
 	import { brand, contact } from '$lib/brand.js';
+	import {
+		renderTurnstile,
+		resetTurnstile,
+		submitSubscribe,
+		turnstileConfigured
+	} from '$lib/turnstile.js';
 
 	let email = $state('');
 	let done = $state(false);
 	let busy = $state(false);
 	let error = $state('');
 	let hero = $state(true); // becomes false if /hero.jpg is absent
+
+	// Cloudflare Turnstile spam gate. The token is verified server-side by the
+	// vendr-subscribe edge function before any insert; the client never inserts.
+	let tsToken = $state('');
+	let tsId = null;
+	let tsEl;
+
+	onMount(() => {
+		if (turnstileConfigured() && tsEl) {
+			renderTurnstile(
+				tsEl,
+				(t) => (tsToken = t),
+				() => (tsToken = '')
+			).then((id) => (tsId = id));
+		}
+	});
 
 	const valid = (e) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e);
 
@@ -24,12 +47,17 @@
 			error = 'Enter a valid email.';
 			return;
 		}
+		if (turnstileConfigured() && !tsToken) {
+			error = 'Please complete the verification.';
+			return;
+		}
 		busy = true;
-		const { subscribe } = await import('$lib/supabase.js');
-		const res = await subscribe(value, 'coming_soon');
+		const res = await submitSubscribe(value, 'coming_soon', tsToken);
 		busy = false;
 		if (!res.ok) {
 			error = 'Something went wrong. Try again.';
+			resetTurnstile(tsId);
+			tsToken = '';
 			return;
 		}
 		done = true;
@@ -77,6 +105,7 @@
 							{busy ? '…' : '→'}
 						</button>
 					</form>
+					<div class="ts" bind:this={tsEl}></div>
 					<span class="micro">{error ? error : 'One message when we open. No noise.'}</span>
 				{/if}
 			</div>
@@ -205,6 +234,12 @@
 	.capture {
 		margin-top: clamp(6px, 2vh, 16px);
 		width: min(380px, 80vw);
+	}
+	.ts {
+		display: flex;
+		justify-content: center;
+		margin-top: 16px;
+		min-height: 65px;
 	}
 	.form {
 		display: flex;
