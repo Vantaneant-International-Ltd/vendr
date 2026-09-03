@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      site_mode:
+        description: 'Site mode for this run only (coming_soon | maintenance | live). Blank uses SITE_MODE_OVERRIDE below.'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: read
@@ -28,22 +34,69 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # The admin panel writes site_config.site_mode in Supabase. Each deploy
-      # reads it so the panel's "site status" switch controls the public site.
-      # Falls back to coming_soon if the fetch fails for any reason.
-      - name: Resolve site mode from Supabase
+      # ── Site mode ───────────────────────────────────────────────────────────
+      # Normally the admin panel writes site_config.site_mode in Supabase and
+      # each deploy reads it, so the panel's "site status" switch controls the
+      # public site. Two deliberate changes after a silent flip in Sep 2026:
+      #
+      #   * SITE_MODE_OVERRIDE below wins outright and skips the lookup, so the
+      #     site is deployable while the Supabase project is paused. It is set
+      #     to `live` because the project is currently paused. Clear it back to
+      #     "" to hand control to the admin panel again.
+      #
+      #   * With no override, a failed lookup now FAILS THE BUILD. It used to
+      #     fall back to coming_soon, which meant an unreachable database
+      #     silently replaced the live site with the pre-launch page — exactly
+      #     what happened when the Supabase project went INACTIVE. Refusing to
+      #     guess turns that into a red build instead of a public regression.
+      - name: Resolve site mode
         env:
+          SITE_MODE_OVERRIDE: "live"
+          DISPATCH_MODE: ${{ github.event.inputs.site_mode }}
           SUPABASE_URL: "https://fmmvqlqdhytcxeucdfbj.supabase.co"
           SUPABASE_KEY: "sb_publishable_rpmSPCHja3L2Uy2_RrxjAA_Cz_NyHB2"
         run: |
-          MODE=$(curl -fsS "$SUPABASE_URL/rest/v1/site_config?id=eq.1&select=site_mode" \
-            -H "apikey: $SUPABASE_KEY" -H "Authorization: Bearer $SUPABASE_KEY" \
-            | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['site_mode'])" 2>/dev/null || true)
-          case "$MODE" in
-            coming_soon|maintenance|live) ;;
-            *) MODE="coming_soon" ;;
-          esac
-          echo "Resolved PUBLIC_SITE_MODE=$MODE"
+          set -euo pipefail
+
+          valid() {
+            case "$1" in coming_soon|maintenance|live) return 0 ;; *) return 1 ;; esac
+          }
+
+          # A per-run dispatch input beats the committed override, which beats
+          # the Supabase lookup.
+          MODE="${DISPATCH_MODE:-$SITE_MODE_OVERRIDE}"
+          if [ -n "$MODE" ]; then
+            if ! valid "$MODE"; then
+              echo "::error::Invalid site mode override '$MODE' (expected coming_soon, maintenance or live)."
+              exit 1
+            fi
+            echo "Site mode: $MODE (override — Supabase lookup skipped)"
+            echo "PUBLIC_SITE_MODE=$MODE" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          echo "No override set — reading site_config.site_mode from Supabase."
+          if ! RESPONSE=$(curl -fsS --max-time 20 \
+            "$SUPABASE_URL/rest/v1/site_config?id=eq.1&select=site_mode" \
+            -H "apikey: $SUPABASE_KEY" -H "Authorization: Bearer $SUPABASE_KEY"); then
+            echo "::error::Could not reach Supabase to resolve the site mode."
+            echo "::error::Refusing to guess — guessing wrong silently changes what the public sees."
+            echo "::error::Check the Supabase project is not paused, or set SITE_MODE_OVERRIDE in this workflow."
+            exit 1
+          fi
+
+          if ! MODE=$(printf '%s' "$RESPONSE" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)[0]['site_mode'])"); then
+            echo "::error::Unexpected response from Supabase: $RESPONSE"
+            exit 1
+          fi
+
+          if ! valid "$MODE"; then
+            echo "::error::Supabase returned an unknown site mode '$MODE'."
+            exit 1
+          fi
+
+          echo "Site mode: $MODE (from Supabase)"
           echo "PUBLIC_SITE_MODE=$MODE" >> "$GITHUB_ENV"
 
       - name: Build
