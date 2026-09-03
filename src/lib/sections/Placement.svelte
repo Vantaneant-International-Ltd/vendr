@@ -389,7 +389,13 @@
 		color: var(--vd-ink);
 	}
 	@media (max-width: 640px) {
+		/* Stack it. `space-between` on a wrapped row threw the entity block to
+		   the right edge while the wordmark and links stayed left, so the
+		   footer read as three different alignments. One left edge instead. */
 		.foot-in {
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
 			gap: 24px;
 		}
 	}

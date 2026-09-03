@@ -214,7 +214,10 @@
 		grid-template-columns: repeat(3, 1fr);
 		gap: clamp(16px, 3vw, 40px);
 		margin-top: clamp(48px, 8vw, 104px);
-		padding: clamp(20px, 2.4vw, 28px) 0 clamp(56px, 9vw, 112px);
+		/* Block-only, so the .wrap gutter survives. A `padding` shorthand here
+		   reset the inline padding to 0 and left the index strip flush against
+		   both screen edges while everything around it stayed inset. */
+		padding-block: clamp(20px, 2.4vw, 28px) clamp(56px, 9vw, 112px);
 		border-top: 1px solid var(--vd-ink-rule-strong);
 	}
 	.idx {
@@ -371,31 +374,45 @@
 		line-height: 1.65;
 		color: var(--vd-ink-grey);
 	}
-	@media (max-width: 860px) {
+	/* The two narrower layouts are exclusive ranges, so their rules never
+	   compete. They previously overlapped, and `:nth-child` (0,2,0) outranked
+	   the plain `.value` (0,1,0) reset even with !important on both — so at
+	   phone widths the even cards kept a 24px indent and the odd ones kept a
+	   column divider they no longer had a neighbour for. Each block below
+	   restates the row edges at the same specificity as the base rules. */
+
+	/* 2-up — the row edge decides the divider and the inset, not the list end */
+	@media (min-width: 641px) and (max-width: 860px) {
 		.values {
 			grid-template-columns: 1fr 1fr;
 		}
-		.value {
-			padding-right: 24px !important;
-			padding-left: 0 !important;
-			border-right: none !important;
+		.value,
+		.value:not(:first-child),
+		.value:not(:last-child) {
+			padding-left: 0;
+			padding-right: 24px;
+			border-right: none;
 		}
 		.value:nth-child(odd) {
-			border-right: 1px solid var(--vd-ink-rule) !important;
-			padding-right: 24px !important;
+			border-right: 1px solid var(--vd-ink-rule);
 		}
 		.value:nth-child(even) {
-			padding-left: 24px !important;
+			padding-left: 24px;
+			padding-right: 0;
 		}
 	}
+
+	/* stacked — one column, flush to the .wrap gutter on both sides */
 	@media (max-width: 640px) {
 		.values {
 			grid-template-columns: 1fr;
 		}
-		.value {
-			border-right: none !important;
-			padding-left: 0 !important;
-			padding-right: 0 !important;
+		.value,
+		.value:not(:first-child),
+		.value:not(:last-child) {
+			padding-left: 0;
+			padding-right: 0;
+			border-right: none;
 		}
 	}
 
@@ -508,7 +525,13 @@
 		color: var(--vd-ink);
 	}
 	@media (max-width: 640px) {
+		/* Stack it. `space-between` on a wrapped row threw the entity block to
+		   the right edge while the wordmark and links stayed left, so the
+		   footer read as three different alignments. One left edge instead. */
 		.foot-in {
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
 			gap: 24px;
 		}
 	}
